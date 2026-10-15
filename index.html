@@ -76,44 +76,41 @@
   <main id="main">
 
     <!-- ============ 01 HERO ============ -->
-    <section class="hero sheet" id="top" aria-labelledby="hero-title">
-      <canvas class="hero-field" aria-hidden="true"></canvas>
-      <div class="container">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <span class="tag" data-reveal><b>01</b><span>Renewable energy EPC</span></span>
-            <h1 id="hero-title" class="h-display split">Renewable energy solutions for industrial, commercial and <span class="accent">government facilities</span></h1>
-            <p class="hero-ticker mono" data-reveal style="--i:2">
-              <span>Start to finish</span><span class="arrow">&rarr;</span>
-              <span class="ticker-words" aria-hidden="true">
-                <span class="is-in">Feasibility</span><span>Engineering</span><span>Installation</span><span>Commissioning</span>
-              </span>
-              <span class="sr-only">Feasibility, engineering, installation and commissioning</span>
-            </p>
-            <p class="lede" data-reveal style="--i:3">Silver Touch Green RE designs and delivers bespoke renewable energy projects tailored to your site, electricity consumption and business goals. Count on us from start to finish, from feasibility and engineering to installation and commissioning.</p>
-            <div class="hero-actions" data-reveal style="--i:4">
-              <a href="#contact" class="btn">
-                <span class="chip"><svg><use href="#i-arrow" /></svg></span>
-                <span class="roll"><span>Discuss your energy project</span><span aria-hidden="true">Discuss your energy project</span></span>
-              </a>
-              <a href="#solutions" class="btn btn--ghost">
-                <span class="chip"><svg><use href="#i-arrow" /></svg></span>
-                <span class="roll"><span>Explore our solutions</span><span aria-hidden="true">Explore our solutions</span></span>
-              </a>
-            </div>
-          </div>
-          <div class="hero-visual" data-reveal style="--i:2">
-            <!-- Built by main.js: sources -> Silver Touch Green -> facilities -->
-            <svg class="ill" id="hero-diagram" viewBox="0 0 680 470" role="img" aria-label="Diagram: solar, wind, battery storage and floating solar are engineered by Silver Touch Green RE into power for industrial plants, commercial buildings, government facilities and public utilities."></svg>
-          </div>
-        </div>
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-sky" aria-hidden="true">
+        <div class="cloud" style="--top:12%;--rx:6vw;--w:300px;--dur:120s;--delay:-20s"><svg viewBox="0 0 300 90"><ellipse cx="80" cy="60" rx="70" ry="28" /><ellipse cx="150" cy="45" rx="70" ry="40" /><ellipse cx="220" cy="60" rx="65" ry="26" /></svg></div>
+        <div class="cloud" style="--top:30%;--rx:64vw;--w:200px;--dur:95s;--delay:-70s;--o:.75"><svg viewBox="0 0 300 90"><ellipse cx="90" cy="62" rx="80" ry="24" /><ellipse cx="160" cy="48" rx="60" ry="34" /><ellipse cx="225" cy="64" rx="55" ry="20" /></svg></div>
+        <div class="cloud" style="--top:6%;--rx:40vw;--w:240px;--dur:140s;--delay:-100s;--o:.85"><svg viewBox="0 0 300 90"><ellipse cx="70" cy="60" rx="60" ry="22" /><ellipse cx="140" cy="46" rx="74" ry="36" /><ellipse cx="225" cy="60" rx="60" ry="24" /></svg></div>
+        <div class="cloud" style="--top:40%;--rx:80vw;--w:340px;--dur:160s;--delay:-40s;--o:.6"><svg viewBox="0 0 300 90"><ellipse cx="80" cy="62" rx="75" ry="22" /><ellipse cx="160" cy="50" rx="80" ry="32" /><ellipse cx="240" cy="64" rx="56" ry="18" /></svg></div>
+        <svg class="birds" viewBox="0 0 60 24"><path d="M2 10 q5 -6 10 0 q5 -6 10 0" /><path d="M30 4 q4 -5 8 0 q4 -5 8 0" /><path d="M40 18 q3.5 -4 7 0 q3.5 -4 7 0" /></svg>
+      </div>
 
-        <div class="stats" aria-label="At a glance">
-          <div class="stat" data-reveal><i></i><div class="stat-num" data-count="3" aria-hidden="true">3</div><div class="mono">Sectors served</div><span class="sr-only">3 sectors served</span></div>
-          <div class="stat" data-reveal style="--i:1"><i></i><div class="stat-num" data-count="5" aria-hidden="true">5</div><div class="mono">Solution lines</div><span class="sr-only">5 solution lines</span></div>
-          <div class="stat" data-reveal style="--i:2"><i></i><div class="stat-num" data-count="5" aria-hidden="true">5</div><div class="mono">Delivery stages</div><span class="sr-only">5 delivery stages</span></div>
-          <div class="stat" data-reveal style="--i:3"><i></i><div class="stat-num" data-count="1" aria-hidden="true">1</div><div class="mono">Point of accountability</div><span class="sr-only">1 point of accountability</span></div>
+      <div class="container hero-copy">
+        <span class="hero-pill" data-reveal>
+          <b>EPC</b>
+          <span class="mono">Start to finish &rarr;</span>
+          <span class="ticker-words mono" aria-hidden="true">
+            <span class="is-in">Feasibility</span><span>Engineering</span><span>Installation</span><span>Commissioning</span>
+          </span>
+          <span class="sr-only">Feasibility, engineering, installation and commissioning</span>
+        </span>
+        <h1 id="hero-title" class="h-display split">Renewable energy solutions for industrial, commercial and <span class="accent">government facilities</span></h1>
+        <p class="lede" data-reveal style="--i:3">Silver Touch Green RE designs and delivers bespoke renewable energy projects tailored to your site, electricity consumption and business goals. Count on us from start to finish, from feasibility and engineering to installation and commissioning.</p>
+        <div class="hero-actions" data-reveal style="--i:4">
+          <a href="#contact" class="btn btn--lime">
+            <span class="chip"><svg><use href="#i-arrow" /></svg></span>
+            <span class="roll"><span>Discuss your energy project</span><span aria-hidden="true">Discuss your energy project</span></span>
+          </a>
+          <a href="#solutions" class="btn btn--white">
+            <span class="chip"><svg><use href="#i-arrow" /></svg></span>
+            <span class="roll"><span>Explore our solutions</span><span aria-hidden="true">Explore our solutions</span></span>
+          </a>
         </div>
+      </div>
+
+      <div class="hero-scene">
+        <!-- Landscape built by main.js: every asset maps to one of the five solutions -->
+        <svg id="hero-scene" viewBox="0 0 1600 520" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Illustrated landscape: a factory with rooftop solar, battery storage containers, a solar farm with wind turbines, a government building and a reservoir with floating solar panels."></svg>
       </div>
     </section>
 

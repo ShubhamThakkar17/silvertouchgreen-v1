@@ -26,29 +26,6 @@
       "</svg>";
   }
 
-  function fileTag(x, y, w, h, label, icon, opts) {
-    opts = opts || {};
-    var fold = 9;
-    var d = "M" + x + " " + y + " h" + (w - fold) + " l" + fold + " " + fold + " v" + (h - fold) + " h" + -w + " Z";
-    return '<g class="ftag ' + (opts.cls || "") + '">' +
-      '<path class="f" d="' + d + '"/>' +
-      '<path class="l" d="M' + (x + w - fold) + " " + y + " v" + fold + " h" + fold + '"/>' +
-      '<g transform="translate(' + (x + 12) + " " + (y + h / 2 - 10) + ')">' + icon + "</g>" +
-      '<text x="' + (x + 40) + '" y="' + (y + h / 2 + 3.5) + '" style="font-size:9.5px;letter-spacing:.06em">' + label + "</text>" +
-      "</g>";
-  }
-
-  var ICONS = {
-    sun: '<circle cx="10" cy="10" r="4" class="yf"/><path class="l y" d="M10 1.5v2.5M10 16v2.5M1.5 10H4M16 10h2.5M4 4l1.8 1.8M14.2 14.2 16 16M4 16l1.8-1.8M14.2 5.8 16 4"/>',
-    wind: '<path class="l" d="M10 19.5V9"/><g class="l"><path d="M10 9V1.5M10 9l6.5 3.7M10 9l-6.5 3.7"/><animateTransform attributeName="transform" type="rotate" from="0 10 9" to="360 10 9" dur="3s" repeatCount="indefinite"/></g>',
-    battery: '<rect class="l" x="1.5" y="5" width="15" height="10" rx="1.5"/><path class="l" d="M16.5 8.2h2v3.6h-2"/><rect class="gf" x="3.5" y="7" width="11" height="6" rx=".8"><animate attributeName="width" values="2;11;2" dur="4s" repeatCount="indefinite"/></rect>',
-    floating: '<rect class="pv" width="13" height="4" transform="translate(3 9) rotate(-15)"/><path class="l w" d="M1 15q2.25-2 4.5 0t4.5 0 4.5 0 4.5 0M1 19q2.25-2 4.5 0t4.5 0 4.5 0 4.5 0"/>',
-    factory: '<path class="l" d="M1 19V9l5 3V9l5 3V9l5 3V3h3v16Z"/>',
-    office: '<rect class="l" x="4" y="1.5" width="12" height="17.5" rx="1"/><path class="l" d="M7.5 5.5h1M11.5 5.5h1M7.5 9.5h1M11.5 9.5h1M7.5 13.5h1M11.5 13.5h1"/>',
-    gov: '<path class="l" d="M1 7.5 10 2.5l9 5ZM3 19.5h14M4 9.5v8M8 9.5v8M12 9.5v8M16 9.5v8"/>',
-    utility: '<path class="l" d="M4 3h12v7H4ZM6 10l-2 9.5M14 10l2 9.5M5.2 15h9.6"/><path class="l w" d="M6 7q2-1.5 4 0t4 0"/>'
-  };
-
   /* ------------------------------------------------------------------
      Year
      ------------------------------------------------------------------ */
@@ -161,153 +138,169 @@
   }
 
   /* ------------------------------------------------------------------
-     Counters (digit roll)
+     Hero landscape: every asset maps to one of the five solutions
      ------------------------------------------------------------------ */
-  $$("[data-count]").forEach(function (el) {
-    var value = String(el.getAttribute("data-count"));
-    el.textContent = "";
-    value.split("").forEach(function (ch) {
-      var digit = document.createElement("span");
-      digit.className = "digit";
-      var col = document.createElement("span");
-      for (var n = 0; n < 10; n++) {
-        var s = document.createElement("span");
-        s.textContent = n;
-        col.appendChild(s);
-      }
-      col.dataset.to = ch;
-      digit.appendChild(col);
-      el.appendChild(digit);
-    });
-  });
-  function rollCounters(root) {
-    $$(".digit > span", root).forEach(function (col, idx) {
-      setTimeout(function () { col.style.transform = "translateY(-" + Number(col.dataset.to) * 10 + "%)"; }, idx * 120);
-    });
-  }
-  var statsEl = $(".stats");
-  if (statsEl) {
-    if ("IntersectionObserver" in window && !reduced) {
-      var cIO = new IntersectionObserver(function (entries) {
-        if (entries[0].isIntersecting) { rollCounters(statsEl); cIO.disconnect(); }
-      }, { threshold: 0.4 });
-      cIO.observe(statsEl);
-    } else {
-      rollCounters(statsEl);
-    }
-  }
-
-  /* ------------------------------------------------------------------
-     Hero diagram: sources -> STG -> facilities
-     ------------------------------------------------------------------ */
-  (function buildHero() {
-    var svg = $("#hero-diagram");
+  (function buildScene() {
+    var svg = $("#hero-scene");
     if (!svg) return;
-    var W = 178, H = 44, hubX = 340, hubY = 222;
-    var left = [
-      { label: "Solar PV", icon: ICONS.sun, color: "var(--sun)" },
-      { label: "Wind", icon: ICONS.wind, color: "var(--wind)" },
-      { label: "Battery storage", icon: ICONS.battery, color: "var(--green)" },
-      { label: "Floating solar", icon: ICONS.floating, color: "var(--water)" }
-    ];
-    var right = [
-      { label: "Industrial plant", icon: ICONS.factory },
-      { label: "Commercial building", icon: ICONS.office },
-      { label: "Government facility", icon: ICONS.gov },
-      { label: "Public utility", icon: ICONS.utility }
-    ];
-    var ys = [72, 172, 272, 372];
-    var out = "";
+    var INK = "#0c1712";
 
-    out += '<text x="0" y="28" class="mut">// Generation &amp; storage</text>';
-    out += '<text x="680" y="28" class="mut" text-anchor="end">// Your facility</text>';
+    function turbine(x, base, h, dur, fill, stroke) {
+      var s = h / 150, hub = base - h, L = h * 0.44;
+      var tw = 3.6 * s, tt = 1.4 * s;
+      var t = '<path d="M' + (x - tw) + " " + base + " L" + (x - tt) + " " + hub + " L" + (x + tt) + " " + hub + " L" + (x + tw) + " " + base + ' Z" fill="' + fill + '" stroke="' + stroke + '"/>';
+      var blade = "M" + x + " " + hub + " C " + (x + 5 * s) + " " + (hub - L * 0.3) + ", " + (x + 2.6 * s) + " " + (hub - L * 0.8) + ", " + x + " " + (hub - L) +
+        " C " + (x - 1.2 * s) + " " + (hub - L * 0.8) + ", " + (x - 2 * s) + " " + (hub - L * 0.3) + ", " + x + " " + hub + " Z";
+      var start = Math.round(Math.random() * 120);
+      t += '<g fill="' + fill + '" stroke="' + stroke + '">' +
+        [0, 120, 240].map(function (a) { return '<path d="' + blade + '" transform="rotate(' + a + " " + x + " " + hub + ')"/>'; }).join("") +
+        '<animateTransform attributeName="transform" type="rotate" from="' + start + " " + x + " " + hub + '" to="' + (start + 360) + " " + x + " " + hub + '" dur="' + dur + 's" repeatCount="indefinite"/></g>';
+      t += '<circle cx="' + x + '" cy="' + hub + '" r="' + 3.4 * s + '" fill="' + fill + '" stroke="' + stroke + '"/>';
+      return t;
+    }
+    // A tilted module: bottom edge at y, top edge leaning back by `lean`
+    function panel(x, y, w, h, lean) {
+      var m1 = x + w / 3, m2 = x + (2 * w) / 3;
+      return '<g class="hz-pv"><polygon points="' + [x, y, x + w, y, x + w + lean, y - h, x + lean, y - h].join(" ") + '" fill="#1f3b4a" stroke="' + INK + '" stroke-width=".8"/>' +
+        '<path d="M' + m1 + " " + y + " L" + (m1 + lean) + " " + (y - h) + " M" + m2 + " " + y + " L" + (m2 + lean) + " " + (y - h) +
+        " M" + (x + lean / 2) + " " + (y - h / 2) + " L" + (x + w + lean / 2) + " " + (y - h / 2) + '" stroke="rgba(255,255,255,.35)" stroke-width=".7" fill="none"/></g>';
+    }
+    function tree(x, y, r) {
+      return '<path d="M' + x + " " + y + " V" + (y - r * 1.2) + '" stroke="#4b3a2a" stroke-width="2"/>' +
+        '<circle cx="' + x + '" cy="' + (y - r * 1.5) + '" r="' + r + '" fill="#2f7d4c"/>' +
+        '<circle cx="' + (x - r * 0.35) + '" cy="' + (y - r * 1.75) + '" r="' + r * 0.55 + '" fill="#43a063"/>';
+    }
+    function pylon(x, base, h) {
+      var top = base - h;
+      return '<path d="M' + (x - 10) + " " + base + " L" + (x - 2) + " " + top + " M" + (x + 10) + " " + base + " L" + (x + 2) + " " + top +
+        " M" + (x - 16) + " " + (top + 12) + " H" + (x + 16) + " M" + (x - 12) + " " + (top + 26) + " H" + (x + 12) +
+        " M" + (x - 8) + " " + (base - 18) + " L" + (x + 5) + " " + (base - 42) + " M" + (x + 8) + " " + (base - 18) + " L" + (x - 5) + " " + (base - 42) +
+        '" stroke="#3d5a4c" stroke-width="1.4" fill="none"/>';
+    }
 
-    // connectors
-    ys.forEach(function (y, i) {
-      var ty = hubY + (y - hubY) * 0.28;
-      var dl = "M" + W + " " + y + " C 226 " + y + ", 226 " + ty + ", 266 " + ty;
-      var dr = "M414 " + ty + " C 454 " + ty + ", 454 " + y + ", 502 " + y;
-      out += '<path id="hc-l' + i + '" class="m d" d="' + dl + '"/>';
-      out += '<path id="hc-r' + i + '" class="m d" d="' + dr + '"/>';
-      out += '<circle r="3.2" fill="' + left[i].color + '"><animateMotion dur="2.6s" begin="-' + i * 0.45 + 's" repeatCount="indefinite"><mpath href="#hc-l' + i + '"/></animateMotion></circle>';
-      out += '<circle r="3.2" class="gf"><animateMotion dur="2.6s" begin="-' + (1.3 + i * 0.45) + 's" repeatCount="indefinite"><mpath href="#hc-r' + i + '"/></animateMotion></circle>';
+    var out = "<defs>" +
+      '<radialGradient id="hz-sun-g"><stop offset="0" stop-color="#fff6d6" stop-opacity=".95"/><stop offset=".35" stop-color="#ffe08a" stop-opacity=".5"/><stop offset="1" stop-color="#ffe08a" stop-opacity="0"/></radialGradient>' +
+      '<linearGradient id="hz-back-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b7d3cc"/><stop offset="1" stop-color="#a2c6bc"/></linearGradient>' +
+      '<linearGradient id="hz-mid-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#94cc9f"/><stop offset="1" stop-color="#78b98a"/></linearGradient>' +
+      '<linearGradient id="hz-front-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5daf72"/><stop offset="1" stop-color="#3f945c"/></linearGradient>' +
+      '<linearGradient id="hz-water-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a6d7ec"/><stop offset="1" stop-color="#6fb6d8"/></linearGradient>' +
+      "</defs>";
+
+    // Sun
+    out += '<g class="px-sun"><g class="hz-sun"><circle cx="1150" cy="215" r="170" fill="url(#hz-sun-g)"/><circle cx="1150" cy="215" r="44" fill="#ffd45e"/></g></g>';
+
+    // Back hills + distant turbines
+    var back = '<path d="M0 330 C 200 262, 380 300, 560 252 C 760 198, 900 282, 1080 242 C 1260 202, 1420 272, 1600 232 V520 H0 Z" fill="url(#hz-back-g)"/>';
+    [[150, 300, 78, 7], [222, 290, 66, 6.2], [1290, 232, 84, 6.6], [1368, 244, 72, 5.8], [1440, 254, 64, 7.2]].forEach(function (t) {
+      back += turbine(t[0], t[1], t[2], t[3], "#f1f6f4", "rgba(12,23,18,.18)");
     });
+    out += '<g class="px-back"><g class="hz-back">' + back + "</g></g>";
 
-    // tags
-    ys.forEach(function (y, i) {
-      out += fileTag(0, y - H / 2, W, H, left[i].label, left[i].icon);
-      out += fileTag(502, y - H / 2, W, H, right[i].label, right[i].icon);
+    // Mid hills, transmission line, large turbines
+    var mid = '<path d="M0 382 C 220 332, 420 362, 640 332 C 860 302, 1040 352, 1240 322 C 1400 300, 1520 332, 1600 322 V520 H0 Z" fill="url(#hz-mid-g)"/>';
+    mid += pylon(500, 348, 78) + pylon(1040, 338, 78);
+    mid += '<path d="M484 282 Q 770 314 1024 272 M516 282 Q 790 318 1056 272" stroke="rgba(12,23,18,.35)" stroke-width=".9" fill="none"/>';
+    mid += turbine(300, 358, 160, 6.5, "#ffffff", "rgba(12,23,18,.28)");
+    mid += turbine(1478, 324, 140, 5.6, "#ffffff", "rgba(12,23,18,.28)");
+    out += '<g class="px-mid"><g class="hz-mid">' + mid + "</g></g>";
+
+    // Foreground
+    var fr = '<path d="M0 438 C 300 418, 600 430, 900 424 C 1200 418, 1400 440, 1600 430 V520 H0 Z" fill="url(#hz-front-g)"/>';
+    // Solar farm (hybrid with the turbine behind it)
+    for (var r = 0; r < 4; r++) {
+      var y = 430 + r * 22, h = 12 + r * 2.5, w = 34 + r * 5, lean = 6 + r, x0 = 60 - r * 18, x1 = 540 + r * 6;
+      fr += '<rect x="' + x0 + '" y="' + y + '" width="' + (x1 - x0) + '" height="3" fill="rgba(0,0,0,.12)"/>';
+      for (var x = x0; x + w <= x1; x += w + 6) fr += panel(x, y, w, h, lean);
+    }
+    fr += '<path class="hz-flow" d="M548 470 C 556 470, 556 448, 562 444 M646 440 H660"/>';
+    // Battery storage
+    var bess = '<rect x="562" y="410" width="84" height="38" rx="3" fill="#eef2ec" stroke="' + INK + '" stroke-width="1.4"/><path d="M562 416 H646" stroke="rgba(12,23,18,.2)"/>';
+    for (var c = 0; c < 4; c++) {
+      bess += '<rect x="' + (570 + c * 19) + '" y="419" width="13" height="24" rx="1.5" fill="#d3dbcf"/>' +
+        '<rect class="hz-level" style="--d:' + -c * 0.6 + 's" x="' + (570 + c * 19) + '" y="419" width="13" height="24" rx="1.5" fill="#0e9f57"/>';
+    }
+    fr += '<g class="hz-build">' + bess + "</g>";
+    // Factory with sawtooth roof (C&I rooftop solar)
+    var fac = '<rect x="660" y="360" width="300" height="88" fill="#f4f6f2" stroke="' + INK + '" stroke-width="1.4"/>';
+    var saw = "M660 360";
+    for (var k = 0; k < 5; k++) saw += " L" + (660 + k * 60) + " 328 L" + (720 + k * 60) + " 360";
+    fac += '<path d="' + saw + ' Z" fill="#e6ece4" stroke="' + INK + '" stroke-width="1.4" stroke-linejoin="round"/>';
+    for (k = 0; k < 5; k++) {
+      var b = 660 + k * 60;
+      fac += '<g class="hz-pv"><polygon points="' + [b + 3.6, 329.9, b + 56.4, 358.1, b + 59.7, 351.9, b + 6.9, 323.7].join(" ") + '" fill="#1f3b4a" stroke="' + INK + '" stroke-width=".8"/>' +
+        '<path d="M' + (b + 21.2) + " 339.3 L" + (b + 24.5) + " 333.1 M" + (b + 38.8) + " 348.7 L" + (b + 42.1) + ' 342.5" stroke="rgba(255,255,255,.35)" stroke-width=".7"/></g>';
+    }
+    for (k = 0; k < 7; k++) fac += '<rect x="' + (676 + k * 38) + '" y="380" width="24" height="16" fill="#cfe0d5"/>';
+    fac += '<rect x="790" y="410" width="40" height="38" fill="#dfe7dc" stroke="' + INK + '" stroke-width="1.2"/><path d="M790 420 H830 M790 430 H830 M790 440 H830" stroke="rgba(12,23,18,.2)"/>';
+    fac += '<rect x="960" y="384" width="120" height="64" fill="#eef2ec" stroke="' + INK + '" stroke-width="1.4"/>';
+    fac += panel(968, 383, 28, 8, 5) + panel(1004, 383, 28, 8, 5) + panel(1040, 383, 28, 8, 5);
+    fac += '<rect x="984" y="414" width="30" height="34" fill="#dfe7dc" stroke="' + INK + '" stroke-width="1.2"/><rect x="1030" y="400" width="34" height="12" fill="#cfe0d5"/>';
+    fr += '<g class="hz-build">' + fac + "</g>";
+    fr += tree(1100, 448, 15) + tree(1118, 452, 11) + tree(40, 474, 16) + tree(640, 470, 10);
+    // Government building (public sector)
+    var gov = '<path d="M1188 352 A28 24 0 0 1 1242 352 Z" fill="#eef2ec" stroke="' + INK + '" stroke-width="1.3"/>' +
+      '<rect x="1211" y="322" width="8" height="8" fill="#eef2ec" stroke="' + INK + '" stroke-width="1.2"/><path d="M1215 322 V300" stroke="' + INK + '" stroke-width="1.3"/>' +
+      '<path class="flag" d="M1215 300 L1233 304 L1215 308 Z" fill="#0e9f57"/>' +
+      '<polygon points="1138,376 1215,346 1292,376" fill="#f4f6f2" stroke="' + INK + '" stroke-width="1.4" stroke-linejoin="round"/>' +
+      '<rect x="1142" y="376" width="146" height="8" fill="#f4f6f2" stroke="' + INK + '" stroke-width="1.3"/>';
+    for (k = 0; k < 6; k++) gov += '<rect x="' + (1150 + k * 24) + '" y="384" width="8" height="48" fill="#f4f6f2" stroke="' + INK + '" stroke-width="1.2"/>';
+    gov += '<rect x="1140" y="432" width="150" height="6" fill="#f4f6f2" stroke="' + INK + '" stroke-width="1.2"/><rect x="1132" y="438" width="166" height="8" fill="#f4f6f2" stroke="' + INK + '" stroke-width="1.2"/>';
+    fr += '<g class="hz-build">' + gov + "</g>";
+    // Reservoir with floating solar
+    var res = '<path d="M1316 452 C 1370 438, 1560 436, 1600 444 V 506 C 1540 514, 1380 510, 1316 494 Z" fill="url(#hz-water-g)" stroke="rgba(12,23,18,.25)"/>';
+    res += '<path d="M1340 488 q6 -3 12 0 t12 0 M1500 496 q6 -3 12 0 t12 0 M1420 500 q6 -3 12 0 t12 0" stroke="rgba(255,255,255,.75)" fill="none" stroke-width="1.4"/>';
+    for (r = 0; r < 2; r++) {
+      var fy = 466 + r * 20, fx0 = 1350 - r * 12;
+      res += '<g class="bob" style="--d:' + -r * 1.3 + 's"><rect x="' + (fx0 - 4) + '" y="' + fy + '" width="' + (1596 - fx0) + '" height="3" rx="1.5" fill="#eef2ec"/>';
+      for (var fx = fx0; fx + 24 <= 1592; fx += 32) res += panel(fx, fy, 24, 7, 4);
+      res += "</g>";
+    }
+    fr += '<g class="hz-build">' + res + "</g>";
+    fr += tree(1300, 448, 14) + tree(1320, 454, 10);
+    out += '<g class="px-front"><g class="hz-front">' + fr + "</g></g>";
+
+    // Hotspots: each opens the matching solution below
+    var pins = [
+      { x: 300, y: 408, label: "Hybrid solar + wind", sol: 3, side: "l" },
+      { x: 604, y: 400, label: "Battery storage", sol: 2, side: "l" },
+      { x: 812, y: 316, label: "C&I rooftop solar", sol: 0, side: "r" },
+      { x: 1215, y: 290, label: "Public facilities", sol: 1, side: "r" },
+      { x: 1468, y: 458, label: "Floating solar", sol: 4, side: "l" }
+    ];
+    var pinOut = "";
+    pins.forEach(function (p) {
+      var w = p.label.length * 8.2 + 30;
+      var lx = p.side === "r" ? 16 : -16 - w;
+      var label = p.label.replace(/&/g, "&amp;");
+      pinOut += '<g class="hz-pin" tabindex="0" role="button" aria-label="' + label + ': see this solution" data-pin="' + p.sol + '" transform="translate(' + p.x + " " + p.y + ')"><g class="hz-pin-in">' +
+        '<circle r="9" fill="#b8f05a"><animate attributeName="r" values="8;22" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".7;0" dur="2.2s" repeatCount="indefinite"/></circle>' +
+        '<circle r="7" fill="#b8f05a" stroke="' + INK + '" stroke-width="1.6"/>' +
+        '<rect class="lbl" x="' + lx + '" y="-15" width="' + w + '" height="30" rx="15"/>' +
+        '<text x="' + (lx + 15) + '" y="5">' + label + "</text></g></g>";
     });
-
-
-    // hub
-    var x0 = hubX - 66, y0 = hubY - 66;
-    out += '<rect x="' + (x0 - 2) + '" y="' + (y0 - 2) + '" width="136" height="136" rx="10" fill="none" stroke="url(#hatch)" stroke-width="10"/>';
-    out += '<rect class="f" x="' + (x0 + 8) + '" y="' + (y0 + 8) + '" width="116" height="116" rx="8"/>';
-    out += logoMark(hubX - 34, hubY - 34, 68, "var(--ink)", "var(--green)");
-    // corner brackets
-    var b = 10, bx0 = x0 - 14, by0 = y0 - 14, bx1 = x0 + 146, by1 = y0 + 146;
-    out += '<path class="l g" d="M' + bx0 + " " + (by0 + b) + " V" + by0 + " H" + (bx0 + b) +
-      " M" + (bx1 - b) + " " + by0 + " H" + bx1 + " V" + (by0 + b) +
-      " M" + bx1 + " " + (by1 - b) + " V" + by1 + " H" + (bx1 - b) +
-      " M" + (bx0 + b) + " " + by1 + " H" + bx0 + " V" + (by1 - b) + '"/>';
-    out += '<g class="spin" style="animation-duration:40s"><circle cx="' + hubX + '" cy="' + hubY + '" r="104" class="m d" /></g>';
-    out += '<text x="' + hubX + '" y="' + (by0 - 12) + '" text-anchor="middle">Silver Touch Green RE</text>';
-    out += '<text x="' + hubX + '" y="' + (by1 + 22) + '" text-anchor="middle" class="mut">// Engineered &middot; Installed &middot; Commissioned</text>';
+    out += '<g class="hz-pins">' + pinOut + "</g>";
     svg.innerHTML = out;
-  })();
 
-  /* ------------------------------------------------------------------
-     Hero dot field (canvas): a gently undulating solar field
-     ------------------------------------------------------------------ */
-  (function heroField() {
-    var canvas = $(".hero-field");
-    if (!canvas || !canvas.getContext) return;
-    var ctx = canvas.getContext("2d");
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var W, H, running = true, t = 0, raf;
+    $$(".hz-pin", svg).forEach(function (pin) {
+      var go = function () {
+        document.dispatchEvent(new CustomEvent("stg:solution", { detail: Number(pin.getAttribute("data-pin")) }));
+        var target = document.getElementById("solutions");
+        if (target) target.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+      };
+      pin.addEventListener("click", go);
+      pin.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+    });
 
-    function size() {
-      W = canvas.clientWidth;
-      H = canvas.clientHeight;
-      canvas.width = W * dpr;
-      canvas.height = H * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-    function draw() {
-      ctx.clearRect(0, 0, W, H);
-      var rows = 26, cols = 46, horizon = H * 0.02, spacing = 34;
-      for (var i = 0; i < rows; i++) {
-        var z = 1 + i * 0.42;
-        var baseY = horizon + (H * 1.05 - horizon) / z;
-        for (var j = -cols; j <= cols; j++) {
-          var wave = Math.sin(j * 0.32 + t) * Math.cos(i * 0.45 + t * 0.7) * 10;
-          var px = W / 2 + (j * spacing) / z;
-          if (px < -4 || px > W + 4) continue;
-          var py = baseY + wave / z;
-          var a = clamp(0.55 / z, 0, 0.5) * (0.6 + 0.4 * Math.sin(j * 0.32 + t));
-          var s = 1.8 / Math.sqrt(z);
-          ctx.fillStyle = "rgba(14,159,87," + a.toFixed(3) + ")";
-          ctx.fillRect(px - s / 2, py - s / 2, s, s);
-        }
-      }
-    }
-    function loop() {
-      if (!running) return;
-      t += 0.012;
-      draw();
-      raf = requestAnimationFrame(loop);
-    }
-    size();
-    window.addEventListener("resize", function () { size(); draw(); });
-    if (reduced) { draw(); return; }
-    loop();
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (entries) {
-        var vis = entries[0].isIntersecting;
-        if (vis && !running) { running = true; loop(); }
-        if (!vis) { running = false; cancelAnimationFrame(raf); }
-      }).observe(canvas);
+    if (reduced) { svg.pauseAnimations(); return; }
+    if (hasGsap) {
+      gsap.timeline({ delay: 0.15 })
+        .from(".hz-sun", { y: 150, duration: 1.8, ease: "power2.out" }, 0)
+        .from(".hz-back", { y: 90, duration: 1.4, ease: "power3.out" }, 0.1)
+        .from(".hz-mid", { y: 120, duration: 1.4, ease: "power3.out" }, 0.22)
+        .from(".hz-front", { y: 150, duration: 1.4, ease: "power3.out" }, 0.34)
+        .from(".hz-build", { y: 50, opacity: 0, duration: 0.9, ease: "power3.out", stagger: 0.1 }, 0.8)
+        .from(".hz-pv", { scaleY: 0, transformOrigin: "50% 100%", duration: 0.35, ease: "back.out(2)", stagger: 0.008 }, 1.1)
+        .from(".hz-pin-in", { scale: 0, transformOrigin: "50% 50%", duration: 0.5, ease: "back.out(2.5)", stagger: 0.1 }, 2.1);
     }
   })();
 
@@ -453,6 +446,7 @@
         if (inView) schedule(); else clearTimeout(timer);
       }, { threshold: 0.35 }).observe(list);
     }
+    document.addEventListener("stg:solution", function (e) { stopAuto(); activate(e.detail); });
     activate(0);
   })();
 
@@ -625,6 +619,15 @@
      Scroll-driven scenes
      ------------------------------------------------------------------ */
   if (hasGsap && !reduced) {
+    // Hero parallax: distant layers drift slower than the foreground
+    if ($("#hero-scene")) {
+      var heroST = { trigger: ".hero", start: "top top", end: "bottom top", scrub: true };
+      gsap.to(".px-sun", { y: 110, ease: "none", scrollTrigger: heroST });
+      gsap.to(".px-back", { y: 70, ease: "none", scrollTrigger: heroST });
+      gsap.to(".px-mid", { y: 35, ease: "none", scrollTrigger: heroST });
+      gsap.to(".hero-sky", { y: 80, ease: "none", scrollTrigger: heroST });
+      gsap.to(".hero-copy", { y: -60, opacity: 0.2, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "60% top", scrub: true } });
+    }
     // About statement
     if (statement) {
       ScrollTrigger.create({
@@ -696,7 +699,7 @@
         }
       });
     }, { rootMargin: "100px" });
-    $$("svg.ill, .marquee").forEach(function (el) { pIO.observe(el); });
+    $$("svg.ill, .marquee, #hero-scene").forEach(function (el) { pIO.observe(el); });
   }
 
   /* ------------------------------------------------------------------

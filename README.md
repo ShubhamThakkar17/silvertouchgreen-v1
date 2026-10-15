@@ -25,7 +25,7 @@ assets/img/             Logo mark (option 3, vectorised) and favicon
 
 | # | Section | Visual |
 |---|---------|--------|
-| 01 | Hero | Solar, wind, storage and floating solar flow through the STG hub into industrial, commercial, government and utility facilities. An undulating solar dot field sits underneath. |
+| 01 | Hero | Centred headline over an animated sky with drifting clouds. Below it, a landscape rises into place on load: the sun comes up, panels lay down and turbines spin. Every asset is one of the five solutions (factory rooftop solar, battery storage, solar farm with wind turbines, government building, reservoir with floating panels), and its label pin opens that solution further down the page. Layers move at different speeds on scroll. |
 | 02 | Core strengths | Factory with a rooftop array and load meter; civic building with a ground-mount array; delivery stages lighting up in sequence; a technology selector cycling through solar, wind and battery. |
 | 03 | About | Scroll-revealed statement, plus a site plan where the underutilised rooftop and the available land fill with modules as you scroll. |
 | 04 | Solutions | Five-panel accordion that auto-advances: C&I solar (sun arc against a grid/solar supply mix), public sector (compliance stamps), BESS (day charging, night-shift discharging), hybrid (solar, wind and combined curves) and floating solar (bobbing arrays on water). |
