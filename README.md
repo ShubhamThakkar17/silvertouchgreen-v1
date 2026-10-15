@@ -1,0 +1,44 @@
+# Silver Touch Green RE: landing page
+
+Single-page marketing site for Silver Touch Green RE Pvt Ltd. It is static HTML, CSS and JS with no build step.
+
+## Run locally
+
+```bash
+npx http-server -p 8080 .
+# or: python3 -m http.server 8080
+```
+
+Open http://localhost:8080.
+
+## Structure
+
+```
+index.html              Page markup, including the hand-drawn inline SVG illustrations
+assets/css/styles.css   Design tokens, layout, illustration system and keyframes
+assets/js/main.js       Diagram builders, scroll scenes, accordion, counters and form
+assets/js/vendor/       GSAP 3.12.5 + ScrollTrigger (vendored, no CDN dependency)
+assets/img/             Logo mark (option 3, vectorised) and favicon
+```
+
+## Sections and their motion graphics
+
+| # | Section | Visual |
+|---|---------|--------|
+| 01 | Hero | Solar, wind, storage and floating solar flow through the STG hub into industrial, commercial, government and utility facilities. An undulating solar dot field sits underneath. |
+| 02 | Core strengths | Factory with a rooftop array and load meter; civic building with a ground-mount array; delivery stages lighting up in sequence; a technology selector cycling through solar, wind and battery. |
+| 03 | About | Scroll-revealed statement, plus a site plan where the underutilised rooftop and the available land fill with modules as you scroll. |
+| 04 | Solutions | Five-panel accordion that auto-advances: C&I solar (sun arc against a grid/solar supply mix), public sector (compliance stamps), BESS (day charging, night-shift discharging), hybrid (solar, wind and combined curves) and floating solar (bobbing arrays on water). |
+| 05 | Focus areas | Two active focus cards and three "in development" capabilities. |
+| 06 | Why us | Pinned scroll scene in which a tangle of six contractors resolves into one accountable hub, followed by six animated value cards. |
+| 07 | Process | Five stages joined by a progress line that draws as you scroll. |
+| 08 | Global vision | Dotted world map (Natural Earth land mask) with routes from India to the UK and Asia-Pacific. |
+| 09 | Contact | Enquiry form with name, company, email, phone, location, energy requirement and facility type. |
+
+Animations pause while off-screen and respect `prefers-reduced-motion`.
+
+## Before launch
+
+- **Form endpoint:** the form currently shows a success state without sending anything. Add `data-endpoint="https://…"` to `<form id="enquiry-form">` (for example a Formspree or Getform URL, or your own API). The form then POSTs `FormData` to it.
+- **Contact details:** add verified email, phone and address details to the contact section and footer.
+- **"Learn more" links:** these point to `#contact` until the individual solution pages exist.
