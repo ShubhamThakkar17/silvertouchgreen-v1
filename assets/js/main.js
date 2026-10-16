@@ -402,7 +402,8 @@
     var items = $$("[data-sol]");
     if (!items.length) return;
     var tabs = items.map(function (it) { return $(".sol-tab", it); });
-    var current = 0, timer = null, userTook = false, inView = false;
+    var current = 0, timer = null, userTook = false, inView = false, hovering = false, hoverTimer = null;
+    var canHover = window.matchMedia("(hover: hover) and (pointer: fine)");
     var DURATION = 8000;
 
     function activate(i, focus) {
@@ -422,7 +423,7 @@
     }
     function schedule() {
       clearTimeout(timer);
-      if (userTook || !inView || reduced || !desktop.matches) return;
+      if (userTook || hovering || !inView || reduced || !desktop.matches) return;
       var it = items[current];
       void it.offsetWidth;
       it.style.setProperty("--sol-time", DURATION + "ms");
@@ -448,8 +449,28 @@
       });
     });
     var list = $(".sol-list");
-    list.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") { clearTimeout(timer); items[current].classList.remove("is-timing"); } });
-    list.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") schedule(); });
+    list.addEventListener("pointerenter", function (e) {
+      if (e.pointerType !== "mouse") return;
+      hovering = true;
+      clearTimeout(timer);
+      items[current].classList.remove("is-timing");
+    });
+    list.addEventListener("pointerleave", function (e) {
+      if (e.pointerType !== "mouse") return;
+      hovering = false;
+      clearTimeout(hoverTimer);
+      schedule();
+    });
+    // Desktop: hovering a collapsed column expands it. A short delay stops the
+    // cards flickering open while the cursor sweeps across them.
+    items.forEach(function (it, i) {
+      it.addEventListener("pointerenter", function (e) {
+        if (e.pointerType !== "mouse" || !desktop.matches || !canHover.matches) return;
+        clearTimeout(hoverTimer);
+        if (i !== current) hoverTimer = setTimeout(function () { activate(i); }, 140);
+      });
+      it.addEventListener("pointerleave", function () { clearTimeout(hoverTimer); });
+    });
 
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (entries) {

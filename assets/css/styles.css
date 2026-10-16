@@ -1003,7 +1003,7 @@ ul {
   border-radius: var(--radius);
   background: var(--night-2);
   overflow: hidden;
-  transition: flex-basis 0.8s var(--ease), background 0.5s;
+  transition: flex-basis 0.7s var(--ease), background 0.5s, border-color 0.3s;
   min-width: 0;
 }
 .sol.is-active {
@@ -1037,6 +1037,9 @@ ul {
   place-items: center;
   font-family: var(--font-mono);
   transition: background 0.3s, color 0.3s;
+}
+.sol:not(.is-active):hover {
+  border-color: rgba(184, 240, 90, 0.35);
 }
 .sol:not(.is-active):hover .plus {
   background: var(--lime);
