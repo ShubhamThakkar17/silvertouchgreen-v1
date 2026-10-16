@@ -291,6 +291,17 @@
       pin.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
     });
 
+    // Short, wide area: crop the empty sky at the top (slice). Tall area: keep the
+    // full width and let the hero sky show above the landscape (meet). Phones always crop.
+    var wide = window.matchMedia("(min-width: 701px)");
+    function fitScene() {
+      var r = svg.getBoundingClientRect();
+      var tall = wide.matches && r.width && r.height / r.width > 520 / 1600;
+      svg.setAttribute("preserveAspectRatio", tall ? "xMidYMax meet" : "xMidYMax slice");
+    }
+    fitScene();
+    window.addEventListener("resize", fitScene);
+
     if (reduced) { svg.pauseAnimations(); return; }
     if (hasGsap) {
       gsap.timeline({ delay: 0.15 })

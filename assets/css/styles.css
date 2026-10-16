@@ -528,7 +528,13 @@ ul {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  padding-top: clamp(110px, 12vh, 136px);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100svh;
+  min-height: 600px;
+  max-height: 1000px;
+  padding-top: clamp(88px, 12.5vh, 132px);
   background: linear-gradient(180deg, var(--sky-1) 0%, var(--sky-2) 34%, var(--sky-3) 58%, var(--sky-4) 78%);
   border-radius: 0 0 28px 28px;
   text-align: center;
@@ -577,6 +583,7 @@ ul {
 }
 
 .hero-copy {
+  flex: none;
   position: relative;
   z-index: 2;
   display: flex;
@@ -634,17 +641,27 @@ ul {
   transform: translateY(-110%);
 }
 .hero h1 {
-  margin-top: 26px;
-  max-width: 19ch;
-  font-size: clamp(34px, 4.3vw, 62px);
-  text-wrap: balance;
+  margin-top: clamp(14px, 2.6vh, 26px);
+  /* Line 2 is ~22.7em wide: size the type so it always fits the container on one line */
+  font-size: min(calc(min(100vw - 2 * var(--gutter), var(--container)) / 23.4), 7.4vh, 62px);
+  line-height: 1.04;
+}
+.hero h1 .h1-a,
+.hero h1 .h1-b {
+  display: block;
+}
+.hero h1 .h1-b {
+  white-space: nowrap;
 }
 .hero .accent {
   color: var(--green-deep);
 }
 .hero .lede {
-  margin-top: 22px;
-  max-width: 60ch;
+  margin-top: clamp(12px, 2.2vh, 22px);
+  /* ~55.3em of text: 58em keeps it to two balanced lines */
+  max-width: 58em;
+  font-size: clamp(15px, 1.2vw, 18px);
+  text-wrap: balance;
   color: var(--ink-2);
 }
 .hero-actions {
@@ -652,7 +669,7 @@ ul {
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
-  margin-top: 32px;
+  margin-top: clamp(18px, 3.2vh, 32px);
 }
 .hero .btn {
   border-radius: 999px;
@@ -673,9 +690,9 @@ ul {
 .hero-scene {
   position: relative;
   z-index: 1;
-  --scene-h: clamp(300px, 35vw, 540px);
-  height: var(--scene-h);
-  margin-top: calc(var(--scene-h) * -0.3);
+  flex: 1 1 auto;
+  min-height: 220px;
+  margin-top: clamp(-90px, -8vh, -40px);
   pointer-events: none;
 }
 .hero-scene > svg {
@@ -2744,8 +2761,23 @@ ul {
   .hero {
     padding-top: 104px;
   }
+  .hero {
+    height: auto;
+    max-height: none;
+  }
+  .hero h1 {
+    /* line 1 is ~12.6em wide: keep it on one line on phones */
+    font-size: min(34px, calc((100vw - 2 * var(--gutter)) / 12.9));
+  }
+  .hero h1 .h1-b {
+    white-space: normal;
+  }
+  .hero .lede {
+    max-width: 60ch;
+  }
   .hero-scene {
-    --scene-h: 300px;
+    flex: none;
+    height: 300px;
     margin-top: -60px;
   }
   .hz-pin .lbl,
