@@ -13,17 +13,13 @@
   var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
   var ramp = function (p, a, b) { return clamp((p - a) / (b - a), 0, 1); };
 
-  var S_PATH = "M 467 234 C 330 255, 190 300, 183 396 C 178 470, 300 500, 440 520 C 570 540, 660 575, 664 640 C 668 705, 590 748, 520 770";
-
+  
   /* ------------------------------------------------------------------
      Small helpers
      ------------------------------------------------------------------ */
-  function logoMark(x, y, w, color, pulse) {
-    var h = w * 772 / 836;
-    return '<svg x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" viewBox="0 0 836 772" style="color:' + color + '">' +
-      '<use href="#logo-shape"/>' +
-      (pulse ? '<path class="s-pulse" pathLength="100" d="' + S_PATH + '" fill="none" stroke="' + pulse + '" stroke-width="44" stroke-linecap="round"/>' : "") +
-      "</svg>";
+  function logoMark(x, y, w, color) {
+    var h = w * 469 / 416;
+    return '<svg x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" viewBox="0 0 416 469" style="color:' + color + '"><use href="#logo-shape"/></svg>';
   }
 
   /* ------------------------------------------------------------------
@@ -143,7 +139,7 @@
   (function buildScene() {
     var svg = $("#hero-scene");
     if (!svg) return;
-    var INK = "#0c1712";
+    var INK = "#0a2216";
 
     function turbine(x, base, h, dur, fill, stroke) {
       var s = h / 150, hub = base - h, L = h * 0.44;
@@ -167,8 +163,8 @@
     }
     function tree(x, y, r) {
       return '<path d="M' + x + " " + y + " V" + (y - r * 1.2) + '" stroke="#4b3a2a" stroke-width="2"/>' +
-        '<circle cx="' + x + '" cy="' + (y - r * 1.5) + '" r="' + r + '" fill="#2f7d4c"/>' +
-        '<circle cx="' + (x - r * 0.35) + '" cy="' + (y - r * 1.75) + '" r="' + r * 0.55 + '" fill="#43a063"/>';
+        '<circle cx="' + x + '" cy="' + (y - r * 1.5) + '" r="' + r + '" fill="#0b4026"/>' +
+        '<circle cx="' + (x - r * 0.35) + '" cy="' + (y - r * 1.75) + '" r="' + r * 0.55 + '" fill="#2f6b33"/>';
     }
     function pylon(x, base, h) {
       var top = base - h;
@@ -180,9 +176,9 @@
 
     var out = "<defs>" +
       '<radialGradient id="hz-sun-g"><stop offset="0" stop-color="#fff6d6" stop-opacity=".95"/><stop offset=".35" stop-color="#ffe08a" stop-opacity=".5"/><stop offset="1" stop-color="#ffe08a" stop-opacity="0"/></radialGradient>' +
-      '<linearGradient id="hz-back-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b7d3cc"/><stop offset="1" stop-color="#a2c6bc"/></linearGradient>' +
-      '<linearGradient id="hz-mid-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#94cc9f"/><stop offset="1" stop-color="#78b98a"/></linearGradient>' +
-      '<linearGradient id="hz-front-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5daf72"/><stop offset="1" stop-color="#3f945c"/></linearGradient>' +
+      '<linearGradient id="hz-back-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9d4c2"/><stop offset="1" stop-color="#a3c4ab"/></linearGradient>' +
+      '<linearGradient id="hz-mid-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a6cc84"/><stop offset="1" stop-color="#86b665"/></linearGradient>' +
+      '<linearGradient id="hz-front-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6aa64c"/><stop offset="1" stop-color="#3f7d38"/></linearGradient>' +
       '<linearGradient id="hz-water-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a6d7ec"/><stop offset="1" stop-color="#6fb6d8"/></linearGradient>' +
       "</defs>";
 
@@ -217,7 +213,7 @@
     var bess = '<rect x="562" y="410" width="84" height="38" rx="3" fill="#eef2ec" stroke="' + INK + '" stroke-width="1.4"/><path d="M562 416 H646" stroke="rgba(12,23,18,.2)"/>';
     for (var c = 0; c < 4; c++) {
       bess += '<rect x="' + (570 + c * 19) + '" y="419" width="13" height="24" rx="1.5" fill="#d3dbcf"/>' +
-        '<rect class="hz-level" style="--d:' + -c * 0.6 + 's" x="' + (570 + c * 19) + '" y="419" width="13" height="24" rx="1.5" fill="#0e9f57"/>';
+        '<rect class="hz-level" style="--d:' + -c * 0.6 + 's" x="' + (570 + c * 19) + '" y="419" width="13" height="24" rx="1.5" fill="#9cc23f"/>';
     }
     fr += '<g class="hz-build">' + bess + "</g>";
     // Factory with sawtooth roof (C&I rooftop solar)
@@ -240,7 +236,7 @@
     // Government building (public sector)
     var gov = '<path d="M1188 352 A28 24 0 0 1 1242 352 Z" fill="#eef2ec" stroke="' + INK + '" stroke-width="1.3"/>' +
       '<rect x="1211" y="322" width="8" height="8" fill="#eef2ec" stroke="' + INK + '" stroke-width="1.2"/><path d="M1215 322 V300" stroke="' + INK + '" stroke-width="1.3"/>' +
-      '<path class="flag" d="M1215 300 L1233 304 L1215 308 Z" fill="#0e9f57"/>' +
+      '<path class="flag" d="M1215 300 L1233 304 L1215 308 Z" fill="#0b4026"/>' +
       '<polygon points="1138,376 1215,346 1292,376" fill="#f4f6f2" stroke="' + INK + '" stroke-width="1.4" stroke-linejoin="round"/>' +
       '<rect x="1142" y="376" width="146" height="8" fill="#f4f6f2" stroke="' + INK + '" stroke-width="1.3"/>';
     for (k = 0; k < 6; k++) gov += '<rect x="' + (1150 + k * 24) + '" y="384" width="8" height="48" fill="#f4f6f2" stroke="' + INK + '" stroke-width="1.2"/>';
@@ -273,8 +269,8 @@
       var lx = p.side === "r" ? 16 : -16 - w;
       var label = p.label.replace(/&/g, "&amp;");
       pinOut += '<g class="hz-pin" tabindex="0" role="button" aria-label="' + label + ': see this solution" data-pin="' + p.sol + '" transform="translate(' + p.x + " " + p.y + ')"><g class="hz-pin-in">' +
-        '<circle r="9" fill="#b8f05a"><animate attributeName="r" values="8;22" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".7;0" dur="2.2s" repeatCount="indefinite"/></circle>' +
-        '<circle r="7" fill="#b8f05a" stroke="' + INK + '" stroke-width="1.6"/>' +
+        '<circle r="9" fill="#c4dc66"><animate attributeName="r" values="8;22" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".7;0" dur="2.2s" repeatCount="indefinite"/></circle>' +
+        '<circle r="7" fill="#c4dc66" stroke="' + INK + '" stroke-width="1.6"/>' +
         '<rect class="lbl" x="' + lx + '" y="-15" width="' + w + '" height="30" rx="15"/>' +
         '<text x="' + (lx + 15) + '" y="5">' + label + "</text></g></g>";
     });
@@ -541,7 +537,7 @@
     out += '<g class="why-hub" style="opacity:0;transform-box:fill-box;transform-origin:center">' +
       '<rect x="' + (hub.x - 62) + '" y="' + (hub.y - 62) + '" width="124" height="124" rx="10" fill="none" stroke="url(#hatch)" stroke-width="9"/>' +
       '<rect class="f" x="' + (hub.x - 52) + '" y="' + (hub.y - 52) + '" width="104" height="104" rx="8"/>' +
-      logoMark(hub.x - 30, hub.y - 34, 60, "var(--ink)", "var(--green)") +
+      logoMark(hub.x - 26, hub.y - 38, 52, "var(--green)") +
       '<text x="' + hub.x + '" y="' + (hub.y + 40) + '" text-anchor="middle" style="font-size:8px">One team</text>' +
       "</g>";
 

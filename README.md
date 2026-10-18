@@ -18,8 +18,17 @@ index.html              Page markup, including the hand-drawn inline SVG illustr
 assets/css/styles.css   Design tokens, layout, illustration system and keyframes
 assets/js/main.js       Diagram builders, scroll scenes, accordion, counters and form
 assets/js/vendor/       GSAP 3.12.5 + ScrollTrigger (vendored, no CDN dependency)
-assets/img/             Logo mark (option 3, vectorised) and favicon
+assets/img/             SilverTouch Green logo (mark, stacked lockup, horizontal lockup) and favicon
 ```
+
+## Brand
+
+Aligned to the SilverTouch Green identity (logo kit and stationery):
+
+- **Logo:** the leaf-S mark and "SilverTouch / GREEN" wordmark, vectorised from the supplied artwork. They are inline SVG symbols in `index.html` (`#logo-shape`, `#logo-h`, `#logo-stack`, `#logo-word`), and standalone files are in `assets/img/`.
+- **Colours:** forest green `#0B4026`, deep green `#07361D` (dark bands, footer), lime `#C4DC66` (calls to action and highlights).
+- **Type:** Plus Jakarta Sans ExtraBold for headings (closest Google Font to the wordmark), Geist for body, Geist Mono for labels.
+- **Details from the stationery:** lime highlighter strokes under key words, a faded mark watermark and a lime/forest strip on the enquiry card, and the "Ideas · People · Solutions" tagline in the footer.
 
 ## Sections and their motion graphics
 

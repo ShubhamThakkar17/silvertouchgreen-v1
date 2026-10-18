@@ -7,28 +7,31 @@
   --paper-2: #e8ede5;
   --paper-3: #dde5d9;
   --white: #ffffff;
-  --ink: #0c1712;
-  --ink-2: #2f3d36;
-  --muted: #66766d;
+  /* SilverTouch Green brand: forest green, deep green and lime */
+  --ink: #0a2216;
+  --ink-2: #2c3f33;
+  --muted: #627567;
   --line: #d3dbcf;
   --line-2: #c3cdbf;
 
-  --green: #0e9f57;
-  --green-deep: #0a6b3b;
-  --lime: #b8f05a;
+  --green: #0b4026;
+  --green-deep: #07361d;
+  --lime: #c4dc66;
+  --lime-soft: rgba(196, 220, 102, 0.7);
   --sun: #f4b321;
   --water: #3a9ccf;
   --wind: #47c2b1;
   --pv: #1f3b4a;
   --pv-hi: #4f8199;
 
-  --night: #08110d;
-  --night-2: #0e1a14;
-  --night-3: #142219;
-  --night-line: rgba(220, 240, 228, 0.1);
-  --night-text: #e6efe9;
-  --night-muted: #8fa398;
+  --night: #06301b;
+  --night-2: #0a3a22;
+  --night-3: #0f4529;
+  --night-line: rgba(226, 240, 200, 0.12);
+  --night-text: #eaf2e4;
+  --night-muted: #a6bba7;
 
+  --font-display: "Plus Jakarta Sans", "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
@@ -393,31 +396,15 @@ ul {
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding-right: 12px;
+  padding-right: 14px;
   margin-right: 4px;
   border-right: 1px solid var(--line);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  font-size: 15px;
-  line-height: 1.05;
+  color: var(--green);
 }
-.brand-mark {
-  width: 28px;
-  height: 26px;
-  color: var(--ink);
-}
-.brand-mark .flow {
-  stroke: var(--green);
-}
-.brand small {
-  display: block;
-  font-family: var(--font-mono);
-  font-weight: 400;
-  font-size: 9.5px;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-  text-transform: uppercase;
+.brand-logo {
+  height: 30px;
+  width: calc(30px * 1620 / 288);
+  color: var(--green);
 }
 .nav-links {
   display: flex;
@@ -642,8 +629,8 @@ ul {
 }
 .hero h1 {
   margin-top: clamp(14px, 2.6vh, 26px);
-  /* Line 2 is ~22.7em wide: size the type so it always fits the container on one line */
-  font-size: min(calc(min(100vw - 2 * var(--gutter), var(--container)) / 23.4), 7.4vh, 62px);
+  /* Line 2 is ~23.4em wide in Plus Jakarta Sans 800: size the type so it always fits on one line */
+  font-size: min(calc(min(100vw - 2 * var(--gutter), var(--container)) / 24.2), 7.4vh, 60px);
   line-height: 1.04;
 }
 .hero h1 .h1-a,
@@ -1039,7 +1026,7 @@ ul {
   transition: background 0.3s, color 0.3s;
 }
 .sol:not(.is-active):hover {
-  border-color: rgba(184, 240, 90, 0.35);
+  border-color: rgba(196, 220, 102, 0.4);
 }
 .sol:not(.is-active):hover .plus {
   background: var(--lime);
@@ -1101,7 +1088,7 @@ ul {
   position: relative;
   border-radius: 10px;
   border: 1px solid var(--night-line);
-  background: radial-gradient(120% 80% at 50% 0%, rgba(184, 240, 90, 0.05), transparent 60%), var(--night);
+  background: radial-gradient(120% 80% at 50% 0%, rgba(196, 220, 102, 0.06), transparent 60%), var(--night);
   overflow: hidden;
   display: grid;
   place-items: center;
@@ -1157,7 +1144,7 @@ ul {
   text-transform: uppercase;
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgba(14, 159, 87, 0.1);
+  background: rgba(11, 64, 38, 0.08);
   color: var(--green-deep);
 }
 .pulse {
@@ -1324,7 +1311,7 @@ ul {
   margin: -4.5px 0 0 -4.5px;
   border-radius: 50%;
   background: var(--green);
-  box-shadow: 0 0 0 4px rgba(14, 159, 87, 0.15);
+  box-shadow: 0 0 0 4px rgba(11, 64, 38, 0.14);
 }
 .ba button {
   font-family: var(--font-mono);
@@ -1493,7 +1480,7 @@ ul {
 }
 .step.is-on .step-icon::before {
   border-color: var(--green);
-  box-shadow: 0 0 0 6px rgba(14, 159, 87, 0.08);
+  box-shadow: 0 0 0 6px rgba(11, 64, 38, 0.08);
 }
 .process-foot {
   margin-top: clamp(40px, 6vw, 72px);
@@ -1637,7 +1624,7 @@ ul {
   outline: none;
   border-color: var(--green);
   background: var(--white);
-  box-shadow: 0 0 0 4px rgba(14, 159, 87, 0.12);
+  box-shadow: 0 0 0 4px rgba(11, 64, 38, 0.12);
 }
 .field.has-error input,
 .field.has-error select {
@@ -1739,16 +1726,15 @@ ul {
   flex-wrap: wrap;
 }
 .footer .brand {
-  color: var(--white);
   border: 0;
+  padding: 0;
 }
-.footer .brand-mark {
-  color: var(--white);
-  width: 40px;
-  height: 37px;
-}
-.footer .brand-mark .flow {
-  stroke: var(--lime);
+.brand-stack {
+  height: 92px;
+  width: calc(92px * 1316 / 795);
+  --lg-mark: var(--lime);
+  --lg-word: var(--white);
+  --lg-green: var(--lime);
 }
 .footer-links {
   display: flex;
@@ -1772,14 +1758,13 @@ ul {
   color: var(--lime);
 }
 .footer-word {
+  display: block;
+  width: 100%;
+  height: auto;
   margin-top: 56px;
-  font-size: clamp(40px, 11.2vw, 162px);
-  font-weight: 600;
-  letter-spacing: -0.055em;
-  line-height: 0.82;
-  color: var(--night-2);
-  -webkit-text-stroke: 1px rgba(220, 240, 228, 0.12);
-  white-space: nowrap;
+  fill: var(--night-2);
+  stroke: rgba(196, 220, 102, 0.28);
+  stroke-width: 1.4;
   user-select: none;
 }
 .footer-bottom {
@@ -2769,8 +2754,8 @@ ul {
     max-height: none;
   }
   .hero h1 {
-    /* line 1 is ~12.6em wide: keep it on one line on phones */
-    font-size: min(34px, calc((100vw - 2 * var(--gutter)) / 12.9));
+    /* line 1 is ~12.9em wide: keep it on one line on phones */
+    font-size: min(34px, calc((100vw - 2 * var(--gutter)) / 13.4));
   }
   .hero h1 .h1-b {
     white-space: normal;
@@ -2797,8 +2782,9 @@ ul {
   .form-grid {
     grid-template-columns: 1fr;
   }
-  .brand small {
-    display: none;
+  .brand-logo {
+    height: 26px;
+    width: calc(26px * 1620 / 288);
   }
   .footer-links {
     gap: 28px;
@@ -2867,3 +2853,140 @@ ul {
     display: none;
   }
 }
+
+/* ==========================================================================
+   Brand layer (SilverTouch Green identity)
+   ========================================================================== */
+
+h1,
+h2,
+h3,
+h4,
+.about-statement,
+.stat-num {
+  font-family: var(--font-display);
+}
+.h-display,
+.h-section {
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+.about-statement {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+h3,
+h4 {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+/* Highlighted words: forest green with a lime highlighter stroke, like the
+   lime bars on the letterhead. On dark bands they turn lime. */
+.accent {
+  color: var(--green);
+  background-image: linear-gradient(var(--lime-soft), var(--lime-soft));
+  background-repeat: no-repeat;
+  background-position: 0 88%;
+  background-size: 100% 0.3em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding: 0 0.04em;
+}
+.js .split .accent {
+  background-size: 0% 0.3em;
+  transition: background-size 0.9s var(--ease) 0.5s;
+}
+.js .split.in .accent {
+  background-size: 100% 0.3em;
+}
+.dark .accent {
+  color: var(--lime);
+  background-image: none;
+}
+
+/* Section number chips */
+.dark .tag b {
+  background: var(--lime);
+  color: var(--green-deep);
+}
+
+/* Primary buttons in forest green */
+.btn {
+  --bg: var(--green);
+}
+.btn--lime {
+  --bg: var(--lime);
+  --fg: var(--green-deep);
+  --chip: var(--green);
+  --chip-fg: var(--lime);
+}
+.btn--white {
+  --bg: var(--white);
+  --fg: var(--green-deep);
+  --chip: var(--green);
+}
+.nav-cta {
+  --chip: var(--lime);
+  --chip-fg: var(--green-deep);
+}
+
+/* Footer tagline */
+.tagline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.3em;
+  color: var(--lime);
+}
+.tagline i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+/* Letterhead details on the enquiry card: faded mark + lime/forest strip */
+.form-card {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: calc(clamp(20px, 3vw, 36px) + 14px);
+}
+.form-card > form,
+.form-card > .form-success {
+  position: relative;
+  z-index: 1;
+}
+.watermark {
+  position: absolute;
+  right: -40px;
+  bottom: -30px;
+  width: 260px;
+  height: auto;
+  color: var(--lime);
+  opacity: 0.16;
+  pointer-events: none;
+}
+.brand-strip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 10px;
+  display: flex;
+}
+.brand-strip i {
+  flex: 1;
+  background: var(--lime);
+}
+.brand-strip b {
+  width: 34%;
+  background: var(--green);
+  clip-path: polygon(14px 0, 100% 0, 100% 100%, 0 100%);
+  margin-left: -14px;
+}
+.footer {
+  position: relative;
+}
+

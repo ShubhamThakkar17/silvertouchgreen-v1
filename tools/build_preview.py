@@ -13,7 +13,7 @@ page = (
   '<title>Silver Touch Green RE</title>\n'
   '<link rel="preconnect" href="https://fonts.googleapis.com" />\n'
   '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />\n'
-  '<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />\n'
+  + re.search(r'<link href="https://fonts.googleapis.com/css2[^>]+>', html).group(0) + '\n'
   '<style>\n' + css + '\n</style>\n'
   "<script>document.documentElement.classList.add('js');</script>\n"
   + body +
