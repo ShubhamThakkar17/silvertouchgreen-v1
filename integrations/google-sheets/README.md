@@ -31,6 +31,11 @@ To test it, submit the form on the live site. A new row should appear in the **E
 - **Recipients:** edit `NOTIFY_TO` at the top of `Code.gs`. Separate several addresses with commas.
 - **After editing the script:** go to **Deploy → Manage deployments**, edit the deployment and pick **New version**. The URL stays the same.
 
+## Troubleshooting
+
+- **"Access Denied" (HTTP 403) when opening the web app URL:** the deployment isn't public. Go to **Deploy → Manage deployments**, edit the deployment, set **Who has access** to *Anyone* (not *Anyone with a Google account*, and not *Anyone within your organisation*), and choose **New version**. The URL stays the same. When it works, opening the URL in a private window shows `{"ok":true,"service":"SilverTouch Green enquiries"}`.
+- **"Anyone" isn't offered:** your Google Workspace admin has blocked public web apps. Either ask them to allow sharing outside the organisation (this is controlled by the Workspace Drive sharing settings), or deploy the script from a sheet owned by a personal Gmail account and share that sheet with your work account.
+
 ## Limits
 
 - **Email quota:** Google allows about 100 notification emails a day on a free Gmail account and about 1,500 on Google Workspace. Rows are still saved to the sheet past that limit.
