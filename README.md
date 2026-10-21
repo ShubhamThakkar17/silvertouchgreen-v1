@@ -48,6 +48,6 @@ Animations pause while off-screen and respect `prefers-reduced-motion`.
 
 ## Before launch
 
-- **Form endpoint:** the form currently shows a success state without sending anything. Add `data-endpoint="https://…"` to `<form id="enquiry-form">` (for example a Formspree or Getform URL, or your own API). The form then POSTs `FormData` to it.
+- **Form endpoint:** enquiries go to a Google Sheet, and each one emails shubham.thakkar@silvertouchgreen.com, through a small Google Apps Script. Follow [integrations/google-sheets/README.md](integrations/google-sheets/README.md) (about 5 minutes), then paste the web app URL into `data-endpoint` on `<form id="enquiry-form">`. Until then the form validates and shows its thank-you message but sends nothing. Any endpoint that accepts a URL-encoded POST (Formspree, for example) also works.
 - **Contact details:** add verified email, phone and address details to the contact section and footer.
 - **"Learn more" links:** these point to `#contact` until the individual solution pages exist.

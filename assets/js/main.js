@@ -768,17 +768,32 @@
       if (firstBad) { firstBad.focus(); return; }
 
       var btn = $("button[type=submit]", formEl);
-      btn.disabled = true;
-      btn.style.opacity = 0.7;
+      var errorEl = $("#form-error");
+      var setBusy = function (busy) {
+        btn.disabled = busy;
+        btn.style.opacity = busy ? 0.7 : "";
+      };
+      setBusy(true);
+      if (errorEl) errorEl.hidden = true;
       var endpoint = formEl.getAttribute("data-endpoint");
       var done = function () { card.classList.add("is-sent"); };
       if (endpoint) {
-        fetch(endpoint, { method: "POST", body: new FormData(formEl), headers: { Accept: "application/json" } })
-          .then(function (r) { if (!r.ok) throw new Error(r.status); done(); })
+        // URL-encoded body: a "simple" CORS request that Google Apps Script
+        // (and services such as Formspree) read without a preflight.
+        var body = new URLSearchParams(new FormData(formEl));
+        body.append("page", location.href);
+        fetch(endpoint, { method: "POST", body: body, headers: { Accept: "application/json" } })
+          .then(function (r) {
+            if (!r.ok) throw new Error(r.status);
+            return r.json().catch(function () { return { ok: true }; });
+          })
+          .then(function (res) {
+            if (res && res.ok === false) throw new Error(res.error || "rejected");
+            done();
+          })
           .catch(function () {
-            btn.disabled = false;
-            btn.style.opacity = "";
-            alert("Sorry, something went wrong sending your enquiry. Please try again.");
+            setBusy(false);
+            if (errorEl) errorEl.hidden = false;
           });
       } else {
         // No endpoint configured yet: show the confirmation state.

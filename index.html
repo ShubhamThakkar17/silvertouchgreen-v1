@@ -954,7 +954,10 @@
 
           <div class="form-card" data-reveal style="--i:1" id="form-card">
             <svg class="watermark" viewBox="0 0 416 469" aria-hidden="true"><use href="#logo-shape" /></svg>
-            <form id="enquiry-form" novalidate action="#" method="post">
+            <!-- Paste the Google Apps Script web app URL into data-endpoint (see integrations/google-sheets/README.md).
+                 Left empty, the form validates and shows the thank-you message without sending anything. -->
+            <form id="enquiry-form" novalidate action="#" method="post" data-endpoint="">
+              <div class="hp" aria-hidden="true"><label for="f-website">Website</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
               <div class="form-grid">
                 <div class="field">
                   <label for="f-name">Name</label>
@@ -1002,6 +1005,7 @@
               </div>
               <div class="form-foot">
                 <small>We use these details only to respond to your enquiry.</small>
+                <p class="form-error" id="form-error" role="alert" hidden>We couldn't send your enquiry. Please check your connection and try again.</p>
                 <button type="submit" class="btn">
                   <span class="chip"><svg><use href="#i-arrow" /></svg></span>
                   <span class="roll"><span>Discuss your energy project</span><span aria-hidden="true">Discuss your energy project</span></span>
