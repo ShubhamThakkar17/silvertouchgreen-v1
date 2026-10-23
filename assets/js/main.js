@@ -99,6 +99,73 @@
   $$("#mobile-menu a").forEach(function (a) { a.addEventListener("click", function () { setMenu(false); }); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") setMenu(false); });
 
+  // Solutions dropdown: opens on hover (mouse) or click/keyboard
+  $$(".nav-drop").forEach(function (drop) {
+    var btn = $(".nav-drop-btn", drop), closeT;
+    var set = function (open) {
+      drop.classList.toggle("is-open", open);
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+    btn.addEventListener("click", function () { set(!drop.classList.contains("is-open")); });
+    drop.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") { clearTimeout(closeT); set(true); } });
+    drop.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") closeT = setTimeout(function () { set(false); }, 180); });
+    drop.addEventListener("keydown", function (e) { if (e.key === "Escape") { set(false); btn.focus(); } });
+    document.addEventListener("click", function (e) { if (!drop.contains(e.target)) set(false); });
+    drop.addEventListener("focusout", function (e) { if (!drop.contains(e.relatedTarget)) set(false); });
+  });
+
+  /* ------------------------------------------------------------------
+     Page transitions: a brand curtain covers the page on the way out and
+     lifts on the way in (sessionStorage tells the next page to start covered).
+     ------------------------------------------------------------------ */
+  (function pageTransitions() {
+    var root = document.documentElement;
+    var label = $(".pt-label");
+    var PAGE_NAMES = {
+      "index.html": "Home", "about.html": "About us", "public-infrastructure.html": "Public infrastructure",
+      "battery-storage.html": "Battery storage", "hybrid-solar-wind.html": "Hybrid solar + wind", "floating-solar.html": "Floating solar"
+    };
+    function fileOf(url) {
+      var f = url.pathname.split("/").pop();
+      return f === "" ? "index.html" : f;
+    }
+    // Arriving: lift the curtain once the first frame is ready
+    if (root.classList.contains("pt-enter")) {
+      var lift = function () {
+        requestAnimationFrame(function () {
+          root.classList.add("pt-reveal");
+          setTimeout(function () { root.classList.remove("pt-enter", "pt-reveal"); }, 800);
+        });
+      };
+      var fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+      Promise.race([fontsReady, new Promise(function (r) { setTimeout(r, 450); })]).then(lift);
+    }
+    // Back/forward cache: never come back to a covered page
+    window.addEventListener("pageshow", function (e) { if (e.persisted) root.classList.remove("pt-leave", "pt-enter", "pt-reveal"); });
+
+    document.addEventListener("click", function (e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest && e.target.closest("a[href]");
+      if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
+      var url;
+      try { url = new URL(a.href, location.href); } catch (err) { return; }
+      if (url.origin !== location.origin) return;
+      var here = fileOf(location), there = fileOf(url);
+      if (there === here) return; // same page (including #anchors): let the browser scroll
+      if (!/\.html$/.test(there)) return;
+      if (reduced) return;
+      e.preventDefault();
+      setMenuClosed();
+      if (label) label.textContent = PAGE_NAMES[there] || "";
+      root.classList.add("pt-leave");
+      try { sessionStorage.setItem("stg-pt", "1"); } catch (err) {}
+      setTimeout(function () { location.href = url.href; }, 560);
+    });
+    function setMenuClosed() {
+      if (document.body.classList.contains("nav-open")) setMenu(false);
+    }
+  })();
+
   var navLinks = $$(".nav-links a");
   if ("IntersectionObserver" in window) {
     var secIO = new IntersectionObserver(function (entries) {
@@ -676,7 +743,7 @@
     });
     // Why diagram (pinned on desktop)
     var whyST = null;
-    ScrollTrigger.matchMedia({
+    if ($("#why-pin")) ScrollTrigger.matchMedia({
       "(min-width: 1021px)": function () {
         whyST = ScrollTrigger.create({
           trigger: "#why-pin", start: "top top", end: "+=110%", pin: true, scrub: 0.6,
@@ -698,7 +765,7 @@
       });
     });
     // Process
-    ScrollTrigger.create({
+    if ($("#steps")) ScrollTrigger.create({
       trigger: "#steps", start: "top 70%", end: "bottom 65%", scrub: 0.4,
       onUpdate: function (st) { setSteps(st.progress); }
     });

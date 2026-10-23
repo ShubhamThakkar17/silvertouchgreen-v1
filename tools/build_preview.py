@@ -1,26 +1,34 @@
-# Bundles index.html + CSS + JS into one self-contained file (GSAP from cdnjs).
-# Usage: python3 tools/build_preview.py . out.html
-import re, sys
+# Stages the multipage site for a shareable preview (claude.ai artifact).
+# index.html becomes the main page (head + body content; the host wraps it in
+# its own document skeleton). Every other page ships unchanged next to it, with
+# the shared CSS/JS/images at the same relative paths, so links keep working.
+# Usage: python3 tools/build_preview.py . out_dir   (run tools/build_site.py first)
+import glob, json, os, re, shutil, sys
+
 root, out = sys.argv[1], sys.argv[2]
-html = open(f'{root}/index.html').read()
-css = open(f'{root}/assets/css/styles.css').read()
-js = open(f'{root}/assets/js/main.js').read()
-head_end = html.index('</head>')
-body = html[html.index('<body>') + len('<body>'):html.index('</body>')]
-# drop external script tags at the end of body
-body = re.sub(r'\s*<script src="assets/js/[^"]+" defer></script>', '', body)
-page = (
-  '<title>Silver Touch Green RE</title>\n'
-  '<link rel="preconnect" href="https://fonts.googleapis.com" />\n'
-  '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />\n'
-  + re.search(r'<link href="https://fonts.googleapis.com/css2[^>]+>', html).group(0) + '\n'
-  '<style>\n' + css + '\n</style>\n'
-  "<script>document.documentElement.classList.add('js');</script>\n"
-  + body +
-  '\n<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>\n'
-  '<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>\n'
-  '<script>\n' + js + '\n</script>\n'
-)
-assert '</script>' not in js
-open(out, 'w').write(page)
-print(len(page))
+shutil.rmtree(out, ignore_errors=True)
+os.makedirs(out)
+
+files = {}
+for path in sorted(glob.glob(f'{root}/assets/**/*', recursive=True)):
+    if os.path.isfile(path):
+        rel = os.path.relpath(path, root)
+        os.makedirs(os.path.dirname(f'{out}/{rel}'), exist_ok=True)
+        shutil.copy(path, f'{out}/{rel}')
+        files[rel] = rel
+
+pages = sorted(os.path.basename(p) for p in glob.glob(f'{root}/*.html'))
+for name in pages:
+    html = open(f'{root}/{name}').read()
+    if name == 'index.html':
+        head = html[html.index('<head>') + len('<head>'):html.index('</head>')]
+        head = re.sub(r'\s*<meta (charset|name="viewport")[^>]*>', '', head)
+        head = re.sub(r'<title>.*?</title>', '<title>Silver Touch Green</title>', head)
+        body = html[html.index('>', html.index('<body')) + 1:html.index('</body>')]
+        html = head.strip() + '\n' + body.strip() + '\n'
+    else:
+        files[name] = name
+    open(f'{out}/{name}', 'w').write(html)
+
+json.dump(files, open(f'{out}/files.json', 'w'), indent=1)
+print(f'{len(pages)} pages, {len(files)} supporting files -> {out}')

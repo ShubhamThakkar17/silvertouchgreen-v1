@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}" />
+  <meta name="theme-color" content="#0b4026" />
+  <meta property="og:title" content="{{title}}" />
+  <meta property="og:description" content="{{description}}" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <script>
+    document.documentElement.classList.add('js');
+    // Arriving from another page of this site: start behind the transition curtain.
+    try { if (sessionStorage.getItem('stg-pt')) { document.documentElement.classList.add('pt-enter'); sessionStorage.removeItem('stg-pt'); } } catch (e) {}
+  </script>
+  <script type="speculationrules">{"prefetch":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"*#*"}}]},"eagerness":"moderate"}]}</script>
+</head>
+<body class="page-{{slug}}">
+  <a class="skip-link" href="#main">Skip to content</a>

@@ -1,6 +1,16 @@
-# Silver Touch Green RE: landing page
+# Silver Touch Green RE: website
 
-Single-page marketing site for Silver Touch Green RE Pvt Ltd. It is static HTML, CSS and JS with no build step.
+Multipage marketing site for Silver Touch Green RE Pvt Ltd: home, about, and four solution pages. It is static HTML, CSS and JS. A small Python script assembles the pages from shared partials.
+
+## Build
+
+```bash
+python3 tools/build_site.py      # src/partials + src/pages  ->  *.html in the repo root
+```
+
+Edit pages in `src/pages/` and shared chrome (head, nav, contact, footer) in `src/partials/`, then rebuild. Each page starts with a JSON front-matter comment (`<!--page {...} -->`) giving its title, description, slug and contact-section copy. The generated root `*.html` files are committed, so the site deploys as plain static files.
+
+To stage a shareable preview (the main page plus every other page and asset at the same relative paths): `python3 tools/build_preview.py . <out_dir>`.
 
 ## Run locally
 
@@ -14,9 +24,16 @@ Open http://localhost:8080.
 ## Structure
 
 ```
-index.html              Page markup, including the hand-drawn inline SVG illustrations
+index.html, about.html, battery-storage.html, floating-solar.html,
+hybrid-solar-wind.html, public-infrastructure.html
+                        Generated pages (do not edit directly)
+src/pages/              Page sources with hand-drawn inline SVG illustrations
+src/partials/           head, header (nav, logo symbols, transition curtain), contact, footer
+tools/build_site.py     Page assembler
 assets/css/styles.css   Design tokens, layout, illustration system and keyframes
-assets/js/main.js       Diagram builders, scroll scenes, accordion, counters and form
+assets/css/pages.css    Inner pages: sub-hero, scroll stories, charts, roadmap, page transitions
+assets/js/main.js       Diagram builders, scroll scenes, accordion, counters, form, nav and page transitions
+assets/js/pages.js      Charts (SVG, hover tooltips, tab morphing), scroll stories, word reveals
 assets/js/vendor/       GSAP 3.12.5 + ScrollTrigger (vendored, no CDN dependency)
 assets/img/             SilverTouch Green logo (mark, stacked lockup, horizontal lockup) and favicon
 ```
@@ -44,10 +61,27 @@ Aligned to the SilverTouch Green identity (logo kit and stationery):
 | 08 | Global vision | Dotted world map (Natural Earth land mask) with routes from India to the UK and Asia-Pacific. |
 | 09 | Contact | Enquiry form with name, company, email, phone, location, energy requirement and facility type. |
 
+## Inner pages
+
+| Page | Highlights |
+|------|------------|
+| About | Orbit of the five in-house stages around the mark; a contractor tangle vs. one accountable pipeline; mission and vision reveals; a five-step expansion roadmap that fills as you scroll. |
+| Public infrastructure | Civic campus with a ticking compliance checklist and rotating clarifiers; a 24-hour chart of a treatment plant's load against solar; a five-step delivery story. |
+| Battery storage | Day/night BESS cycle; animated outage, voltage-sag and tariff-peak threat cards; a chart with three tabs (peak shaving, backup during an outage, solar self-consumption); a five-step engineering story. |
+| Hybrid solar + wind | Sun arc, gusts and turbines feeding an output meter; a chart that morphs between calm, windy and mixed days; a four-step planning story. |
+| Floating solar | Reservoir cross-section with floats, moorings and an underwater cable; heat, cooling and evaporation cards; a five-step process story built on the cross-section. |
+
+**Scroll stories:** the illustration stays pinned while the steps scroll past, and each step adds its layer to the drawing.
+
+**Charts:** these are illustrative profiles, labelled as such. They are rendered at real pixel size with a legend, direct labels, a hover/tap crosshair tooltip and a screen-reader table. The series colours were validated for colour-vision deficiency.
+
+**Page transitions:** clicking an internal link drops a forest-green curtain carrying the mark and the destination page's name. The next page opens behind the curtain, which then lifts once fonts are ready. Pages are prefetched on hover (Speculation Rules). The transition is skipped under `prefers-reduced-motion` and is cleared on back/forward cache restores.
+
 Animations pause while off-screen and respect `prefers-reduced-motion`.
 
 ## Before launch
 
 - **Form endpoint:** enquiries go to a Google Sheet, and each one emails shubham.thakkar@silvertouchgreen.com, through a small Google Apps Script. Follow [integrations/google-sheets/README.md](integrations/google-sheets/README.md) (about 5 minutes), then paste the web app URL into `data-endpoint` on `<form id="enquiry-form">`. Until then the form validates and shows its thank-you message but sends nothing. Any endpoint that accepts a URL-encoded POST (Formspree, for example) also works.
 - **Contact details:** add verified email, phone and address details to the contact section and footer.
-- **"Learn more" links:** these point to `#contact` until the individual solution pages exist.
+- **C&I solar page:** there is no dedicated page yet. The nav item points to the home page's solutions section.
+- **Copy review:** the inner-page copy comes straight from the copywriter's documents and still needs sign-off. See the content flags in the review notes (claims such as "10 to 15%" and "guaranteed / risk-free" wording).
