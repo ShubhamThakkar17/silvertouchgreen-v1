@@ -148,7 +148,8 @@
       var a = e.target.closest && e.target.closest("a[href]");
       if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
       var url;
-      try { url = new URL(a.href, location.href); } catch (err) { return; }
+      // getAttribute also covers SVG <a>, whose .href is not a string
+      try { url = new URL(a.getAttribute("href"), location.href); } catch (err) { return; }
       if (url.origin !== location.origin) return;
       var here = fileOf(location), there = fileOf(url);
       if (there === here) return; // same page (including #anchors): let the browser scroll
@@ -322,36 +323,36 @@
     fr += tree(1300, 448, 14) + tree(1320, 454, 10);
     out += '<g class="px-front"><g class="hz-front">' + fr + "</g></g>";
 
-    // Hotspots: each opens the matching solution below
+    // Hotspots: each links to its solution page (C&I has none yet, so it opens
+    // the matching panel of the solutions section below)
     var pins = [
-      { x: 300, y: 408, label: "Hybrid solar + wind", sol: 3, side: "l" },
-      { x: 604, y: 400, label: "Battery storage", sol: 2, side: "l" },
-      { x: 812, y: 316, label: "C&I rooftop solar", sol: 0, side: "r" },
-      { x: 1215, y: 290, label: "Public facilities", sol: 1, side: "r" },
-      { x: 1468, y: 458, label: "Floating solar", sol: 4, side: "l" }
+      { x: 300, y: 408, label: "Hybrid solar + wind", sol: 3, side: "l", href: "hybrid-solar-wind.html" },
+      { x: 604, y: 400, label: "Battery storage", sol: 2, side: "l", href: "battery-storage.html" },
+      { x: 812, y: 316, label: "C&I rooftop solar", sol: 0, side: "r", href: "#solutions" },
+      { x: 1215, y: 290, label: "Public facilities", sol: 1, side: "r", href: "public-infrastructure.html" },
+      { x: 1468, y: 458, label: "Floating solar", sol: 4, side: "l", href: "floating-solar.html" }
     ];
     var pinOut = "";
     pins.forEach(function (p) {
       var w = p.label.length * 8.2 + 30;
       var lx = p.side === "r" ? 16 : -16 - w;
       var label = p.label.replace(/&/g, "&amp;");
-      pinOut += '<g class="hz-pin" tabindex="0" role="button" aria-label="' + label + ': see this solution" data-pin="' + p.sol + '" transform="translate(' + p.x + " " + p.y + ')"><g class="hz-pin-in">' +
+      pinOut += '<a class="hz-pin" href="' + p.href + '" aria-label="' + label + ': see this solution" data-pin="' + p.sol + '" transform="translate(' + p.x + " " + p.y + ')"><g class="hz-pin-in">' +
         '<circle r="9" fill="#c4dc66"><animate attributeName="r" values="8;22" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".7;0" dur="2.2s" repeatCount="indefinite"/></circle>' +
         '<circle r="7" fill="#c4dc66" stroke="' + INK + '" stroke-width="1.6"/>' +
         '<rect class="lbl" x="' + lx + '" y="-15" width="' + w + '" height="30" rx="15"/>' +
-        '<text x="' + (lx + 15) + '" y="5">' + label + "</text></g></g>";
+        '<text x="' + (lx + 15) + '" y="5">' + label + "</text></g></a>";
     });
     out += '<g class="hz-pins">' + pinOut + "</g>";
     svg.innerHTML = out;
 
-    $$(".hz-pin", svg).forEach(function (pin) {
-      var go = function () {
+    $$('.hz-pin[href^="#"]', svg).forEach(function (pin) {
+      pin.addEventListener("click", function (e) {
+        e.preventDefault();
         document.dispatchEvent(new CustomEvent("stg:solution", { detail: Number(pin.getAttribute("data-pin")) }));
         var target = document.getElementById("solutions");
         if (target) target.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
-      };
-      pin.addEventListener("click", go);
-      pin.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+      });
     });
 
     // Short, wide area: crop the empty sky at the top (slice). Tall area: keep the
@@ -509,6 +510,17 @@
         var n = i;
         do { n = (n + dir + items.length) % items.length; } while (n === current && items.length > 1 && n !== i);
         tabs[n].focus();
+      });
+    });
+    // The open card is one big link: a click anywhere on it (outside its own
+    // controls) follows its "Learn more" link, page transition included
+    items.forEach(function (it) {
+      var body = $(".sol-body", it), more = $(".sol-more", it);
+      if (!body || !more) return;
+      body.addEventListener("click", function (e) {
+        if (!it.classList.contains("is-active") || e.target.closest("a, button")) return;
+        if (window.getSelection && String(window.getSelection()).length) return; // selecting text
+        more.click();
       });
     });
     var list = $(".sol-list");

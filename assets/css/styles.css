@@ -1053,6 +1053,15 @@ ul {
   visibility: visible;
   transition: opacity 0.6s 0.35s, visibility 0s 0.35s;
 }
+.sol.is-active .sol-body {
+  cursor: pointer;
+}
+.sol.is-active .sol-body:hover .sol-more .u {
+  background-size: 100% 1px;
+}
+.sol.is-active .sol-body:hover .sol-more svg {
+  transform: translateX(4px);
+}
 .sol-text {
   display: flex;
   flex-direction: column;
