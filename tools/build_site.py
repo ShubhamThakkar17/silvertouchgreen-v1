@@ -24,11 +24,11 @@ SRC = ROOT / "src"
 
 # Which nav item each page highlights
 ACTIVE_KEYS = ["home", "about", "solutions", "ci", "public", "bess", "hybrid", "fpv"]
-SOLUTION_PAGES = {"public", "bess", "hybrid", "fpv"}
+SOLUTION_PAGES = {"ci", "public", "bess", "hybrid", "fpv"}
 
 
 RELATED = [
-    ("ci", "index.html#solutions", "C&amp;I solar EPC", "Rooftop and ground-mount systems for plants and commercial sites",
+    ("ci", "commercial-industrial-solar.html", "C&amp;I solar EPC", "Rooftop and ground-mount systems for plants and commercial sites",
      '<path d="M2 18V9l4 2.5V9l4 2.5V9l4 2.5V5h3v13Z" /><path d="M5 6.5l3-1.5M10 6.5l3-1.5" />'),
     ("public", "public-infrastructure.html", "Public infrastructure", "Compliant systems for government buildings and utilities",
      '<path d="M2 8 10 3.5 18 8ZM3.5 17.5h13M4.5 9.5v6M8 9.5v6M12 9.5v6M15.5 9.5v6" />'),

@@ -122,7 +122,7 @@
     var root = document.documentElement;
     var label = $(".pt-label");
     var PAGE_NAMES = {
-      "index.html": "Home", "about.html": "About us", "public-infrastructure.html": "Public infrastructure",
+      "index.html": "Home", "about.html": "About us", "commercial-industrial-solar.html": "C&I solar EPC", "public-infrastructure.html": "Public infrastructure",
       "battery-storage.html": "Battery storage", "hybrid-solar-wind.html": "Hybrid solar + wind", "floating-solar.html": "Floating solar"
     };
     function fileOf(url) {
@@ -323,21 +323,20 @@
     fr += tree(1300, 448, 14) + tree(1320, 454, 10);
     out += '<g class="px-front"><g class="hz-front">' + fr + "</g></g>";
 
-    // Hotspots: each links to its solution page (C&I has none yet, so it opens
-    // the matching panel of the solutions section below)
+    // Hotspots: each links to its solution page
     var pins = [
-      { x: 300, y: 408, label: "Hybrid solar + wind", sol: 3, side: "l", href: "hybrid-solar-wind.html" },
-      { x: 604, y: 400, label: "Battery storage", sol: 2, side: "l", href: "battery-storage.html" },
-      { x: 812, y: 316, label: "C&I rooftop solar", sol: 0, side: "r", href: "#solutions" },
-      { x: 1215, y: 290, label: "Public facilities", sol: 1, side: "r", href: "public-infrastructure.html" },
-      { x: 1468, y: 458, label: "Floating solar", sol: 4, side: "l", href: "floating-solar.html" }
+      { x: 300, y: 408, label: "Hybrid solar + wind", side: "l", href: "hybrid-solar-wind.html" },
+      { x: 604, y: 400, label: "Battery storage", side: "l", href: "battery-storage.html" },
+      { x: 812, y: 316, label: "C&I rooftop solar", side: "r", href: "commercial-industrial-solar.html" },
+      { x: 1215, y: 290, label: "Public facilities", side: "r", href: "public-infrastructure.html" },
+      { x: 1468, y: 458, label: "Floating solar", side: "l", href: "floating-solar.html" }
     ];
     var pinOut = "";
     pins.forEach(function (p) {
       var w = p.label.length * 8.2 + 30;
       var lx = p.side === "r" ? 16 : -16 - w;
       var label = p.label.replace(/&/g, "&amp;");
-      pinOut += '<a class="hz-pin" href="' + p.href + '" aria-label="' + label + ': see this solution" data-pin="' + p.sol + '" transform="translate(' + p.x + " " + p.y + ')"><g class="hz-pin-in">' +
+      pinOut += '<a class="hz-pin" href="' + p.href + '" aria-label="' + label + ': see this solution" transform="translate(' + p.x + " " + p.y + ')"><g class="hz-pin-in">' +
         '<circle r="9" fill="#c4dc66"><animate attributeName="r" values="8;22" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".7;0" dur="2.2s" repeatCount="indefinite"/></circle>' +
         '<circle r="7" fill="#c4dc66" stroke="' + INK + '" stroke-width="1.6"/>' +
         '<rect class="lbl" x="' + lx + '" y="-15" width="' + w + '" height="30" rx="15"/>' +
@@ -346,14 +345,6 @@
     out += '<g class="hz-pins">' + pinOut + "</g>";
     svg.innerHTML = out;
 
-    $$('.hz-pin[href^="#"]', svg).forEach(function (pin) {
-      pin.addEventListener("click", function (e) {
-        e.preventDefault();
-        document.dispatchEvent(new CustomEvent("stg:solution", { detail: Number(pin.getAttribute("data-pin")) }));
-        var target = document.getElementById("solutions");
-        if (target) target.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
-      });
-    });
 
     // Short, wide area: crop the empty sky at the top (slice). Tall area: keep the
     // full width and let the hero sky show above the landscape (meet). Phones always crop.
@@ -553,7 +544,6 @@
         if (inView) schedule(); else clearTimeout(timer);
       }, { threshold: 0.35 }).observe(list);
     }
-    document.addEventListener("stg:solution", function (e) { stopAuto(); activate(e.detail); });
     activate(0);
   })();
 

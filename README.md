@@ -1,6 +1,6 @@
 # Silver Touch Green RE: website
 
-Multipage marketing site for Silver Touch Green RE Pvt Ltd: home, about, and four solution pages. It is static HTML, CSS and JS. A small Python script assembles the pages from shared partials.
+Multipage marketing site for Silver Touch Green RE Pvt Ltd: home, about, and five solution pages. It is static HTML, CSS and JS. A small Python script assembles the pages from shared partials.
 
 ## Build
 
@@ -24,8 +24,8 @@ Open http://localhost:8080.
 ## Structure
 
 ```
-index.html, about.html, battery-storage.html, floating-solar.html,
-hybrid-solar-wind.html, public-infrastructure.html
+index.html, about.html, commercial-industrial-solar.html, battery-storage.html,
+floating-solar.html, hybrid-solar-wind.html, public-infrastructure.html
                         Generated pages (do not edit directly)
 src/pages/              Page sources with hand-drawn inline SVG illustrations
 src/partials/           head, header (nav, logo symbols, transition curtain), contact, footer
@@ -66,6 +66,7 @@ Aligned to the SilverTouch Green identity (logo kit and stationery):
 | Page | Highlights |
 |------|------------|
 | About | Orbit of the five in-house stages around the mark; a contractor tangle vs. one accountable pipeline; mission and vision reveals; a five-step expansion roadmap that fills as you scroll. |
+| C&I solar EPC | Plant with a sawtooth rooftop array, open-ground array and a live grid/solar supply mix; a chart of a production-shift load against rooftop solar; the five-step pathway from consumption audit to grid connection. Copy is drawn from the homepage and About documents. |
 | Public infrastructure | Civic campus with a ticking compliance checklist and rotating clarifiers; a 24-hour chart of a treatment plant's load against solar; a five-step delivery story. |
 | Battery storage | Day/night BESS cycle; animated outage, voltage-sag and tariff-peak threat cards; a chart with three tabs (peak shaving, backup during an outage, solar self-consumption); a five-step engineering story. |
 | Hybrid solar + wind | Sun arc, gusts and turbines feeding an output meter; a chart that morphs between calm, windy and mixed days; a four-step planning story. |
@@ -83,5 +84,4 @@ Animations pause while off-screen and respect `prefers-reduced-motion`.
 
 - **Form endpoint:** enquiries go to a Google Sheet, and each one emails shubham.thakkar@silvertouchgreen.com, through a small Google Apps Script. Follow [integrations/google-sheets/README.md](integrations/google-sheets/README.md) (about 5 minutes), then paste the web app URL into `data-endpoint` on `<form id="enquiry-form">`. Until then the form validates and shows its thank-you message but sends nothing. Any endpoint that accepts a URL-encoded POST (Formspree, for example) also works.
 - **Contact details:** add verified email, phone and address details to the contact section and footer.
-- **C&I solar page:** there is no dedicated page yet. The nav item points to the home page's solutions section.
 - **Copy review:** the inner-page copy comes straight from the copywriter's documents and still needs sign-off. See the content flags in the review notes (claims such as "10 to 15%" and "guaranteed / risk-free" wording).

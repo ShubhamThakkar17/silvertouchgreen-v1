@@ -44,7 +44,7 @@
 
   // Battery: solar self-consumption
   var selfLoad = [32, 31, 30, 30, 31, 34, 42, 52, 56, 58, 58, 57, 56, 57, 58, 60, 64, 72, 80, 84, 80, 66, 50, 40, 34];
-  var selfSolar = bell(100, 6, 18);
+  var selfSolar = bell(86, 6, 18);
   var selfBatt = H.map(function (x) { return [x, { 18: 34, 19: 44, 20: 46, 21: 40, 22: 30, 23: 10 }[x] || 0]; });
   var selfGrid = H.map(function (x) { return [x, Math.max(0, selfLoad[x] - selfSolar[x][1] - selfBatt[x][1])]; });
 
@@ -53,6 +53,12 @@
   var plantSolar = bell(80, 6, 18);
   var plantMet = H.map(function (x) { return [x, Math.min(plantLoad[x], plantSolar[x][1])]; });
   var plantGrid = H.map(function (x) { return [x, plantLoad[x] - plantMet[x][1]]; });
+
+  // C&I: a manufacturing plant on a long day shift with a rooftop array
+  var factoryLoad = [30, 29, 28, 28, 30, 38, 60, 76, 82, 84, 85, 85, 84, 85, 85, 84, 82, 76, 64, 50, 40, 35, 32, 31, 30];
+  var roofSolar = bell(70, 6, 18);
+  var factoryMet = H.map(function (x) { return [x, Math.min(factoryLoad[x], roofSolar[x][1])]; });
+  var factoryGrid = H.map(function (x) { return [x, factoryLoad[x] - factoryMet[x][1]]; });
 
   // Hybrid scenarios
   var HYBRID = {
@@ -80,7 +86,7 @@
         { key: "grid", label: "Grid import with BESS", color: C.grid, data: pts(peakGrid) },
         { key: "batt", label: "Battery discharge", color: C.batt, area: true, data: pts(peakDischarge) }
       ],
-      annots: [{ type: "hline", y: CAP, label: "Peak demand cap" }, { type: "band", x0: 0, x1: 5.5, label: "Charges off-peak" }]
+      annots: [{ type: "hline", y: CAP, label: "Peak demand cap", short: "Demand cap" }, { type: "band", x0: 0, x1: 5.5, label: "Charges off-peak" }]
     },
     "bess-backup": {
       yMax: 100, yTitle: "Share of daily peak load (%)",
@@ -100,6 +106,16 @@
         { key: "grid", label: "Grid import", color: C.grid, data: selfGrid }
       ],
       annots: [{ type: "band", x0: 9, x1: 15, label: "Surplus solar stored" }]
+    },
+    "ci-load": {
+      yMax: 100, yTitle: "Share of daily peak (%)",
+      series: [
+        { key: "load", label: "Facility load", color: C.ref, dash: "5 4", data: pts(factoryLoad) },
+        { key: "solar", label: "Rooftop solar", color: C.solar, data: roofSolar },
+        { key: "met", label: "Load met by solar", color: C.batt, area: true, data: factoryMet },
+        { key: "grid", label: "Grid import", color: C.grid, data: factoryGrid }
+      ],
+      annots: [{ type: "band", x0: 7, x1: 18, label: "Production shift" }]
     },
     "public-load": {
       yMax: 100, yTitle: "Share of daily peak (%)",
@@ -196,15 +212,20 @@
 
     // annotations (behind data)
     var an = el("g", { "class": "annot" }, svg);
-    (cfg.annots || []).forEach(function (a) {
+    // bands first, so reference lines and their labels sit on top of them
+    (cfg.annots || []).slice().sort(function (a, b) { return (a.type === "band" ? 0 : 1) - (b.type === "band" ? 0 : 1); }).forEach(function (a) {
       if (a.type === "band") {
         el("rect", { x: self.x(a.x0), y: self.m.t, width: self.x(a.x1) - self.x(a.x0), height: self.Hh - self.m.t - self.m.b, rx: 6 }, an);
-        var t = el("text", { x: (self.x(a.x0) + self.x(a.x1)) / 2, y: self.m.t + (self.narrow ? 26 : 16), "text-anchor": "middle" }, an);
+        var t = el("text", { x: (self.x(a.x0) + self.x(a.x1)) / 2, y: self.m.t + 14, "text-anchor": "middle" }, an);
         t.textContent = a.label;
+        // wider than a narrow band: start it inside the band instead of centring
+        var bw = self.x(a.x1) - self.x(a.x0), tw = 0;
+        try { tw = t.getComputedTextLength(); } catch (e) {}
+        if (tw > bw - 8) { t.setAttribute("x", self.x(a.x0) + 6); t.setAttribute("text-anchor", "start"); }
       } else if (a.type === "hline") {
         el("line", { x1: self.m.l, x2: self.W - self.m.r, y1: self.y(a.y), y2: self.y(a.y) }, an);
-        var t2 = el("text", self.narrow ? { x: self.W - self.m.r, y: self.y(a.y) - 6, "text-anchor": "end" } : { x: self.W - self.m.r + 6, y: self.y(a.y) + 4 }, an);
-        t2.textContent = a.label;
+        var t2 = el("text", self.narrow ? { x: self.m.l + 6, y: self.y(a.y) - 6 } : { x: self.W - self.m.r + 6, y: self.y(a.y) + 4 }, an);
+        t2.textContent = self.narrow && a.short ? a.short : a.label;
       } else if (a.type === "vline") {
         el("line", { x1: self.x(a.x), x2: self.x(a.x), y1: self.m.t + 22, y2: self.y(0) }, an);
       }
