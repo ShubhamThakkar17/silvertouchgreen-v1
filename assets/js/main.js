@@ -101,14 +101,27 @@
 
   // Solutions dropdown: opens on hover (mouse) or click/keyboard
   $$(".nav-drop").forEach(function (drop) {
-    var btn = $(".nav-drop-btn", drop), closeT;
+    var btn = $(".nav-drop-btn", drop), closeT, hoverOpened = false;
     var set = function (open) {
       drop.classList.toggle("is-open", open);
       btn.setAttribute("aria-expanded", open ? "true" : "false");
     };
-    btn.addEventListener("click", function () { set(!drop.classList.contains("is-open")); });
-    drop.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") { clearTimeout(closeT); set(true); } });
-    drop.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") closeT = setTimeout(function () { set(false); }, 180); });
+    // A click that follows a hover-open keeps the menu open instead of toggling it shut
+    btn.addEventListener("click", function () {
+      if (hoverOpened) { hoverOpened = false; set(true); return; }
+      set(!drop.classList.contains("is-open"));
+    });
+    drop.addEventListener("pointerenter", function (e) {
+      if (e.pointerType !== "mouse") return;
+      clearTimeout(closeT);
+      if (!drop.classList.contains("is-open")) hoverOpened = true;
+      set(true);
+    });
+    drop.addEventListener("pointerleave", function (e) {
+      if (e.pointerType !== "mouse") return;
+      hoverOpened = false;
+      closeT = setTimeout(function () { set(false); }, 180);
+    });
     drop.addEventListener("keydown", function (e) { if (e.key === "Escape") { set(false); btn.focus(); } });
     document.addEventListener("click", function (e) { if (!drop.contains(e.target)) set(false); });
     drop.addEventListener("focusout", function (e) { if (!drop.contains(e.relatedTarget)) set(false); });
