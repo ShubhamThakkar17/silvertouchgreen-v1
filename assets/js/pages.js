@@ -399,6 +399,7 @@
         var k = Number(l.getAttribute("data-layer"));
         l.classList.toggle("on", k <= i);
       });
+      $$("[data-until]", story).forEach(function (el) { el.classList.toggle("gone", i > Number(el.getAttribute("data-until"))); });
       if (bar) bar.style.width = ((i + 1) / steps.length) * 100 + "%";
       if (label && steps[i]) label.textContent = $("h3", steps[i]).textContent;
       if (count) count.textContent = (i + 1 < 10 ? "0" : "") + (i + 1) + " / " + (steps.length < 10 ? "0" : "") + steps.length;

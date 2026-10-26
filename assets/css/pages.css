@@ -347,6 +347,7 @@
   color: var(--white);
 }
 [data-words] .w {
+  white-space: nowrap; /* keep hyphenated words whole */
   opacity: 0.18;
   transition: opacity 0.2s linear;
 }
@@ -567,6 +568,13 @@ html:not(.js) .ticks li::before {
 }
 .story-stage [data-layer].dim {
   opacity: 0.35;
+}
+/* ...unless a later step replaces them (data-until="<last step shown>") */
+.story-stage [data-until] {
+  transition: opacity 0.5s var(--ease);
+}
+.story-stage [data-until].gone {
+  opacity: 0;
 }
 html:not(.js) .story-stage [data-layer] {
   opacity: 1;
