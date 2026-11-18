@@ -233,7 +233,7 @@
         [0, 120, 240].map(function (a) { return '<path d="' + blade + '" transform="rotate(' + a + " " + x + " " + hub + ')"/>'; }).join("") +
         '<animateTransform attributeName="transform" type="rotate" from="' + start + " " + x + " " + hub + '" to="' + (start + 360) + " " + x + " " + hub + '" dur="' + dur + 's" repeatCount="indefinite"/></g>';
       t += '<circle cx="' + x + '" cy="' + hub + '" r="' + 3.4 * s + '" fill="' + fill + '" stroke="' + stroke + '"/>';
-      return t;
+      return '<g class="hz-turb">' + t + "</g>";
     }
     // A tilted module: bottom edge at y, top edge leaning back by `lean`
     function panel(x, y, w, h, lean) {
@@ -261,10 +261,12 @@
       '<linearGradient id="hz-mid-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a6cc84"/><stop offset="1" stop-color="#86b665"/></linearGradient>' +
       '<linearGradient id="hz-front-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6aa64c"/><stop offset="1" stop-color="#3f7d38"/></linearGradient>' +
       '<linearGradient id="hz-water-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a6d7ec"/><stop offset="1" stop-color="#6fb6d8"/></linearGradient>' +
+      '<radialGradient id="hz-glow"><stop offset="0" stop-color="#c4dc66" stop-opacity=".75"/><stop offset="1" stop-color="#c4dc66" stop-opacity="0"/></radialGradient>' +
+      '<radialGradient id="hz-warm"><stop offset="0" stop-color="#ffd56a" stop-opacity=".45"/><stop offset="1" stop-color="#ffd56a" stop-opacity="0"/></radialGradient>' +
       "</defs>";
 
     // Sun
-    out += '<g class="px-sun"><g class="hz-sun"><circle cx="1150" cy="215" r="170" fill="url(#hz-sun-g)"/><circle cx="1150" cy="215" r="44" fill="#ffd45e"/></g></g>';
+    out += '<g class="px-sun"><g class="hz-sun"><circle cx="1150" cy="215" r="170" fill="url(#hz-sun-g)"/><circle cx="1150" cy="215" r="44" fill="#ffd45e" class="hz-sun-core"/></g></g>';
 
     // Back hills + distant turbines
     var back = '<path d="M0 330 C 200 262, 380 300, 560 252 C 760 198, 900 282, 1080 242 C 1260 202, 1420 272, 1600 232 V520 H0 Z" fill="url(#hz-back-g)"/>';
@@ -335,6 +337,18 @@
     fr += '<g class="hz-build">' + res + "</g>";
     fr += tree(1300, 448, 14) + tree(1320, 454, 10);
     out += '<g class="px-front"><g class="hz-front">' + fr + "</g></g>";
+
+    // Night (launch.js): a dusk wash over the land, then the lights battery storage keeps on
+    out += '<g class="px-dusk"><path class="hz-dusk" d="M0 330 C 200 262, 380 300, 560 252 C 760 198, 900 282, 1080 242 C 1260 202, 1420 272, 1600 232 V620 H0 Z"/></g>';
+    var lit = '<ellipse class="hz-lit" cx="604" cy="428" rx="92" ry="44" fill="url(#hz-glow)"/>' +
+      '<ellipse class="hz-lit" cx="810" cy="400" rx="190" ry="70" fill="url(#hz-warm)" style="--d:.5s"/>' +
+      '<rect class="hz-lit" x="562" y="410" width="84" height="38" rx="3" fill="none" stroke="#c4dc66" stroke-width="1.6"/>';
+    for (c = 0; c < 4; c++) lit += '<rect class="hz-lit hz-lit-cell" style="--d:' + (0.15 + c * 0.12) + 's" x="' + (570 + c * 19) + '" y="419" width="13" height="24" rx="1.5" fill="#c4dc66"/>';
+    lit += '<path class="hz-lit hz-lit-flow" style="--d:.7s" d="M646 440 Q 654 446, 664 446 H 790 M960 444 H 984 M1080 444 C 1100 444, 1110 440, 1132 440"/>';
+    for (k = 0; k < 7; k++) lit += '<rect class="hz-lit" style="--d:' + (0.9 + k * 0.09) + 's" x="' + (676 + k * 38) + '" y="380" width="24" height="16" fill="#ffd56a"/>';
+    lit += '<rect class="hz-lit" style="--d:1.5s" x="1030" y="400" width="34" height="12" fill="#ffd56a"/>';
+    for (k = 0; k < 5; k++) lit += '<rect class="hz-lit" style="--d:' + (1.6 + k * 0.08) + 's" x="' + (1158 + k * 24) + '" y="386" width="16" height="46" fill="#ffd56a" opacity=".8"/>';
+    out += '<g class="hz-night" aria-hidden="true">' + lit + "</g>";
 
     // Hotspots: each links to its solution page
     var pins = [
@@ -733,7 +747,7 @@
     if ($("#hero-scene")) {
       var heroST = { trigger: ".hero", start: "top top", end: "bottom top", scrub: true };
       gsap.to(".px-sun", { y: 110, ease: "none", scrollTrigger: heroST });
-      gsap.to(".px-back", { y: 70, ease: "none", scrollTrigger: heroST });
+      gsap.to(".px-back, .px-dusk", { y: 70, ease: "none", scrollTrigger: heroST });
       gsap.to(".px-mid", { y: 35, ease: "none", scrollTrigger: heroST });
       gsap.to(".hero-sky", { y: 80, ease: "none", scrollTrigger: heroST });
       gsap.to(".hero-copy", { y: -60, opacity: 0.2, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "60% top", scrub: true } });

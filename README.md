@@ -72,6 +72,16 @@ Aligned to the SilverTouch Green identity (logo kit and stationery):
 | Hybrid solar + wind | Sun arc, gusts and turbines feeding an output meter; a chart that morphs between calm, windy and mixed days; a four-step planning story. |
 | Floating solar | Reservoir cross-section with floats, moorings and an underwater cable; heat, cooling and evaporation cards; a five-step process story built on the cross-section. |
 
+## BESS assembly launch (Dholera, Gujarat, 2027)
+
+`assets/js/launch.js` and `assets/css/launch.css` carry the launch announcement:
+
+- **Hero sunset:** about four seconds after the landscape builds (once per browser session), the sun sets behind the hills, night falls, the battery containers light up and power the factory and civic building, and a launch card pops out of the spot where the sun went down. "Back to daylight", the close button or Esc restores the day. The moon pill under the hero buttons replays it at any time and links to the plan without JavaScript. With `prefers-reduced-motion` there is no automatic sunset; the pill switches straight to night.
+- **Dholera motion graphic** (`<svg data-dholera>`): Gujarat map with Dholera pinned, a zoom into the site, then an isometric BESS container that opens up (shell, a rack pulled out into modules and cells, then BMS, HVAC, fire suppression and PCS) and closes again with an "Assembled in Dholera" stamp. `data-dholera="loop"` autoplays (home launch band); `data-dholera="scroll"` is scrubbed by a scroll story (battery storage page, `#dholera`).
+- **Other BESS mentions** link to it: the battery panel in Solutions, the focus-area card, the battery page hero pill and the About roadmap.
+
+The Gujarat outline comes from [@svg-maps/india](https://github.com/VictorCazanave/svg-maps) (CC BY 4.0), simplified. Only Gujarat and neighbouring Indian states are drawn, so no international boundary appears.
+
 **Scroll stories:** the illustration stays pinned while the steps scroll past, and each step adds its layer to the drawing.
 
 **Charts:** these are illustrative profiles, labelled as such. They are rendered at real pixel size with a legend, direct labels, a hover/tap crosshair tooltip and a screen-reader table. The series colours were validated for colour-vision deficiency.

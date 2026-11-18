@@ -15,6 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/launch.css" />
   <script>
     document.documentElement.classList.add('js');
     // Arriving from another page of this site: start behind the transition curtain.
@@ -45,6 +46,12 @@
       </symbol>
       <symbol id="i-arrow" viewBox="0 0 16 16">
         <path d="M2 8h11M9 3.5 13.5 8 9 12.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="i-moon" viewBox="0 0 16 16">
+        <path d="M13.4 10.2A5.8 5.8 0 0 1 5.8 2.6a5.8 5.8 0 1 0 7.6 7.6Z" fill="currentColor" />
+      </symbol>
+      <symbol id="i-close" viewBox="0 0 12 12">
+        <path d="M2 2l8 8M10 2l-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
       </symbol>
       <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
         <line x1="0" y1="0" x2="0" y2="6" stroke="#0b4026" stroke-width="1.4" opacity="0.35" />
@@ -396,7 +403,7 @@
             <span class="roadmap-fill" aria-hidden="true"></span>
             <div class="rm-item is-now" data-reveal><span class="status"><span class="pulse" style="background:var(--lime)"></span>Now</span><h3><a href="commercial-industrial-solar.html">C&amp;I solar EPC</a></h3><p>Roof space, open grounds and industrial property.</p></div>
             <div class="rm-item is-now" data-reveal style="--i:1"><span class="status"><span class="pulse" style="background:var(--lime)"></span>Now</span><h3><a href="public-infrastructure.html">Public infrastructure</a></h3><p>Government buildings, municipal plants, utilities.</p></div>
-            <div class="rm-item is-next" data-reveal style="--i:2"><span class="status"><span class="pulse"></span>Developing</span><h3><a href="battery-storage.html">Battery storage</a></h3><p>Store surplus power.</p></div>
+            <div class="rm-item is-next" data-reveal style="--i:2"><span class="status"><span class="pulse" style="background:var(--lime)"></span>2027</span><h3><a href="battery-storage.html#dholera">Battery storage</a></h3><p>Store surplus power. BESS assembly launches in Dholera, Gujarat, in 2027.</p></div>
             <div class="rm-item is-next" data-reveal style="--i:3"><span class="status"><span class="pulse"></span>Developing</span><h3><a href="hybrid-solar-wind.html">Hybrid solar + wind</a></h3><p>Balance generation curves.</p></div>
             <div class="rm-item is-next" data-reveal style="--i:4"><span class="status"><span class="pulse"></span>Developing</span><h3><a href="floating-solar.html">Floating solar</a></h3><p>Generate on industrial water bodies.</p></div>
           </div>
@@ -555,5 +562,6 @@
   <script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/pages.js" defer></script>
+  <script src="assets/js/launch.js" defer></script>
 </body>
 </html>

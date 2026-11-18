@@ -15,6 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/launch.css" />
   <script>
     document.documentElement.classList.add('js');
     // Arriving from another page of this site: start behind the transition curtain.
@@ -45,6 +46,12 @@
       </symbol>
       <symbol id="i-arrow" viewBox="0 0 16 16">
         <path d="M2 8h11M9 3.5 13.5 8 9 12.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="i-moon" viewBox="0 0 16 16">
+        <path d="M13.4 10.2A5.8 5.8 0 0 1 5.8 2.6a5.8 5.8 0 1 0 7.6 7.6Z" fill="currentColor" />
+      </symbol>
+      <symbol id="i-close" viewBox="0 0 12 12">
+        <path d="M2 2l8 8M10 2l-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
       </symbol>
       <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
         <line x1="0" y1="0" x2="0" y2="6" stroke="#0b4026" stroke-width="1.4" opacity="0.35" />
@@ -116,6 +123,8 @@
     <!-- ============ 01 HERO ============ -->
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero-sky" aria-hidden="true">
+        <div class="hero-dusk"></div>
+        <div class="hero-night"><div class="hero-stars"></div><div class="hero-moon"></div></div>
         <div class="cloud" style="--top:12%;--rx:6vw;--w:300px;--dur:120s;--delay:-20s"><svg viewBox="0 0 300 90"><ellipse cx="80" cy="60" rx="70" ry="28" /><ellipse cx="150" cy="45" rx="70" ry="40" /><ellipse cx="220" cy="60" rx="65" ry="26" /></svg></div>
         <div class="cloud" style="--top:30%;--rx:64vw;--w:200px;--dur:95s;--delay:-70s;--o:.75"><svg viewBox="0 0 300 90"><ellipse cx="90" cy="62" rx="80" ry="24" /><ellipse cx="160" cy="48" rx="60" ry="34" /><ellipse cx="225" cy="64" rx="55" ry="20" /></svg></div>
         <div class="cloud" style="--top:6%;--rx:40vw;--w:240px;--dur:140s;--delay:-100s;--o:.85"><svg viewBox="0 0 300 90"><ellipse cx="70" cy="60" rx="60" ry="22" /><ellipse cx="140" cy="46" rx="74" ry="36" /><ellipse cx="225" cy="60" rx="60" ry="24" /></svg></div>
@@ -144,7 +153,30 @@
             <span class="roll"><span>Explore our solutions</span><span aria-hidden="true">Explore our solutions</span></span>
           </a>
         </div>
+        <a href="battery-storage.html#dholera" class="hero-announce" data-reveal style="--i:5" data-launch-open aria-controls="launch-pop" aria-expanded="false">
+          <span class="moon-chip"><svg aria-hidden="true"><use href="#i-moon" /></svg></span>
+          <b>2027</b>
+          <span>BESS assembly launching in Dholera<span class="long">, Gujarat</span></span>
+          <svg class="arrow" aria-hidden="true"><use href="#i-arrow" /></svg>
+        </a>
       </div>
+
+      <aside class="launch-pop" id="launch-pop" aria-labelledby="launch-pop-title" hidden>
+        <button type="button" class="lp-close" data-launch-close aria-label="Close announcement and return to daylight"><svg aria-hidden="true"><use href="#i-close" /></svg></button>
+        <div class="lp-in">
+          <span class="lp-eyebrow mono"><span class="pulse"></span>Launching 2027 &middot; Dholera, Gujarat</span>
+          <p class="lp-title" id="launch-pop-title">When the sun sets, <span>storage takes over.</span></p>
+          <svg class="lp-map" data-gj-mini role="img" aria-label="Map of Gujarat with Dholera marked"></svg>
+          <p class="lp-text">We are launching Battery Energy Storage System (BESS) assembly in Dholera, Gujarat, India, in 2027.</p>
+          <div class="lp-actions">
+            <a href="battery-storage.html#dholera" class="btn btn--lime">
+              <span class="chip"><svg><use href="#i-arrow" /></svg></span>
+              <span class="roll"><span>See the Dholera plan</span><span aria-hidden="true">See the Dholera plan</span></span>
+            </a>
+            <button type="button" class="lp-day" data-launch-close>Back to daylight</button>
+          </div>
+        </div>
+      </aside>
 
       <div class="hero-scene">
         <!-- Landscape built by main.js: every asset maps to one of the five solutions -->
@@ -517,6 +549,7 @@
                 <div class="sol-text">
                   <span class="mono">03 / 05</span>
                   <h3>Battery Energy Storage Systems (BESS)</h3>
+                  <a href="battery-storage.html#dholera" class="status status--launch sol-launch"><span class="pulse"></span>Assembly launching 2027 &middot; Dholera, Gujarat</a>
                   <p class="strap">Store energy and support critical operations.</p>
                   <p>Our enterprise-grade battery units are designed to keep your plant running during unexpected grid outages, lower expensive peak-hour power charges, and store extra daytime solar output for night shifts. Let’s spec out a backup energy system tailored to your site’s critical electrical load.</p>
                   <a href="battery-storage.html" class="link-arrow sol-more" aria-label="Learn more about battery storage"><span class="u">Learn more</span><svg><use href="#i-arrow" /></svg></a>
@@ -649,6 +682,37 @@
       </section>
     </div>
 
+    <!-- ============ LAUNCH: BESS assembly, Dholera 2027 ============ -->
+    <section class="section" id="bess-launch" aria-labelledby="launch-title" style="padding-bottom:0">
+      <div class="container">
+        <div class="dark sheet launch-band">
+          <div class="launch-grid">
+            <div>
+              <span class="tag" data-reveal><b>New</b><span>Launching 2027</span></span>
+              <h2 id="launch-title" class="h-section split">BESS assembly is coming to <span class="accent">Dholera, Gujarat</span></h2>
+              <p class="lede" data-reveal style="--i:2">In 2027 we are launching Battery Energy Storage System (BESS) assembly in Dholera, Gujarat, India. Battery cells, modules and racks come together in containerised systems, with battery management, thermal control and fire suppression built in.</p>
+              <div class="launch-facts" data-reveal style="--i:3">
+                <div><span class="mono">Where</span><b>Dholera, Gujarat</b></div>
+                <div><span class="mono">When</span><b>2027</b></div>
+                <div><span class="mono">What</span><b>Containerised BESS</b></div>
+              </div>
+              <div class="launch-actions" data-reveal style="--i:4">
+                <a href="#contact" class="btn btn--lime">
+                  <span class="chip"><svg><use href="#i-arrow" /></svg></span>
+                  <span class="roll"><span>Register your interest</span><span aria-hidden="true">Register your interest</span></span>
+                </a>
+                <a href="battery-storage.html#dholera" class="link-arrow"><span class="u">Inside the container</span><svg><use href="#i-arrow" /></svg></a>
+              </div>
+            </div>
+            <div class="launch-stage" data-reveal style="--i:1">
+              <div class="stage-head mono"><b>Dholera &middot; BESS assembly</b><span>Illustrative</span></div>
+              <svg class="dh-svg" data-dholera="loop" role="img" aria-label="Animation: a map of Gujarat with Dholera marked, then a battery storage container opened up to show its racks, modules and cells, battery management system, cooling, fire suppression and power conversion unit, and reassembled."></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ 05 FOCUS ============ -->
     <section class="section sheet" id="focus" aria-labelledby="focus-title">
       <div class="container">
@@ -727,7 +791,7 @@
                 <rect class="gf cyc-level" x="12" y="16" width="18" height="14" rx="1.5" />
               </svg>
               <h4><a href="battery-storage.html" class="dev-link">Battery storage</a></h4>
-              <div class="dev-bar"></div><span class="mono">In development</span>
+              <div class="dev-bar"></div><a href="#bess-launch" class="mono" style="color:var(--green)">Assembly in Dholera &middot; 2027</a>
             </div>
             <div class="dev-item">
               <svg class="ill" viewBox="0 0 44 44" aria-hidden="true">
@@ -1102,5 +1166,6 @@
   <script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/pages.js" defer></script>
+  <script src="assets/js/launch.js" defer></script>
 </body>
 </html>

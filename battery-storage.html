@@ -15,6 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/launch.css" />
   <script>
     document.documentElement.classList.add('js');
     // Arriving from another page of this site: start behind the transition curtain.
@@ -45,6 +46,12 @@
       </symbol>
       <symbol id="i-arrow" viewBox="0 0 16 16">
         <path d="M2 8h11M9 3.5 13.5 8 9 12.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="i-moon" viewBox="0 0 16 16">
+        <path d="M13.4 10.2A5.8 5.8 0 0 1 5.8 2.6a5.8 5.8 0 1 0 7.6 7.6Z" fill="currentColor" />
+      </symbol>
+      <symbol id="i-close" viewBox="0 0 12 12">
+        <path d="M2 2l8 8M10 2l-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
       </symbol>
       <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
         <line x1="0" y1="0" x2="0" y2="6" stroke="#0b4026" stroke-width="1.4" opacity="0.35" />
@@ -118,7 +125,7 @@
       <div class="container sub-hero-grid">
         <div>
           <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><i></i><a href="index.html#solutions">Solutions</a><i></i><span aria-current="page">Battery storage</span></nav>
-          <span class="status status--dev" data-reveal><span class="pulse"></span>Capability in development</span>
+          <a href="#dholera" class="status status--launch" data-reveal><span class="pulse"></span>Assembly launching 2027 &middot; Dholera, Gujarat</a>
           <h1 id="page-title" class="h-display split">Protect operations and optimise power costs with <span class="accent">enterprise-grade energy storage</span></h1>
           <p class="lede" data-reveal style="--i:2">Battery Energy Storage Systems (BESS) give industrial and commercial facilities direct control over their electricity consumption, allowing them to store surplus power when energy is cheap or abundant and discharge it when grid rates spike or power drops out.</p>
           <div class="hero-actions" data-reveal style="--i:3">
@@ -168,6 +175,36 @@
             <text x="295" y="334" text-anchor="middle" class="cyc-label-day" style="fill:#8a6200">Charging &middot; daytime solar</text>
             <text x="295" y="334" text-anchor="middle" class="cyc-label-night" style="fill:var(--green)">Discharging &middot; night shift</text>
           </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LAUNCH: Dholera BESS assembly (scroll story) ============ -->
+    <section class="sub-section" id="dholera" aria-labelledby="dholera-title">
+      <div class="container">
+        <div class="dark sheet clip-ok" style="padding:clamp(28px,5vw,72px)">
+          <div class="section-head">
+            <div>
+              <span class="tag" data-reveal><b>New</b><span>Launching 2027</span></span>
+              <h2 id="dholera-title" class="h-section split">BESS assembly in <span class="accent">Dholera, Gujarat</span></h2>
+            </div>
+            <p class="lede" data-reveal style="max-width:46ch">In 2027 we are launching Battery Energy Storage System assembly in Dholera, Gujarat, India. Scroll to see where it is and how a containerised system comes together.</p>
+          </div>
+
+          <div class="story" data-story>
+            <div class="story-stage">
+              <div class="stage-head mono"><b data-stage-label>Dholera, Gujarat</b><span data-stage-count>01 / 05</span></div>
+              <svg class="dh-svg" data-dholera="scroll" role="img" aria-label="Illustration: a map of Gujarat with Dholera marked, then a battery storage container opened up to show its racks, modules and cells, battery management system, cooling, fire suppression and power conversion unit, and reassembled."></svg>
+              <div class="stage-bar"><i></i></div>
+            </div>
+            <div class="story-steps">
+              <article class="story-step"><span class="step-n"><b>01</b>Where</span><h3>Dholera, Gujarat</h3><p>Our BESS assembly line opens in 2027 in Dholera, Gujarat, India, at the head of the Gulf of Khambhat in Ahmedabad district.</p></article>
+              <article class="story-step"><span class="step-n"><b>02</b>Enclosure</span><h3>The containerised shell</h3><p>Each system is built inside an insulated container that houses the batteries and their controls and protects them on site.</p></article>
+              <article class="story-step"><span class="step-n"><b>03</b>Battery</span><h3>Cells, modules and racks</h3><p>Battery cells are grouped into modules, and modules are stacked into racks. The racks are installed and connected inside the container.</p></article>
+              <article class="story-step"><span class="step-n"><b>04</b>Safety &amp; control</span><h3>Safety and controls</h3><p>A Battery Management System (BMS) monitors the cells, HVAC keeps them at a stable temperature, fire detection and suppression protect the enclosure, and a power conversion system (PCS) connects the battery to your site.</p></article>
+              <article class="story-step"><span class="step-n"><b>05</b>Assembly</span><h3>Assembled in Dholera</h3><p>The container is closed up and checked before it leaves Dholera for installation and commissioning at your facility.</p></article>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -523,5 +560,6 @@
   <script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/pages.js" defer></script>
+  <script src="assets/js/launch.js" defer></script>
 </body>
 </html>
