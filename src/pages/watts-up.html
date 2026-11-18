@@ -1,0 +1,68 @@
+<!--page
+{
+  "file": "watts-up.html",
+  "slug": "news",
+  "title": "Watt's Up: Renewable Energy News from India, No Cap | Silver Touch Green RE",
+  "description": "Watt's Up is Silver Touch Green RE's news and PR hub: battery storage tenders, solar records, floating solar, open access and Gujarat energy policy, summarised in 30 seconds with links to the source.",
+  "active": "news",
+  "contact_num": "03",
+  "contact_title": "Read something that fits <span class=\"accent\">your site?</span>",
+  "contact_text": "Tell us about your facility and we'll tell you which of these changes help your energy costs, from storage to rooftop solar."
+}
+-->
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section class="sub-hero sheet wu-hero" id="top" aria-labelledby="page-title">
+      <div class="container">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><i></i><span aria-current="page">Watt&rsquo;s Up</span></nav>
+        <div class="wu-hero-grid">
+          <div>
+            <span class="status status--launch" data-reveal><span class="pulse"></span>Energy news, no cap</span>
+            <h1 id="page-title" class="wu-title" aria-label="Watt's Up">
+              <span class="wu-w" aria-hidden="true">Watt<span class="wu-apos">&rsquo;</span>s</span>
+              <span class="wu-w wu-up" aria-hidden="true">Up<svg class="wu-bolt" viewBox="0 0 40 64"><path d="M24 2 4 36h14l-4 26 22-36H22Z" /></svg></span>
+            </h1>
+            <p class="lede" data-reveal style="--i:2">The renewable energy stories worth your scroll: storage, solar, policy and projects across India, each one summarised in about 30 seconds with the source one click away. Our own announcements live here too.</p>
+          </div>
+          <div class="wu-hero-art" data-reveal style="--i:1" aria-hidden="true">
+            <div class="wu-vis wu-vis--hero" data-vis="hero"></div>
+          </div>
+        </div>
+      </div>
+      <div class="marquee mono wu-ticker" aria-label="The numbers in this edition">
+        <div class="marquee-label">The numbers</div>
+        <div class="marquee-track" aria-hidden="true">{{news_ticker}}</div>
+      </div>
+    </section>
+
+    <!-- ============ OUR NEWS ============ -->
+    <section class="sub-section" aria-labelledby="ours-title" style="padding-bottom:0">
+      <div class="container">
+        <div class="section-head" style="margin-bottom:28px">
+          <div>
+            <span class="tag" data-reveal><b>01</b><span>Fresh from us</span></span>
+            <h2 id="ours-title" class="h-section split" style="margin-top:4px">Main character <span class="accent">energy</span></h2>
+          </div>
+        </div>
+        {{news_featured}}
+      </div>
+    </section>
+
+    <!-- ============ INDUSTRY ============ -->
+    <section class="sub-section sheet" aria-labelledby="feed-title" style="padding-top:clamp(64px,8vw,110px)">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="tag" data-reveal><b>02</b><span>Around the industry</span></span>
+            <h2 id="feed-title" class="h-section split">The tea on <span class="accent">India's energy transition</span></h2>
+          </div>
+          <div class="wu-filters" role="group" aria-label="Filter stories" data-reveal>{{news_filters}}</div>
+        </div>
+        <div class="wu-grid" id="wu-grid">{{news_cards}}</div>
+        <p class="wu-note">Summaries are written by our team. Figures are as reported by the linked source on the date shown; check the source for the full story. <a href="watts-up.xml">RSS feed</a></p>
+      </div>
+    </section>
+
+{{contact}}
+  </main>

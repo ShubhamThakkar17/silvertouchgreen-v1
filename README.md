@@ -72,6 +72,16 @@ Aligned to the SilverTouch Green identity (logo kit and stationery):
 | Hybrid solar + wind | Sun arc, gusts and turbines feeding an output meter; a chart that morphs between calm, windy and mixed days; a four-step planning story. |
 | Floating solar | Reservoir cross-section with floats, moorings and an underwater cable; heat, cooling and evaporation cards; a five-step process story built on the cross-section. |
 
+## Watt's Up (news & PR)
+
+`watts-up.html` is the news hub: our own announcements as a featured card, then industry stories with filter chips. Each card has an animated SVG (`data-vis`, built by `assets/js/news.js`, styled in `assets/css/news.css`). The three newest stories also appear on the home page (`#watts-up`).
+
+To add a story, add an entry to `src/data/news.json` and run the build. Write the headline and summary in our own words and link the source. `vis` picks the motion graphic: `dholera`, `tender`, `colocated`, `policy`, `bars`, `hybrid`, `openaccess`, `floating` or `record`. The build also writes the RSS feed `watts-up.xml`.
+
+## SEO
+
+The build adds a canonical URL, Open Graph and Twitter tags, and JSON-LD to every page (Organization and WebSite on the home page, BreadcrumbList on inner pages, CollectionPage on Watt's Up). It also writes `sitemap.xml` and `robots.txt`. The canonical host is `https://www.silvertouchgreen.com` (`SITE` in `tools/build_site.py`). The share image `assets/img/og-image.png` and `assets/img/logo-512.png` are rendered from `tools/og/og.html` by `node tools/render_og.js`. After going live, submit the sitemap in Google Search Console.
+
 ## BESS assembly launch (Dholera, Gujarat, 2027)
 
 `assets/js/launch.js` and `assets/css/launch.css` carry the launch announcement:

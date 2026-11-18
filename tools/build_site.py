@@ -15,16 +15,187 @@ Usage:  python3 tools/build_site.py
 Output: index.html, about.html, ... in the repository root (commit these; hosting
 needs no build step).
 """
+import datetime
+import html
 import json
 import pathlib
 import re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "src"
+SITE = "https://www.silvertouchgreen.com"
+ORG_NAME = "Silver Touch Green RE Pvt Ltd"
 
 # Which nav item each page highlights
-ACTIVE_KEYS = ["home", "about", "solutions", "ci", "public", "bess", "hybrid", "fpv"]
+ACTIVE_KEYS = ["home", "about", "solutions", "ci", "public", "bess", "hybrid", "fpv", "news"]
 SOLUTION_PAGES = {"ci", "public", "bess", "hybrid", "fpv"}
+
+# Breadcrumb names (solution pages sit under "Solutions")
+CRUMBS = {
+    "about.html": "About us",
+    "commercial-industrial-solar.html": "C&I solar EPC",
+    "public-infrastructure.html": "Public infrastructure",
+    "battery-storage.html": "Battery storage",
+    "hybrid-solar-wind.html": "Hybrid solar + wind",
+    "floating-solar.html": "Floating solar",
+    "watts-up.html": "Watt's Up",
+}
+
+# ---------------------------------------------------------------- Watt's Up
+TAGS = {
+    "storage": "Storage szn",
+    "solar": "Solar",
+    "policy": "Policy tea",
+    "floating": "Float on",
+    "ci": "C&I",
+    "hybrid": "Hybrid era",
+}
+
+
+def esc(s):
+    return html.escape(s, quote=True)
+
+
+def nice_date(iso):
+    d = datetime.date.fromisoformat(iso)
+    return f"{d.day} {d.strftime('%b %Y')}"
+
+
+def load_news():
+    data = json.loads((SRC / "data" / "news.json").read_text())
+    return sorted(data["items"], key=lambda i: i["date"], reverse=True)
+
+
+def news_card(item, featured=False):
+    ours = item["kind"] == "ours"
+    ext = "" if ours else ' target="_blank" rel="noopener"'
+    cta = "Read the announcement" if ours else f"Read on {esc(item['source'])}"
+    arrow = '<svg aria-hidden="true"><use href="#i-arrow" /></svg>' if ours else '<svg class="ext" viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2h6v6M10 2 3 9" /></svg>'
+    tag = "Our news" if ours else TAGS.get(item["tag"], item["tag"])
+    stat = item.get("stat") or {}
+    stat_html = ""
+    if stat:
+        stat_html = (f'<div class="wu-stat"><b data-count="{esc(stat["value"])}">{esc(stat["value"])}</b>'
+                     f'<small>{esc(stat.get("unit", ""))}</small><span>{esc(stat["label"])}</span></div>')
+    cls = "wu-card" + (" wu-card--ours" if ours else "") + (" wu-card--featured" if featured else "")
+    return (
+        f'<article class="{cls}" data-tag="{esc(item["tag"])}" data-kind="{esc(item["kind"])}" data-reveal>'
+        f'<div class="wu-vis" data-vis="{esc(item["vis"])}" aria-hidden="true"></div>'
+        f'<div class="wu-body">'
+        f'<div class="wu-meta mono"><span class="wu-tag">{esc(tag)}</span><span class="wu-src">{esc(item["source"])}</span>'
+        f'<time datetime="{item["date"]}">{nice_date(item["date"])}</time></div>'
+        f'<h3><a class="wu-link" href="{esc(item["url"])}"{ext}>{esc(item["title"])}</a></h3>'
+        f'<p class="wu-tldr"><b>TL;DR</b> {esc(item["tldr"])}</p>'
+        f'<p class="wu-sowhat"><b>So what?</b> {esc(item["sowhat"])}</p>'
+        f'{stat_html}'
+        f'<span class="wu-cta">{cta}{arrow}</span>'
+        f"</div></article>"
+    )
+
+
+def news_blocks(items):
+    ours = [i for i in items if i["kind"] == "ours"]
+    rest = [i for i in items if i["kind"] != "ours"]
+    featured = news_card(ours[0], featured=True) if ours else ""
+    cards = "".join(news_card(i) for i in (ours[1:] + rest))
+    latest = "".join(news_card(i) for i in items[:3])
+    ticker = "".join(
+        f'<span><b>{esc(i["stat"]["value"])}{(" " + esc(i["stat"]["unit"])) if i["stat"].get("unit") else ""}</b> {esc(i["stat"]["label"])}</span>'
+        for i in items if i.get("stat")
+    )
+    filters = ['<button type="button" class="wu-chip" aria-pressed="true" data-filter="all">All the tea</button>']
+    used = []
+    for i in rest:
+        if i["tag"] not in used:
+            used.append(i["tag"])
+    filters += [f'<button type="button" class="wu-chip" aria-pressed="false" data-filter="{t}">{esc(TAGS[t])}</button>' for t in used]
+    return {
+        "news_featured": featured,
+        "news_cards": cards,
+        "news_latest": latest,
+        "news_ticker": ticker + ticker,
+        "news_filters": "".join(filters),
+    }
+
+
+# ---------------------------------------------------------------- SEO
+def page_url(file):
+    return SITE + "/" if file == "index.html" else f"{SITE}/{file}"
+
+
+def jsonld(meta, news):
+    file = meta["file"]
+    graph = []
+    org = {
+        "@type": "Organization",
+        "@id": SITE + "/#org",
+        "name": ORG_NAME,
+        "alternateName": "SilverTouch Green",
+        "url": SITE + "/",
+        "logo": SITE + "/assets/img/logo-512.png",
+        "description": "Renewable energy EPC for industrial, commercial and government facilities in India: C&I solar, public infrastructure, battery storage, hybrid solar-wind and floating solar.",
+        "areaServed": "IN",
+        "slogan": "Ideas. People. Solutions.",
+    }
+    if file == "index.html":
+        graph += [org, {"@type": "WebSite", "@id": SITE + "/#website", "url": SITE + "/", "name": "Silver Touch Green RE", "publisher": {"@id": SITE + "/#org"}}]
+    else:
+        crumbs = [{"@type": "ListItem", "position": 1, "name": "Home", "item": SITE + "/"}]
+        if meta.get("active") in SOLUTION_PAGES:
+            crumbs.append({"@type": "ListItem", "position": 2, "name": "Solutions", "item": SITE + "/#solutions"})
+        crumbs.append({"@type": "ListItem", "position": len(crumbs) + 1, "name": CRUMBS.get(file, meta["title"]), "item": page_url(file)})
+        graph.append({"@type": "BreadcrumbList", "itemListElement": crumbs})
+    if file == "watts-up.html":
+        graph.append({
+            "@type": "CollectionPage",
+            "name": "Watt's Up: renewable energy news",
+            "url": page_url(file),
+            "publisher": {"@id": SITE + "/#org"},
+            "mainEntity": {
+                "@type": "ItemList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": n + 1, "name": i["title"],
+                     "url": i["url"] if i["url"].startswith("http") else SITE + "/" + i["url"]}
+                    for n, i in enumerate(news)
+                ],
+            },
+        })
+    blob = json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, separators=(",", ":"))
+    return '<script type="application/ld+json">' + blob.replace("</", "<\\/") + "</script>"
+
+
+def write_seo_files(metas):
+    today = datetime.date.today().isoformat()
+    urls = "".join(
+        f"  <url><loc>{page_url(m['file'])}</loc><lastmod>{today}</lastmod><priority>{'1.0' if m['file'] == 'index.html' else '0.8'}</priority></url>\n"
+        for m in sorted(metas, key=lambda m: (m["file"] != "index.html", m["file"]))
+    )
+    (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "</urlset>\n")
+    (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
+
+
+def write_rss(news):
+    def rfc822(iso):
+        d = datetime.datetime.fromisoformat(iso + "T09:00:00+05:30")
+        return d.strftime("%a, %d %b %Y %H:%M:%S %z")
+    items = "".join(
+        "  <item>\n"
+        f"    <title>{esc(i['title'])}</title>\n"
+        f"    <link>{esc(i['url'] if i['url'].startswith('http') else SITE + '/' + i['url'])}</link>\n"
+        f"    <guid isPermaLink=\"false\">stg-{esc(i['id'])}</guid>\n"
+        f"    <pubDate>{rfc822(i['date'])}</pubDate>\n"
+        f"    <category>{esc('Our news' if i['kind'] == 'ours' else TAGS.get(i['tag'], i['tag']))}</category>\n"
+        f"    <description>{esc(i['tldr'] + ' So what? ' + i['sowhat'] + ' (Source: ' + i['source'] + ')')}</description>\n"
+        "  </item>\n"
+        for i in news
+    )
+    (ROOT / "watts-up.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n<channel>\n'
+        f"  <title>Watt's Up by Silver Touch Green RE</title>\n  <link>{SITE}/watts-up.html</link>\n"
+        f'  <atom:link href="{SITE}/watts-up.xml" rel="self" type="application/rss+xml" />\n'
+        "  <description>Renewable energy news from India, no cap: storage, solar, policy and projects, summarised.</description>\n"
+        "  <language>en-in</language>\n" + items + "</channel>\n</rss>\n"
+    )
 
 
 RELATED = [
@@ -65,7 +236,10 @@ def render(template, values):
 
 def build():
     partials = {p.stem: p.read_text() for p in (SRC / "partials").glob("*.html")}
+    news = load_news()
+    blocks = news_blocks(news)
     built = []
+    metas = []
     for page_path in sorted((SRC / "pages").glob("*.html")):
         text = page_path.read_text()
         m = re.match(r"\s*<!--page\s*(\{.*?\})\s*-->\s*", text, re.S)
@@ -85,21 +259,29 @@ def build():
             "contact_num": meta.get("contact_num", ""),
             "contact_title": meta.get("contact_title", ""),
             "contact_text": meta.get("contact_text", ""),
+            "canonical": page_url(meta["file"]),
+            "og_image": SITE + "/assets/img/og-image.png",
+            "jsonld": jsonld(meta, news),
         }
+        values.update(blocks)
+        metas.append(meta)
         for key in ACTIVE_KEYS:
             on = key == active or (key == "solutions" and active in SOLUTION_PAGES)
             values["act_" + key] = "is-active" if on else ""
 
         values["related"] = related_html(active)
         values["contact"] = render(partials["contact"], values)
-        html = "".join([
+        page = "".join([
             render(partials["head"], values),
             render(partials["header"], values),
             render(body, values),
             render(partials["footer"], values),
         ])
-        (ROOT / meta["file"]).write_text(html)
+        (ROOT / meta["file"]).write_text(page)
         built.append(meta["file"])
+    write_seo_files(metas)
+    write_rss(news)
+    built += ["sitemap.xml", "robots.txt", "watts-up.xml"]
     return built
 
 

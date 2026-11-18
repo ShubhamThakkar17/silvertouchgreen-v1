@@ -1,0 +1,122 @@
+{
+  "_readme": "Watt's Up stories. Newest first is not required: the build sorts by date. kind: 'ours' (our press) or 'industry' (links out). tag: storage | solar | policy | floating | ci | hybrid. vis picks the motion graphic in assets/js/news.js. Write summaries in our own words and always link the source.",
+  "items": [
+    {
+      "id": "dholera-bess-assembly",
+      "kind": "ours",
+      "tag": "storage",
+      "vis": "dholera",
+      "date": "2026-11-18",
+      "source": "Silver Touch Green RE",
+      "url": "battery-storage.html#dholera",
+      "title": "We're launching BESS assembly in Dholera, Gujarat, in 2027",
+      "tldr": "Silver Touch Green RE will begin assembling Battery Energy Storage Systems in Dholera, Gujarat, India, in 2027: cells, modules and racks integrated into containerised systems with battery management, thermal control and fire suppression.",
+      "sowhat": "Storage assembled in Gujarat, close to the plants, warehouses and utilities we already build solar for.",
+      "stat": { "value": "2027", "unit": "", "label": "Launch year" }
+    },
+    {
+      "id": "nhpc-jalaun-bess",
+      "kind": "industry",
+      "tag": "storage",
+      "vis": "colocated",
+      "date": "2026-11-10",
+      "source": "ESS News",
+      "url": "https://www.ess-news.com/2026/11/10/nhpc-tenders-bess-projects-at-1-2-gw-solar-park-in-india/",
+      "title": "NHPC wants batteries bolted onto a 1.2 GW solar park",
+      "tldr": "NHPC, for Bundelkhand Saur Urja, invited bids for battery storage co-located with solar at the Jalaun Solar Park in Uttar Pradesh, in two configurations of 800 MW: one with 4,800 MWh of storage, one with 3,200 MWh.",
+      "sowhat": "Solar is being asked to deliver after sunset, and storage is how it does that.",
+      "stat": { "value": "4,800", "unit": "MWh", "label": "Largest configuration" }
+    },
+    {
+      "id": "seci-ess-v-16gwh",
+      "kind": "industry",
+      "tag": "storage",
+      "vis": "tender",
+      "date": "2026-10-29",
+      "source": "REGlobal",
+      "url": "https://reglobal.org/india-tenders-16-gwh-bess/",
+      "title": "SECI opens a 16 GWh battery tender, with 6 GWh in Gujarat",
+      "tldr": "SECI is tendering 4,000 MW / 16,000 MWh of standalone battery storage: 2,500 MW / 10,000 MWh in Rajasthan and 1,500 MW / 6,000 MWh in Gujarat, with central financial assistance of Rs 15 lakh per MWh.",
+      "sowhat": "Gujarat is becoming one of India's biggest battery markets.",
+      "stat": { "value": "16", "unit": "GWh", "label": "Tendered storage" }
+    },
+    {
+      "id": "gerc-bess-regulations",
+      "kind": "industry",
+      "tag": "policy",
+      "vis": "policy",
+      "date": "2026-10-22",
+      "source": "Mercom India",
+      "url": "https://www.mercomindia.com/gujarat-regulator-notifies-battery-energy-storage-regulations",
+      "title": "Gujarat writes the rulebook for grid batteries",
+      "tldr": "The Gujarat Electricity Regulatory Commission notified the Grid Interactive Battery Energy Storage System Regulations, 2026, a state framework for planning, procuring, operating and scheduling BESS.",
+      "sowhat": "Clear rules make storage projects in Gujarat easier to plan and finance.",
+      "stat": { "value": "2026", "unit": "", "label": "GERC BESS regulations" }
+    },
+    {
+      "id": "jmk-9m-2026",
+      "kind": "industry",
+      "tag": "solar",
+      "vis": "bars",
+      "date": "2026-10-09",
+      "source": "JMK Research",
+      "url": "https://jmkresearch.com/india-added-35-2-gw-of-solar-and-4-69-gwo-f-wind-capacity-in-the-first-nine-months-of-2026/",
+      "title": "35.2 GW of solar in nine months",
+      "tldr": "India added about 35.2 GW of solar and 4.69 GW of wind from January to September 2026, including about 9.8 GW of rooftop solar. Total renewable capacity reached about 299.2 GW.",
+      "sowhat": "Rooftop is now a big slice of the market, and that includes factory and warehouse roofs.",
+      "stat": { "value": "35.2", "unit": "GW", "label": "Solar added, Jan-Sep 2026" }
+    },
+    {
+      "id": "kpi-hybrid-gujarat",
+      "kind": "industry",
+      "tag": "hybrid",
+      "vis": "hybrid",
+      "date": "2026-09-02",
+      "source": "Renewable Watch",
+      "url": "https://renewablewatch.in/2026/09/02/kpi-green-energy-bags-wind-solar-hybrid-project-in-gujarat/",
+      "title": "Wind and solar, one captive project in Gujarat",
+      "tldr": "KPI Green Energy received a letter of intent for a group-captive wind-solar hybrid project in Gujarat: 33.6 MW of wind with 33.6 MWac / 43 MWdc of solar, due by the end of 2027.",
+      "sowhat": "Hybrid captive projects let industrial buyers draw clean power around the clock.",
+      "stat": { "value": "67.2", "unit": "MW", "label": "Wind + solar (AC)" }
+    },
+    {
+      "id": "open-access-q2-record",
+      "kind": "industry",
+      "tag": "ci",
+      "vis": "openaccess",
+      "date": "2026-08-24",
+      "source": "pv magazine",
+      "url": "https://www.pv-magazine.com/2026/08/24/india-adds-3-gw-of-open-access-solar-in-q2/",
+      "title": "Factories are buying solar at record pace",
+      "tldr": "India added a record 3 GW of open-access solar in Q2 2026, according to Mercom, taking the first half to nearly 6 GW (up 42% year on year) and the cumulative total to 36 GW.",
+      "sowhat": "Commercial and industrial buyers are going solar faster than ever.",
+      "stat": { "value": "3", "unit": "GW", "label": "Open access, Q2 2026" }
+    },
+    {
+      "id": "pm-surya-sarovar",
+      "kind": "industry",
+      "tag": "floating",
+      "vis": "floating",
+      "date": "2026-08-05",
+      "source": "pv magazine India",
+      "url": "https://www.pv-magazine-india.com/2026/08/05/india-approves-inr-5070-crore-scheme-for-5-gw-of-floating-solar-with-storage/",
+      "title": "5 GW of floating solar, batteries included",
+      "tldr": "The Pradhan Mantri Surya Sarovar Yojana (INR 5,070 crore) targets 5 GW of floating solar on reservoirs and industrial ponds, each with at least two hours of co-located storage, with INR 1 crore per MW paid on commissioning.",
+      "sowhat": "Industrial water bodies can now earn their keep, and every one of these projects needs storage.",
+      "stat": { "value": "5", "unit": "GW", "label": "Floating solar target" }
+    },
+    {
+      "id": "fy26-solar-record",
+      "kind": "industry",
+      "tag": "solar",
+      "vis": "record",
+      "date": "2026-04-10",
+      "source": "TaiyangNews",
+      "url": "https://taiyangnews.info/markets/india-adds-record-45-gw-solar-pv-capacity-fy-2026",
+      "title": "India's biggest solar year yet: 44.6 GW",
+      "tldr": "India added a record 44.6 GW of solar in FY 2025-26, up 87.2% on the year before, taking cumulative solar capacity to 150.26 GW at the end of March 2026 (MNRE data).",
+      "sowhat": "With this much solar on the grid, the next bottleneck is storage.",
+      "stat": { "value": "44.6", "unit": "GW", "label": "Solar added in FY 2025-26" }
+    }
+  ]
+}

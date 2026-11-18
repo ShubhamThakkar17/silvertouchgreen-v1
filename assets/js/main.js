@@ -135,7 +135,7 @@
     var root = document.documentElement;
     var label = $(".pt-label");
     var PAGE_NAMES = {
-      "index.html": "Home", "about.html": "About us", "commercial-industrial-solar.html": "C&I solar EPC", "public-infrastructure.html": "Public infrastructure",
+      "index.html": "Home", "about.html": "About us", "watts-up.html": "Watt's Up", "commercial-industrial-solar.html": "C&I solar EPC", "public-infrastructure.html": "Public infrastructure",
       "battery-storage.html": "Battery storage", "hybrid-solar-wind.html": "Hybrid solar + wind", "floating-solar.html": "Floating solar"
     };
     function fileOf(url) {
