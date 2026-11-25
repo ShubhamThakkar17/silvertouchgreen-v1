@@ -1,4 +1,4 @@
-/* SilverTouch Green: subpage modules (charts, scroll stories, word reveals, roadmap) */
+/* Silver Touch Green RE: subpage modules (charts, scroll stories, word reveals, roadmap) */
 (function () {
   "use strict";
 

@@ -1,4 +1,4 @@
-/* SilverTouch Green: Watt's Up (news & PR)
+/* Silver Touch Green RE: Watt's Up (news & PR)
    Motion graphics for each story (data-vis), filter chips, count-up stats.
    Every visual is decorative (aria-hidden); the story text is in the HTML. */
 (function () {
@@ -52,7 +52,7 @@
 
   var VIS = {
     hero: function () {
-      var o = '<defs><radialGradient id="wu-hg"><stop offset="0" stop-color="#c4dc66" stop-opacity=".55"/><stop offset="1" stop-color="#c4dc66" stop-opacity="0"/></radialGradient></defs>';
+      var o = '<defs><radialGradient id="wu-hg"><stop offset="0" stop-color="#ffb100" stop-opacity=".55"/><stop offset="1" stop-color="#ffb100" stop-opacity="0"/></radialGradient></defs>';
       o += '<circle cx="160" cy="92" r="90" fill="url(#wu-hg)" class="wu-breathe"/>';
       o += '<g class="wu-orbit"><circle class="wu-ring" cx="160" cy="92" r="70"/>' +
         '<g class="wu-orb" style="--a:0deg"><circle cx="230" cy="92" r="13" class="wu-sunc"/></g>' +
@@ -86,7 +86,7 @@
       o += '<path class="wu-flowp" d="M176 136 H206"/>';
       o += '<rect class="wu-batt" x="208" y="92" width="96" height="56" rx="6"/>';
       o += '<rect class="wu-cellbg" x="216" y="100" width="80" height="40" rx="3"/><rect class="wu-daynight" x="216" y="100" width="80" height="40" rx="3"/>';
-      o += '<text class="wu-small" x="256" y="84" text-anchor="middle">DAY IN CHARGE &#8594; DISCHARGE#183; NIGHT OUT</text>';
+      o += '<text class="wu-small" x="304" y="84" text-anchor="end">CHARGE BY DAY &#183; DISCHARGE AT NIGHT</text>';
       return wrap(o);
     },
     policy: function () {

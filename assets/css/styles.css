@@ -2,38 +2,53 @@
    Silver Touch Green RE — landing page
    ========================================================================== */
 
-:root {
-  --paper: #f3f5f0;
-  --paper-2: #e8ede5;
-  --paper-3: #dde5d9;
-  --white: #ffffff;
-  /* SilverTouch Green brand: forest green, deep green and lime */
-  --ink: #0a2216;
-  --ink-2: #2c3f33;
-  --muted: #627567;
-  --line: #d3dbcf;
-  --line-2: #c3cdbf;
+/* Plus Jakarta Sans (SIL Open Font License, assets/fonts/OFL.txt): the brand typeface.
+   One variable file covers every weight from 200 to 800 (Latin subset). */
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("../fonts/PlusJakartaSans-Variable.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
 
-  --green: #0b4026;
-  --green-deep: #07361d;
-  --lime: #c4dc66;
-  --lime-soft: rgba(196, 220, 102, 0.7);
-  --sun: #f4b321;
+:root {
+  /* Silver Touch Green RE, from the Silver Touch brand guidelines (v1.0, November 2026):
+     a green hand (#298D22) holding an amber bolt (#FFB100), black type on white or cream.
+     Green RE is a sub-brand, so it uses solid colours and never the group gradient. */
+  --paper: #f5f1e8;
+  --paper-2: #ece6d8;
+  --paper-3: #e2dbcb;
+  --white: #ffffff;
+  --ink: #111111;
+  --ink-2: #3b3a36;
+  --muted: #6b665c;
+  --line: #e2dbcc;
+  --line-2: #d2c9b6;
+
+  --brand-green: #298d22; /* logo green: marks, illustration fills and large type */
+  --green: #1c6a17; /* the same hue, deepened so buttons and small text pass WCAG AA */
+  --green-deep: #0c3812;
+  --amber: #ffb100; /* the Green RE bolt: highlights and calls to action */
+  --amber-soft: rgba(255, 177, 0, 0.45);
+  --sun: #ffc400; /* brand gold */
   --water: #3a9ccf;
   --wind: #47c2b1;
   --pv: #1f3b4a;
   --pv-hi: #4f8199;
 
-  --night: #06301b;
-  --night-2: #0a3a22;
-  --night-3: #0f4529;
-  --night-line: rgba(226, 240, 200, 0.12);
-  --night-text: #eaf2e4;
-  --night-muted: #a6bba7;
+  /* Dark bands follow the Green RE slides of the guidelines: deep green rising to brand green */
+  --night: #072410;
+  --night-2: #0c3214;
+  --night-3: #11501a;
+  --night-grad: linear-gradient(135deg, #072410 0%, #0c3a15 55%, #11501a 100%);
+  --night-line: rgba(214, 236, 206, 0.13);
+  --night-text: #eef4ea;
+  --night-muted: #b3c6af;
 
-  --font-display: "Plus Jakarta Sans", "Geist", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: var(--font-display);
+  --font-label: var(--font-display);
 
   --container: 1280px;
   --gutter: clamp(16px, 4vw, 48px);
@@ -103,7 +118,7 @@ ul {
 }
 
 ::selection {
-  background: var(--lime);
+  background: var(--amber);
   color: var(--ink);
 }
 
@@ -157,7 +172,7 @@ ul {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image: linear-gradient(to right, var(--grid-line, rgba(12, 23, 18, 0.045)) 1px, transparent 1px);
+  background-image: linear-gradient(to right, var(--grid-line, rgba(17, 17, 17, 0.045)) 1px, transparent 1px);
   background-size: calc(100% / 6) 100%;
   background-position: 0 0;
   width: min(100%, calc(var(--container) + var(--gutter) * 2));
@@ -167,19 +182,23 @@ ul {
 /* ---------- Type ---------- */
 
 .mono {
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-size: 11px;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
 }
 
 .tag {
   display: inline-flex;
   align-items: center;
   gap: 0;
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-size: 11px;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
   text-transform: uppercase;
   line-height: 1;
   background: var(--paper-2);
@@ -188,7 +207,7 @@ ul {
   overflow: hidden;
 }
 .tag b {
-  font-weight: 500;
+  font-weight: 700;
   background: var(--green);
   color: var(--white);
   padding: 6px 7px;
@@ -228,7 +247,7 @@ ul {
   color: var(--green);
 }
 .dark .accent {
-  color: var(--lime);
+  color: var(--amber);
 }
 
 .section-head {
@@ -289,7 +308,7 @@ ul {
   white-space: nowrap;
 }
 .btn:hover {
-  box-shadow: 0 10px 28px -12px rgba(12, 23, 18, 0.45);
+  box-shadow: 0 10px 28px -12px rgba(17, 17, 17, 0.45);
 }
 .btn:active {
   transform: translateY(1px);
@@ -348,11 +367,11 @@ ul {
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(6px);
 }
-.btn--lime {
-  --bg: var(--lime);
+.btn--amber {
+  --bg: var(--amber);
   --fg: var(--ink);
   --chip: var(--ink);
-  --chip-fg: var(--lime);
+  --chip-fg: var(--amber);
 }
 .dark .btn--ghost {
   --fg: var(--night-text);
@@ -390,8 +409,8 @@ ul {
   background: rgba(255, 255, 255, 0.78);
   backdrop-filter: blur(14px) saturate(1.3);
   -webkit-backdrop-filter: blur(14px) saturate(1.3);
-  border: 1px solid rgba(12, 23, 18, 0.06);
-  box-shadow: 0 8px 30px -18px rgba(12, 23, 18, 0.35);
+  border: 1px solid rgba(17, 17, 17, 0.06);
+  box-shadow: 0 8px 30px -18px rgba(17, 17, 17, 0.35);
 }
 .brand {
   display: flex;
@@ -401,10 +420,10 @@ ul {
   border-right: 1px solid var(--line);
   color: var(--green);
 }
+/* Horizontal lockup, full colour on the light nav pill (167px wide; the guidelines' screen minimum is 120px) */
 .brand-logo {
-  height: 30px;
-  width: calc(30px * 1620 / 288);
-  color: var(--green);
+  height: 50px;
+  width: calc(50px * 1040 / 312);
 }
 .nav-links {
   display: flex;
@@ -423,7 +442,7 @@ ul {
   color: var(--ink);
 }
 .nav-cta {
-  box-shadow: 0 8px 30px -18px rgba(12, 23, 18, 0.5);
+  box-shadow: 0 8px 30px -18px rgba(17, 17, 17, 0.5);
 }
 .nav-toggle {
   display: none;
@@ -558,7 +577,7 @@ ul {
   left: 0;
   width: 64px;
   fill: none;
-  stroke: rgba(12, 23, 18, 0.55);
+  stroke: rgba(17, 17, 17, 0.55);
   stroke-width: 1.4;
   stroke-linecap: round;
   animation: birds 46s linear infinite;
@@ -592,11 +611,11 @@ ul {
   font-size: 11px;
 }
 .hero-pill b {
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-weight: 500;
   font-size: 11px;
   letter-spacing: 0.08em;
-  background: var(--lime);
+  background: var(--amber);
   color: var(--ink);
   border-radius: 999px;
   padding: 5px 10px;
@@ -694,7 +713,7 @@ ul {
 }
 .hz-pin .lbl {
   fill: rgba(255, 255, 255, 0.92);
-  stroke: rgba(12, 23, 18, 0.12);
+  stroke: rgba(17, 17, 17, 0.12);
   transition: fill 0.25s;
 }
 .hz-pin text {
@@ -705,7 +724,7 @@ ul {
 }
 .hz-pin:hover .lbl,
 .hz-pin:focus-visible .lbl {
-  fill: var(--lime);
+  fill: var(--amber);
 }
 .hz-pin:focus-visible .lbl {
   stroke: var(--ink);
@@ -713,7 +732,7 @@ ul {
 }
 .hz-flow {
   fill: none;
-  stroke: var(--lime);
+  stroke: var(--amber);
   stroke-width: 3;
   stroke-linecap: round;
   stroke-dasharray: 4 7;
@@ -839,7 +858,7 @@ ul {
 /* ---------- Dark band ---------- */
 
 .dark {
-  background: var(--night);
+  background: var(--night-grad);
   color: var(--night-text);
   border-radius: 28px;
   position: relative;
@@ -888,7 +907,7 @@ ul {
   margin: 28px 0 32px;
 }
 .roles li {
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -905,7 +924,7 @@ ul {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--lime);
+  background: var(--amber);
 }
 .site-plan {
   position: sticky;
@@ -928,7 +947,7 @@ ul {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--lime);
+  color: var(--amber);
 }
 .gen-meter {
   display: grid;
@@ -948,11 +967,11 @@ ul {
   display: block;
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, var(--green), var(--lime));
+  background: linear-gradient(90deg, var(--green), var(--amber));
   border-radius: 3px;
 }
 .gen-meter b {
-  color: var(--lime);
+  color: var(--amber);
   font-weight: 500;
   min-width: 4ch;
   text-align: right;
@@ -971,7 +990,7 @@ ul {
 }
 .paper .ghost-word,
 .ghost-word.on-paper {
-  color: rgba(12, 23, 18, 0.045);
+  color: rgba(17, 17, 17, 0.045);
 }
 
 /* Solutions accordion */
@@ -995,7 +1014,7 @@ ul {
 }
 .sol.is-active {
   flex: 1 1 auto;
-  background: linear-gradient(160deg, #13261c 0%, var(--night-2) 55%);
+  background: linear-gradient(160deg, #134318 0%, var(--night-2) 55%);
 }
 .sol-tab {
   position: absolute;
@@ -1022,14 +1041,14 @@ ul {
   border-radius: 6px;
   display: grid;
   place-items: center;
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   transition: background 0.3s, color 0.3s;
 }
 .sol:not(.is-active):hover {
-  border-color: rgba(196, 220, 102, 0.4);
+  border-color: rgba(255, 177, 0, 0.4);
 }
 .sol:not(.is-active):hover .plus {
-  background: var(--lime);
+  background: var(--amber);
   color: var(--ink);
 }
 .sol.is-active .sol-tab {
@@ -1077,7 +1096,7 @@ ul {
   margin: 14px 0 18px;
 }
 .sol-text .strap {
-  color: var(--lime);
+  color: var(--amber);
   font-weight: 500;
   font-size: 17px;
   line-height: 1.4;
@@ -1097,7 +1116,7 @@ ul {
   position: relative;
   border-radius: 10px;
   border: 1px solid var(--night-line);
-  background: radial-gradient(120% 80% at 50% 0%, rgba(196, 220, 102, 0.06), transparent 60%), var(--night);
+  background: radial-gradient(120% 80% at 50% 0%, rgba(255, 177, 0, 0.06), transparent 60%), var(--night);
   overflow: hidden;
   display: grid;
   place-items: center;
@@ -1112,7 +1131,7 @@ ul {
   bottom: 0;
   height: 2px;
   width: 100%;
-  background: var(--lime);
+  background: var(--amber);
   transform-origin: left;
   transform: scaleX(0);
 }
@@ -1147,13 +1166,13 @@ ul {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgba(11, 64, 38, 0.08);
+  background: rgba(28, 106, 23, 0.08);
   color: var(--green-deep);
 }
 .pulse {
@@ -1320,10 +1339,10 @@ ul {
   margin: -4.5px 0 0 -4.5px;
   border-radius: 50%;
   background: var(--green);
-  box-shadow: 0 0 0 4px rgba(11, 64, 38, 0.14);
+  box-shadow: 0 0 0 4px rgba(28, 106, 23, 0.14);
 }
 .ba button {
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1422,7 +1441,7 @@ ul {
   align-items: center;
 }
 .step-num {
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-size: 11px;
   border: 1px solid var(--line-2);
   background: var(--white);
@@ -1489,7 +1508,7 @@ ul {
 }
 .step.is-on .step-icon::before {
   border-color: var(--green);
-  box-shadow: 0 0 0 6px rgba(11, 64, 38, 0.08);
+  box-shadow: 0 0 0 6px rgba(28, 106, 23, 0.08);
 }
 .process-foot {
   margin-top: clamp(40px, 6vw, 72px);
@@ -1536,7 +1555,7 @@ ul {
   gap: 8px;
 }
 .markets li.home .mono {
-  color: var(--lime);
+  color: var(--amber);
 }
 .markets .dot {
   width: 7px;
@@ -1545,7 +1564,7 @@ ul {
   border: 1px solid currentColor;
 }
 .markets li.home .dot {
-  background: var(--lime);
+  background: var(--amber);
   border: 0;
 }
 .map > svg {
@@ -1574,7 +1593,7 @@ ul {
   border: 1px solid var(--line);
   border-radius: 18px;
   padding: clamp(20px, 3vw, 36px);
-  box-shadow: 0 30px 60px -40px rgba(12, 23, 18, 0.25);
+  box-shadow: 0 30px 60px -40px rgba(17, 17, 17, 0.25);
 }
 .form-grid {
   display: grid;
@@ -1590,7 +1609,7 @@ ul {
   grid-column: 1 / -1;
 }
 .field label {
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1633,7 +1652,7 @@ ul {
   outline: none;
   border-color: var(--green);
   background: var(--white);
-  box-shadow: 0 0 0 4px rgba(11, 64, 38, 0.12);
+  box-shadow: 0 0 0 4px rgba(28, 106, 23, 0.12);
 }
 .field.has-error input,
 .field.has-error select {
@@ -1722,7 +1741,7 @@ ul {
 /* ---------- Footer ---------- */
 
 .footer {
-  background: var(--night);
+  background: var(--night-grad);
   color: var(--night-muted);
   border-radius: 28px 28px 0 0;
   padding: 64px 0 28px;
@@ -1738,12 +1757,13 @@ ul {
   border: 0;
   padding: 0;
 }
+/* On dark green the logo is used all white, as the guidelines direct for dark grounds */
 .brand-stack {
-  height: 92px;
-  width: calc(92px * 1316 / 795);
-  --lg-mark: var(--lime);
+  height: 128px;
+  width: calc(128px * 516 / 511);
+  --lg-mark: var(--white);
+  --lg-bolt: var(--white);
   --lg-word: var(--white);
-  --lg-green: var(--lime);
 }
 .footer-links {
   display: flex;
@@ -1764,16 +1784,15 @@ ul {
   transition: color 0.2s;
 }
 .footer-links a:hover {
-  color: var(--lime);
+  color: var(--amber);
 }
 .footer-word {
   display: block;
   width: 100%;
   height: auto;
   margin-top: 56px;
-  fill: var(--night-2);
-  stroke: rgba(196, 220, 102, 0.28);
-  stroke-width: 1.4;
+  /* A faint fill only: the outlined lettering has overlapping contours that a stroke would show */
+  fill: rgba(214, 236, 206, 0.07);
   user-select: none;
 }
 .footer-bottom {
@@ -1799,10 +1818,10 @@ ul {
   overflow: visible;
 }
 .dark .ill {
-  --l: #cfe0d5;
+  --l: #d3e4cf;
   --f: var(--night-2);
-  --s: #18291f;
-  --m: rgba(207, 224, 213, 0.22);
+  --s: #123016;
+  --m: rgba(211, 228, 207, 0.22);
 }
 .ill .l,
 .ill .f {
@@ -1831,16 +1850,16 @@ ul {
   stroke-dasharray: 3 4;
 }
 .ill .g {
-  stroke: var(--green);
+  stroke: var(--brand-green);
 }
 .dark .ill .g {
-  stroke: var(--lime);
+  stroke: var(--amber);
 }
 .ill .gf {
-  fill: var(--green);
+  fill: var(--brand-green);
 }
 .dark .ill .gf {
-  fill: var(--lime);
+  fill: var(--amber);
 }
 .ill .y {
   stroke: var(--sun);
@@ -1867,9 +1886,11 @@ ul {
   vector-effect: non-scaling-stroke;
 }
 .ill text {
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-size: 9px;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
   fill: var(--l);
   text-transform: uppercase;
 }
@@ -2792,8 +2813,8 @@ ul {
     grid-template-columns: 1fr;
   }
   .brand-logo {
-    height: 26px;
-    width: calc(26px * 1620 / 288);
+    height: 42px;
+    width: calc(42px * 1040 / 312);
   }
   .footer-links {
     gap: 28px;
@@ -2864,7 +2885,7 @@ ul {
 }
 
 /* ==========================================================================
-   Brand layer (SilverTouch Green identity)
+   Brand layer (Silver Touch Green RE identity, brand guidelines v1.0)
    ========================================================================== */
 
 h1,
@@ -2875,10 +2896,11 @@ h4,
 .stat-num {
   font-family: var(--font-display);
 }
+/* Headings: Bold, as the guidelines specify (Bold or SemiBold) */
 .h-display,
 .h-section {
-  font-weight: 800;
-  letter-spacing: -0.035em;
+  font-weight: 700;
+  letter-spacing: -0.03em;
 }
 .about-statement {
   font-weight: 600;
@@ -2890,11 +2912,11 @@ h4 {
   letter-spacing: -0.015em;
 }
 
-/* Highlighted words: forest green with a lime highlighter stroke, like the
-   lime bars on the letterhead. On dark bands they turn lime. */
+/* Highlighted words: brand green over an amber highlighter stroke (the hand and
+   the bolt of the mark). On dark bands they turn amber. */
 .accent {
-  color: var(--green);
-  background-image: linear-gradient(var(--lime-soft), var(--lime-soft));
+  color: var(--brand-green);
+  background-image: linear-gradient(var(--amber-soft), var(--amber-soft));
   background-repeat: no-repeat;
   background-position: 0 88%;
   background-size: 100% 0.3em;
@@ -2910,34 +2932,34 @@ h4 {
   background-size: 100% 0.3em;
 }
 .dark .accent {
-  color: var(--lime);
+  color: var(--amber);
   background-image: none;
 }
 
 /* Section number chips */
 .dark .tag b {
-  background: var(--lime);
-  color: var(--green-deep);
+  background: var(--amber);
+  color: var(--ink);
 }
 
-/* Primary buttons in forest green */
+/* Primary buttons in green; the amber button is the bolt */
 .btn {
   --bg: var(--green);
 }
-.btn--lime {
-  --bg: var(--lime);
-  --fg: var(--green-deep);
-  --chip: var(--green);
-  --chip-fg: var(--lime);
+.btn--amber {
+  --bg: var(--amber);
+  --fg: var(--ink);
+  --chip: var(--ink);
+  --chip-fg: var(--amber);
 }
 .btn--white {
   --bg: var(--white);
-  --fg: var(--green-deep);
+  --fg: var(--ink);
   --chip: var(--green);
 }
 .nav-cta {
-  --chip: var(--lime);
-  --chip-fg: var(--green-deep);
+  --chip: var(--amber);
+  --chip-fg: var(--ink);
 }
 
 /* Footer tagline */
@@ -2946,7 +2968,7 @@ h4 {
   align-items: center;
   gap: 10px;
   letter-spacing: 0.3em;
-  color: var(--lime);
+  color: var(--amber);
 }
 .tagline i {
   width: 4px;
@@ -2956,7 +2978,8 @@ h4 {
   opacity: 0.6;
 }
 
-/* Letterhead details on the enquiry card: faded mark + lime/forest strip */
+/* Enquiry card: the open hand as a faint watermark, cropped at the corner as in
+   the guidelines, and a green/amber strip along the foot */
 .form-card {
   position: relative;
   overflow: hidden;
@@ -2969,12 +2992,12 @@ h4 {
 }
 .watermark {
   position: absolute;
-  right: -40px;
-  bottom: -30px;
-  width: 260px;
+  right: -70px;
+  bottom: -18px;
+  width: 400px;
   height: auto;
-  color: var(--lime);
-  opacity: 0.16;
+  color: var(--brand-green);
+  opacity: 0.07;
   pointer-events: none;
 }
 .brand-strip {
@@ -2987,11 +3010,11 @@ h4 {
 }
 .brand-strip i {
   flex: 1;
-  background: var(--lime);
+  background: var(--brand-green);
 }
 .brand-strip b {
   width: 34%;
-  background: var(--green);
+  background: var(--amber);
   clip-path: polygon(14px 0, 100% 0, 100% 100%, 0 100%);
   margin-left: -14px;
 }

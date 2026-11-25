@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SilverTouch Green: multipage components (nav dropdown, page transitions,
+   Silver Touch Green RE: multipage components (nav dropdown, page transitions,
    subpage layouts, charts, scroll stories). Builds on styles.css tokens.
    ========================================================================== */
 
@@ -8,7 +8,7 @@
   --series-grid: #2a78d6;
   --series-battery: #1f8a4c;
   --series-solar: #e9a100;
-  --series-ref: #0a2216;
+  --series-ref: #111111;
 }
 
 /* ---------- Solutions dropdown ---------- */
@@ -52,7 +52,7 @@
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.97);
   border: 1px solid var(--line);
-  box-shadow: 0 30px 60px -30px rgba(10, 34, 22, 0.45);
+  box-shadow: 0 30px 60px -30px rgba(17, 17, 17, 0.45);
   display: grid;
   gap: 2px;
   opacity: 0;
@@ -113,7 +113,7 @@
 }
 .nav-menu a:hover .nm-ico,
 .nav-menu a.is-active .nm-ico {
-  background: var(--lime);
+  background: var(--amber);
 }
 .nav-links > a.is-active {
   background: var(--paper-2);
@@ -166,25 +166,26 @@
   display: grid;
   place-items: center;
   align-content: center;
-  gap: 18px;
-  background: var(--green-deep);
+  gap: 22px;
+  background: var(--night-grad);
   transform: translateY(101%);
   will-change: transform;
 }
 .pt-panel::before {
-  /* lime leading edge, like the letterhead strip */
+  /* amber leading edge: the bolt held by the green hand */
   content: "";
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   height: 10px;
-  background: var(--lime);
+  background: var(--amber);
 }
 .pt-mark {
-  width: 64px;
+  width: 112px;
   height: auto;
-  color: var(--lime);
+  --lg-mark: var(--white);
+  --lg-bolt: var(--white);
   opacity: 0;
   transform: scale(0.8);
   transition: opacity 0.3s, transform 0.5s var(--ease);
@@ -251,7 +252,7 @@
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -295,7 +296,7 @@
   border-radius: 24px;
   border: 1px solid var(--line);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.55));
-  box-shadow: 0 40px 80px -50px rgba(10, 34, 22, 0.35);
+  box-shadow: 0 40px 80px -50px rgba(17, 17, 17, 0.35);
   padding: 18px;
   overflow: hidden;
 }
@@ -399,7 +400,7 @@
 .b-card:hover {
   transform: translateY(-4px);
   border-color: var(--line-2);
-  box-shadow: 0 24px 50px -36px rgba(10, 34, 22, 0.4);
+  box-shadow: 0 24px 50px -36px rgba(17, 17, 17, 0.4);
 }
 .b-card .ill {
   overflow: hidden;
@@ -421,6 +422,10 @@
 }
 .b-card .mono {
   color: var(--muted);
+}
+.dark .b-card .mono,
+.dark .story-step .step-n {
+  color: var(--night-muted);
 }
 .dark .b-card {
   background: var(--night-2);
@@ -466,7 +471,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: var(--lime) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.6 2.6L12 5.5' fill='none' stroke='%230b4026' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat;
+  background: var(--amber) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.6 2.6L12 5.5' fill='none' stroke='%23111111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat;
   transform: scale(0.4);
   opacity: 0;
   transition: transform 0.5s var(--ease), opacity 0.3s;
@@ -534,7 +539,7 @@ html:not(.js) .ticks li::before {
   font-weight: 500;
 }
 .dark .stage-head b {
-  color: var(--lime);
+  color: var(--amber);
 }
 .stage-bar {
   height: 3px;
@@ -554,7 +559,7 @@ html:not(.js) .ticks li::before {
   transition: width 0.6s var(--ease);
 }
 .dark .stage-bar i {
-  background: var(--lime);
+  background: var(--amber);
 }
 /* Layers appear as their step is reached, and stay (the project builds up) */
 .story-stage [data-layer] {
@@ -607,7 +612,7 @@ html:not(.js) .story-stage [data-layer] {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -627,14 +632,14 @@ html:not(.js) .story-stage [data-layer] {
 }
 .story-step.is-on .step-n b {
   background: var(--green);
-  color: var(--lime);
+  color: var(--white);
 }
 .dark .story-step .step-n b {
   background: rgba(255, 255, 255, 0.06);
-  color: var(--lime);
+  color: var(--amber);
 }
 .dark .story-step.is-on .step-n b {
-  background: var(--lime);
+  background: var(--amber);
   color: var(--green-deep);
 }
 .story-step h3 {
@@ -700,7 +705,7 @@ html:not(.js) .story-stage [data-layer] {
 .seg button[aria-pressed="true"] {
   background: var(--white);
   color: var(--green);
-  box-shadow: 0 2px 8px -4px rgba(10, 34, 22, 0.35);
+  box-shadow: 0 2px 8px -4px rgba(17, 17, 17, 0.35);
 }
 .legend {
   display: flex;
@@ -745,7 +750,7 @@ html:not(.js) .story-stage [data-layer] {
   stroke-width: 1;
 }
 .chart .axis text {
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-size: 11px;
   fill: var(--muted);
 }
@@ -771,7 +776,7 @@ html:not(.js) .story-stage [data-layer] {
   stroke-width: 1;
 }
 .chart .annot text {
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-size: 10.5px;
   letter-spacing: 0.06em;
   fill: var(--ink-2);
@@ -817,11 +822,11 @@ html:not(.js) .story-stage [data-layer] {
 }
 .chart-tip b {
   display: block;
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-weight: 500;
   font-size: 11px;
   letter-spacing: 0.06em;
-  color: var(--lime);
+  color: var(--amber);
   margin-bottom: 4px;
 }
 .chart-tip div {
@@ -890,7 +895,7 @@ html:not(.js) .story-stage [data-layer] {
   top: 13px;
   height: 2px;
   width: 100%;
-  background: var(--lime);
+  background: var(--amber);
   transform-origin: left;
   transform: scaleX(0);
 }
@@ -906,10 +911,10 @@ html:not(.js) .story-stage [data-layer] {
   height: 14px;
   border-radius: 50%;
   background: var(--night);
-  border: 2px solid var(--lime);
+  border: 2px solid var(--amber);
 }
 .rm-item.is-now::before {
-  background: var(--lime);
+  background: var(--amber);
 }
 .rm-item .status {
   margin-bottom: 12px;
@@ -919,15 +924,15 @@ html:not(.js) .story-stage [data-layer] {
   margin-bottom: 6px;
 }
 .rm-item h3 a:hover {
-  color: var(--lime);
+  color: var(--amber);
 }
 .rm-item p {
   color: var(--night-muted);
   font-size: 14.5px;
 }
 .rm-item .status {
-  background: rgba(196, 220, 102, 0.14);
-  color: var(--lime);
+  background: rgba(255, 177, 0, 0.14);
+  color: var(--amber);
 }
 .rm-item.is-next .status {
   background: rgba(233, 161, 0, 0.16);
@@ -953,14 +958,14 @@ html:not(.js) .story-stage [data-layer] {
   overflow: hidden;
 }
 .mv article:nth-child(2) {
-  background: var(--green);
-  border-color: var(--green);
+  background: var(--night-grad);
+  border-color: var(--night);
 }
 .mv article:nth-child(2) .big-statement {
   color: var(--white);
 }
 .mv article:nth-child(2) .mono {
-  color: var(--lime);
+  color: var(--amber);
 }
 .mv .mono {
   color: var(--green);
@@ -971,10 +976,11 @@ html:not(.js) .story-stage [data-layer] {
   font-size: clamp(22px, 2.3vw, 32px);
 }
 .mv .watermark {
-  right: -50px;
-  bottom: -60px;
-  width: 240px;
-  opacity: 0.12;
+  right: -60px;
+  bottom: -14px;
+  width: 340px;
+  color: var(--white);
+  opacity: 0.1;
 }
 
 /* ---------- Before / after comparison ---------- */
@@ -991,8 +997,8 @@ html:not(.js) .story-stage [data-layer] {
   background: var(--white);
 }
 .compare article:last-child {
-  border-color: rgba(11, 64, 38, 0.35);
-  box-shadow: 0 0 0 4px rgba(196, 220, 102, 0.35);
+  border-color: rgba(28, 106, 23, 0.35);
+  box-shadow: 0 0 0 4px rgba(255, 177, 0, 0.35);
 }
 .compare .ill {
   width: 100%;
@@ -1034,7 +1040,7 @@ html:not(.js) .story-stage [data-layer] {
   transition: background 0.3s;
 }
 .related a:hover .nm-ico {
-  background: var(--lime);
+  background: var(--amber);
 }
 .related b {
   font-family: var(--font-display);
@@ -1148,7 +1154,7 @@ html:not(.js) .story-stage [data-layer] {
     background: repeating-linear-gradient(180deg, var(--night-line) 0 6px, transparent 6px 12px);
   }
   .roadmap-fill {
-    background: var(--lime);
+    background: var(--amber);
     transform-origin: top;
     transform: scaleY(0);
   }
@@ -1272,7 +1278,7 @@ html:not(.js) .story-stage [data-layer] {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--lime);
+  background: var(--amber);
   margin-right: 8px;
   vertical-align: middle;
 }

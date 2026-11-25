@@ -130,7 +130,7 @@ def jsonld(meta, news):
         "@type": "Organization",
         "@id": SITE + "/#org",
         "name": ORG_NAME,
-        "alternateName": "SilverTouch Green",
+        "alternateName": "Silver Touch Green RE",
         "url": SITE + "/",
         "logo": SITE + "/assets/img/logo-512.png",
         "description": "Renewable energy EPC for industrial, commercial and government facilities in India: C&I solar, public infrastructure, battery storage, hybrid solar-wind and floating solar.",

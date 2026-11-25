@@ -35,17 +35,20 @@ assets/css/pages.css    Inner pages: sub-hero, scroll stories, charts, roadmap, 
 assets/js/main.js       Diagram builders, scroll scenes, accordion, counters, form, nav and page transitions
 assets/js/pages.js      Charts (SVG, hover tooltips, tab morphing), scroll stories, word reveals
 assets/js/vendor/       GSAP 3.12.5 + ScrollTrigger (vendored, no CDN dependency)
-assets/img/             SilverTouch Green logo (mark, stacked lockup, horizontal lockup) and favicon
+assets/img/brand/       Silver Touch Green RE logo kit: symbol, horizontal and stacked, each in full colour, black and white (SVG)
+assets/img/             Favicon, Apple touch icon, share image and raster logo
+assets/fonts/           Plus Jakarta Sans variable font (self-hosted, SIL Open Font License)
 ```
 
 ## Brand
 
-Aligned to the SilverTouch Green identity (logo kit and stationery):
+Follows the Silver Touch brand guidelines (v1.0, November 2026). Silver Touch Green RE is a sub-brand of the Silver Touch group: the group's open hand, holding a recycling loop with an amber bolt.
 
-- **Logo:** the leaf-S mark and "SilverTouch / GREEN" wordmark, vectorised from the supplied artwork. They are inline SVG symbols in `index.html` (`#logo-shape`, `#logo-h`, `#logo-stack`, `#logo-word`), and standalone files are in `assets/img/`.
-- **Colours:** forest green `#0B4026`, deep green `#07361D` (dark bands, footer), lime `#C4DC66` (calls to action and highlights).
-- **Type:** Plus Jakarta Sans ExtraBold for headings (closest Google Font to the wordmark), Geist for body, Geist Mono for labels.
-- **Details from the stationery:** lime highlighter strokes under key words, a faded mark watermark and a lime/forest strip on the enquiry card, and the "Ideas · People · Solutions" tagline in the footer.
+- **Logo:** the official Green RE kit, copied unchanged into `assets/img/brand/` (symbol, horizontal and stacked; full colour, black and white). The header partial inlines the same paths once as shared SVG: `#logo-mark` (symbol), `#logo-h` (horizontal), `#logo-stack` (stacked), `#logo-hand` (the hand alone, for watermarks) and `#logo-word` (the "Silver Touch" lettering). Recolour with `--lg-mark`, `--lg-bolt` and `--lg-word`; they default to full colour.
+- **Which version where:** full colour on white or cream (nav, cards, diagrams); all white on the dark green bands, footer and page transition, as the guidelines direct for dark grounds. The horizontal lockup in the nav is 167px wide (guideline minimum on screen: 120px).
+- **Colours:** brand green `#298D22` (marks, illustration fills, large highlighted words) and amber `#FFB100` (the bolt: calls to action, highlighter strokes, highlights on dark), black type on cream `#F5F1E8` and white. Buttons and small green text use `#1C6A17`, the same green deepened to pass WCAG AA. Dark bands use the guidelines' Green RE gradient (`#072410` to `#11501A`). Gold `#FFC400` is the sun. As a sub-brand, Green RE never uses the green-to-orange group gradient.
+- **Type:** Plus Jakarta Sans throughout, self-hosted as one variable file (`assets/fonts/`). Headings Bold, body Regular, Medium for emphasis; labels are uppercase with wide tracking, as in the guidelines.
+- **Details:** amber highlighter strokes under key words, the open hand as a faint cropped watermark (as on the guidelines' dark slides), a green/amber strip on the enquiry card, and the "Ideas · People · Solutions" tagline in the footer.
 
 ## Sections and their motion graphics
 
@@ -80,7 +83,7 @@ To add a story, add an entry to `src/data/news.json` and run the build. Write th
 
 ## SEO
 
-The build adds a canonical URL, Open Graph and Twitter tags, and JSON-LD to every page (Organization and WebSite on the home page, BreadcrumbList on inner pages, CollectionPage on Watt's Up). It also writes `sitemap.xml` and `robots.txt`. The canonical host is `https://www.silvertouchgreen.com` (`SITE` in `tools/build_site.py`). The share image `assets/img/og-image.png` and `assets/img/logo-512.png` are rendered from `tools/og/og.html` by `node tools/render_og.js`. After going live, submit the sitemap in Google Search Console.
+The build adds a canonical URL, Open Graph and Twitter tags, and JSON-LD to every page (Organization and WebSite on the home page, BreadcrumbList on inner pages, CollectionPage on Watt's Up). It also writes `sitemap.xml` and `robots.txt`. The canonical host is `https://www.silvertouchgreen.com` (`SITE` in `tools/build_site.py`). The share image `assets/img/og-image.png`, `assets/img/logo-512.png` and `assets/img/apple-touch-icon.png` are rendered by `node tools/render_og.js` (the share card from `tools/og/og.html`). After going live, submit the sitemap in Google Search Console.
 
 ## BESS assembly launch (Dholera, Gujarat, 2027)
 

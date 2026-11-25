@@ -3,44 +3,49 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@500&family=Plus+Jakarta+Sans:wght@800&display=swap" rel="stylesheet" />
 <style>
+  @font-face { font-family: "Plus Jakarta Sans"; src: url("../../assets/fonts/PlusJakartaSans-Variable.woff2") format("woff2"); font-weight: 200 800; }
   * { margin: 0; box-sizing: border-box; }
-  body { width: 1200px; height: 630px; overflow: hidden; background: #07361d; font-family: "Plus Jakarta Sans", sans-serif; }
-  .card { position: relative; width: 1200px; height: 630px; padding: 64px 72px; color: #fff;
-    background: radial-gradient(70% 90% at 92% 8%, rgba(196,220,102,.22), transparent 60%), linear-gradient(160deg, #0b4026, #062a17); }
-  .grid { position: absolute; inset: 0; background-image: linear-gradient(to right, rgba(220,240,228,.05) 1px, transparent 1px); background-size: 200px 100%; }
-  .logo { height: 56px; filter: brightness(0) invert(1); position: relative; }
-  h1 { position: relative; margin-top: 54px; font-size: 64px; line-height: 1.04; letter-spacing: -0.035em; max-width: 15ch; }
-  h1 span { color: #c4dc66; }
+  body { width: 1200px; height: 630px; overflow: hidden; background: #072410; font-family: "Plus Jakarta Sans", sans-serif; }
+  /* Green RE slide of the brand guidelines: deep green rising to brand green */
+  .card { position: relative; width: 1200px; height: 630px; padding: 64px 72px; color: #fff; overflow: hidden;
+    background: linear-gradient(135deg, #072410 0%, #0f4a1b 55%, #1e7a20 100%); }
+  .hand { position: absolute; right: -150px; bottom: -40px; width: 880px; opacity: .08; }
+  .logo { position: relative; height: 108px; }
+  h1 { position: relative; margin-top: 38px; font-size: 62px; font-weight: 700; line-height: 1.06; letter-spacing: -0.03em; max-width: 15ch; }
+  h1 span { color: #ffb100; }
   .pill { position: absolute; left: 72px; bottom: 64px; display: inline-flex; align-items: center; gap: 14px;
-    font-family: "Geist Mono", monospace; font-size: 20px; letter-spacing: .08em; text-transform: uppercase;
-    background: #c4dc66; color: #07361d; padding: 14px 22px; border-radius: 999px; }
-  .pill i { width: 12px; height: 12px; border-radius: 50%; background: #07361d; }
-  .url { position: absolute; right: 72px; bottom: 76px; font-family: "Geist Mono", monospace; font-size: 20px; letter-spacing: .06em; color: #a6bba7; }
-  svg.art { position: absolute; right: 40px; top: 120px; width: 470px; }
+    font-size: 19px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+    background: #ffb100; color: #111; padding: 14px 24px; border-radius: 999px; }
+  .pill i { width: 12px; height: 12px; border-radius: 50%; background: #111; }
+  .url { position: absolute; right: 72px; bottom: 78px; font-size: 20px; font-weight: 500; letter-spacing: .04em; color: #cfe0cb; }
+  svg.art { position: absolute; right: 48px; top: 150px; width: 440px; }
 </style>
 </head>
 <body>
   <div class="card">
-    <div class="grid"></div>
-    <img class="logo" src="../../assets/img/logo-horizontal.svg" alt="" />
+    <svg class="hand" viewBox="0 130 516 202" aria-hidden="true">
+      <!-- the open hand, from assets/img/brand/silver-touch-green-re-symbol-white.svg -->
+      <path fill="#fff" d="M112.729 289.91C75.1525 289.91 34.5088 308.35 0 331.4C7.66863 313.728 18.4047 291.853 31.4414 274.543C62.1159 233.82 101.226 205.46 154.139 195.403C176.378 191.177 200.918 193.098 227.758 199.244C243.862 202.932 259.2 205.391 276.837 205.391C299.843 205.391 327.45 195.403 351.99 183.877C338.953 213.075 309.812 237.662 275.304 243.04C254.598 246.267 232.359 247.65 205.519 246.882C236.194 259.176 270.703 269.164 302.144 269.164C342.021 269.164 378.063 247.136 411.805 207.696C439.412 175.426 459.351 156.217 486.191 156.217C496.16 156.217 506.129 160.059 515.332 168.51C496.927 172.352 480.056 184.431 457.817 215.38C454.95 219.37 452.281 223.141 449.715 226.767C439.926 240.598 431.625 252.327 419.474 266.091C384.198 306.045 343.554 331.4 289.107 331.4C260.733 331.4 236.194 323.717 203.985 311.423C171.777 299.13 145.704 289.91 112.729 289.91Z" />
+      <path fill="#fff" d="M316.714 239.967C335.119 236.509 356.591 229.056 369.628 219.99C385.732 208.787 401.069 190.024 417.173 172.352C436.345 151.315 457.05 141.618 476.989 140.082C466.252 133.166 455.516 130.093 444.78 130.093C417.94 130.093 396.468 150.07 374.996 179.267C355.824 205.337 336.653 223.832 316.714 239.967Z" />
+    </svg>
+    <img class="logo" src="../../assets/img/brand/silver-touch-green-re-horizontal-white.svg" alt="" />
     <h1>Renewable energy for industrial, commercial &amp; <span>government facilities</span></h1>
     <svg class="art" viewBox="0 0 470 320" fill="none">
-      <circle cx="360" cy="70" r="40" fill="#f4b321" />
-      <circle cx="360" cy="70" r="62" stroke="#f4b321" stroke-dasharray="3 7" stroke-width="2" />
+      <circle cx="360" cy="70" r="40" fill="#ffc400" />
+      <circle cx="360" cy="70" r="62" stroke="#ffc400" stroke-dasharray="3 7" stroke-width="2" />
       <!-- container (isometric) -->
-      <polygon points="140,170 300,262 380,216 220,124" fill="#e9efe6" />
-      <polygon points="140,170 140,236 300,328 300,262" fill="#c6d2c3" />
-      <polygon points="300,262 300,328 380,282 380,216" fill="#adbcaa" />
-      <path d="M140 228 L300 320" stroke="#c4dc66" stroke-width="6" />
+      <polygon points="140,170 300,262 380,216 220,124" fill="#f5f1e8" />
+      <polygon points="140,170 140,236 300,328 300,262" fill="#ddd5c4" />
+      <polygon points="300,262 300,328 380,282 380,216" fill="#c4baa5" />
+      <path d="M140 228 L300 320" stroke="#ffb100" stroke-width="6" />
       <!-- panels -->
       <g fill="#2a5a73" stroke="#9fc6d8" stroke-width="1.5">
         <polygon points="20,250 80,250 92,226 32,226" /><polygon points="20,290 80,290 92,266 32,266" />
         <polygon points="96,290 156,290 168,266 108,266" />
       </g>
       <!-- turbine -->
-      <path d="M440 300 L444 140 L448 300 Z" fill="#e9efe6" />
+      <path d="M440 300 L444 140 L448 300 Z" fill="#f5f1e8" />
       <g fill="#fff"><path d="M444 140 q6 -30 0 -70 q-4 40 0 70Z" /><path d="M444 140 q6 -30 0 -70 q-4 40 0 70Z" transform="rotate(120 444 140)" /><path d="M444 140 q6 -30 0 -70 q-4 40 0 70Z" transform="rotate(240 444 140)" /></g>
     </svg>
     <div class="pill"><i></i>BESS assembly &middot; Dholera, Gujarat &middot; 2027</div>

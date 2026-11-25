@@ -5,7 +5,7 @@
 /* Topic accents */
 .wu-card,
 .wu-vis {
-  --acc: var(--lime);
+  --acc: var(--amber);
 }
 [data-tag="solar"],
 [data-vis="record"],
@@ -43,7 +43,7 @@
 .wu-title {
   margin: 18px 0 6px;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 700;
   font-size: clamp(64px, 11vw, 168px);
   line-height: 0.88;
   letter-spacing: -0.055em;
@@ -57,7 +57,7 @@
   align-items: center;
   gap: 0.06em;
   color: var(--green-deep);
-  background: var(--lime);
+  background: var(--amber);
   border-radius: 0.2em;
   padding: 0.02em 0.16em 0.06em 0.12em;
   transform: rotate(-3deg);
@@ -118,7 +118,7 @@
   max-width: 560px;
 }
 .wu-chip {
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-size: 11.5px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -135,7 +135,7 @@
 }
 .wu-chip[aria-pressed="true"] {
   background: var(--green-deep);
-  color: var(--lime);
+  color: var(--amber);
 }
 
 /* ---------- Cards ---------- */
@@ -174,7 +174,7 @@
   aspect-ratio: 16 / 9;
   background:
     radial-gradient(120% 90% at 80% 10%, color-mix(in srgb, var(--acc) 26%, transparent), transparent 60%),
-    linear-gradient(160deg, #0d3a24, #06291a);
+    linear-gradient(160deg, #0e3d15, #072410);
   overflow: hidden;
 }
 .wu-vis > svg {
@@ -245,7 +245,7 @@
 }
 .wu-tldr b,
 .wu-sowhat b {
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-weight: 500;
   font-size: 10.5px;
   letter-spacing: 0.08em;
@@ -279,7 +279,7 @@
 }
 .wu-stat b {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 30px;
   letter-spacing: -0.03em;
   color: var(--green-deep);
@@ -293,7 +293,7 @@
 }
 .wu-stat span {
   width: 100%;
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
   font-size: 10.5px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -354,20 +354,20 @@
   color: var(--night-muted);
 }
 .wu-card--featured .wu-tldr {
-  color: #c9d7cc;
+  color: #cad7c9;
   font-size: 16px;
 }
 .wu-card--featured .wu-tldr b {
   background: rgba(255, 255, 255, 0.08);
-  color: var(--lime);
+  color: var(--amber);
 }
 .wu-card--featured .wu-sowhat {
-  background: rgba(196, 220, 102, 0.12);
+  background: rgba(255, 177, 0, 0.12);
   color: #eaf2e4;
 }
 .wu-card--featured .wu-stat small,
 .wu-card--featured .wu-cta {
-  color: var(--lime);
+  color: var(--amber);
 }
 .wu-card--featured:hover,
 .wu-card--featured:focus-within {
@@ -416,7 +416,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--lime);
+  background: var(--amber);
   box-shadow: 0 0 0 2px var(--white);
   animation: ping-dot 2s ease-in-out infinite;
 }
@@ -426,7 +426,7 @@
 
 /* ---------- Motion graphics (inside .wu-vis) ---------- */
 .wu-svg {
-  font-family: var(--font-mono);
+  font-family: var(--font-label);
 }
 .wu-svg * {
   vector-effect: non-scaling-stroke;
@@ -436,12 +436,12 @@
   animation-play-state: paused !important;
 }
 .wu-ground {
-  stroke: rgba(207, 224, 213, 0.25);
+  stroke: rgba(208, 224, 207, 0.25);
   stroke-width: 1.5;
 }
 .wu-big {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 34px;
   letter-spacing: -0.03em;
   fill: #fff;
@@ -452,7 +452,7 @@
   fill: var(--acc);
 }
 .wu-small.dim {
-  fill: rgba(207, 224, 213, 0.6);
+  fill: rgba(208, 224, 207, 0.6);
 }
 .wu-sunc {
   fill: #f4b321;
@@ -483,7 +483,7 @@
 .wu-batt,
 .wu-ctr {
   fill: #e9efe6;
-  stroke: #0a2216;
+  stroke: #111111;
   stroke-width: 1.2;
 }
 .wu-cellbg {
@@ -502,7 +502,7 @@
   100% { transform: scaleY(0.12); }
 }
 .wu-stripe {
-  fill: var(--lime);
+  fill: var(--amber);
 }
 .wu-pop {
   animation: wu-pop 4s var(--ease) infinite;
@@ -518,7 +518,7 @@
 /* hero orbit */
 .wu-ring {
   fill: none;
-  stroke: rgba(207, 224, 213, 0.18);
+  stroke: rgba(208, 224, 207, 0.18);
   stroke-dasharray: 3 6;
 }
 .wu-orbit .wu-orb {
@@ -537,15 +537,15 @@
   stroke-linecap: round;
 }
 .wu-boltp {
-  fill: var(--lime);
+  fill: var(--amber);
 }
 /* map */
 .wu-gj-land {
-  fill: rgba(196, 220, 102, 0.12);
+  fill: rgba(255, 177, 0, 0.12);
 }
 .wu-gj-line {
   fill: none;
-  stroke: var(--lime);
+  stroke: var(--amber);
   stroke-width: 1.4;
   stroke-dasharray: 600;
   animation: wu-draw 5s ease-in-out infinite;
@@ -555,13 +555,13 @@
   45%, 100% { stroke-dashoffset: 0; }
 }
 .wu-pin {
-  fill: var(--lime);
-  stroke: #06291a;
+  fill: var(--amber);
+  stroke: #072410;
   stroke-width: 2;
 }
 .wu-ping {
   fill: none;
-  stroke: var(--lime);
+  stroke: var(--amber);
   stroke-width: 1.6;
   transform-box: fill-box;
   transform-origin: center;
@@ -573,7 +573,7 @@
 }
 .wu-arc {
   fill: none;
-  stroke: var(--lime);
+  stroke: var(--amber);
   stroke-width: 1.6;
   stroke-dasharray: 4 6;
   animation: flow 0.9s linear infinite;
@@ -588,7 +588,7 @@
 /* tender */
 .wu-doc rect {
   fill: #f6f3e6;
-  stroke: #0a2216;
+  stroke: #111111;
 }
 .wu-doc path {
   stroke: #9aa79a;
@@ -750,12 +750,12 @@
 .wu-pylon,
 .wu-wire {
   fill: none;
-  stroke: rgba(207, 224, 213, 0.55);
+  stroke: rgba(208, 224, 207, 0.55);
   stroke-width: 1.4;
 }
 .wu-fac {
   fill: #e9efe6;
-  stroke: #0a2216;
+  stroke: #111111;
 }
 .wu-win {
   fill: #ffd56a;
@@ -797,12 +797,12 @@
 }
 .wu-num {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 30px;
-  fill: #06291a;
+  fill: #072410;
 }
 .wu-confetti {
-  fill: var(--lime);
+  fill: var(--amber);
   animation: wu-confetti 2.8s ease-out infinite;
   animation-delay: var(--d);
   opacity: 0;

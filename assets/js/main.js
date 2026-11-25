@@ -17,9 +17,10 @@
   /* ------------------------------------------------------------------
      Small helpers
      ------------------------------------------------------------------ */
-  function logoMark(x, y, w, color) {
-    var h = w * 469 / 416;
-    return '<svg x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" viewBox="0 0 416 469" style="color:' + color + '"><use href="#logo-shape"/></svg>';
+  // The Green RE mark (hand, arrows and bolt) in full colour, w wide
+  function logoMark(x, y, w) {
+    var h = w * 312 / 516;
+    return '<svg x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" viewBox="0 0 516 312"><use href="#logo-mark"/></svg>';
   }
 
   /* ------------------------------------------------------------------
@@ -220,7 +221,7 @@
   (function buildScene() {
     var svg = $("#hero-scene");
     if (!svg) return;
-    var INK = "#0a2216";
+    var INK = "#111111";
 
     function turbine(x, base, h, dur, fill, stroke) {
       var s = h / 150, hub = base - h, L = h * 0.44;
@@ -244,7 +245,7 @@
     }
     function tree(x, y, r) {
       return '<path d="M' + x + " " + y + " V" + (y - r * 1.2) + '" stroke="#4b3a2a" stroke-width="2"/>' +
-        '<circle cx="' + x + '" cy="' + (y - r * 1.5) + '" r="' + r + '" fill="#0b4026"/>' +
+        '<circle cx="' + x + '" cy="' + (y - r * 1.5) + '" r="' + r + '" fill="#1c6a17"/>' +
         '<circle cx="' + (x - r * 0.35) + '" cy="' + (y - r * 1.75) + '" r="' + r * 0.55 + '" fill="#2f6b33"/>';
     }
     function pylon(x, base, h) {
@@ -252,16 +253,16 @@
       return '<path d="M' + (x - 10) + " " + base + " L" + (x - 2) + " " + top + " M" + (x + 10) + " " + base + " L" + (x + 2) + " " + top +
         " M" + (x - 16) + " " + (top + 12) + " H" + (x + 16) + " M" + (x - 12) + " " + (top + 26) + " H" + (x + 12) +
         " M" + (x - 8) + " " + (base - 18) + " L" + (x + 5) + " " + (base - 42) + " M" + (x + 8) + " " + (base - 18) + " L" + (x - 5) + " " + (base - 42) +
-        '" stroke="#3d5a4c" stroke-width="1.4" fill="none"/>';
+        '" stroke="#3d5a45" stroke-width="1.4" fill="none"/>';
     }
 
     var out = "<defs>" +
       '<radialGradient id="hz-sun-g"><stop offset="0" stop-color="#fff6d6" stop-opacity=".95"/><stop offset=".35" stop-color="#ffe08a" stop-opacity=".5"/><stop offset="1" stop-color="#ffe08a" stop-opacity="0"/></radialGradient>' +
-      '<linearGradient id="hz-back-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9d4c2"/><stop offset="1" stop-color="#a3c4ab"/></linearGradient>' +
+      '<linearGradient id="hz-back-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bad4b9"/><stop offset="1" stop-color="#a5c4a3"/></linearGradient>' +
       '<linearGradient id="hz-mid-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a6cc84"/><stop offset="1" stop-color="#86b665"/></linearGradient>' +
       '<linearGradient id="hz-front-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6aa64c"/><stop offset="1" stop-color="#3f7d38"/></linearGradient>' +
       '<linearGradient id="hz-water-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a6d7ec"/><stop offset="1" stop-color="#6fb6d8"/></linearGradient>' +
-      '<radialGradient id="hz-glow"><stop offset="0" stop-color="#c4dc66" stop-opacity=".75"/><stop offset="1" stop-color="#c4dc66" stop-opacity="0"/></radialGradient>' +
+      '<radialGradient id="hz-glow"><stop offset="0" stop-color="#ffb100" stop-opacity=".75"/><stop offset="1" stop-color="#ffb100" stop-opacity="0"/></radialGradient>' +
       '<radialGradient id="hz-warm"><stop offset="0" stop-color="#ffd56a" stop-opacity=".45"/><stop offset="1" stop-color="#ffd56a" stop-opacity="0"/></radialGradient>' +
       "</defs>";
 
@@ -271,16 +272,16 @@
     // Back hills + distant turbines
     var back = '<path d="M0 330 C 200 262, 380 300, 560 252 C 760 198, 900 282, 1080 242 C 1260 202, 1420 272, 1600 232 V520 H0 Z" fill="url(#hz-back-g)"/>';
     [[150, 300, 78, 7], [222, 290, 66, 6.2], [1290, 232, 84, 6.6], [1368, 244, 72, 5.8], [1440, 254, 64, 7.2]].forEach(function (t) {
-      back += turbine(t[0], t[1], t[2], t[3], "#f1f6f4", "rgba(12,23,18,.18)");
+      back += turbine(t[0], t[1], t[2], t[3], "#f1f6f1", "rgba(17,17,17,.18)");
     });
     out += '<g class="px-back"><g class="hz-back">' + back + "</g></g>";
 
     // Mid hills, transmission line, large turbines
     var mid = '<path d="M0 382 C 220 332, 420 362, 640 332 C 860 302, 1040 352, 1240 322 C 1400 300, 1520 332, 1600 322 V520 H0 Z" fill="url(#hz-mid-g)"/>';
     mid += pylon(500, 348, 78) + pylon(1040, 338, 78);
-    mid += '<path d="M484 282 Q 770 314 1024 272 M516 282 Q 790 318 1056 272" stroke="rgba(12,23,18,.35)" stroke-width=".9" fill="none"/>';
-    mid += turbine(300, 358, 160, 6.5, "#ffffff", "rgba(12,23,18,.28)");
-    mid += turbine(1478, 324, 140, 5.6, "#ffffff", "rgba(12,23,18,.28)");
+    mid += '<path d="M484 282 Q 770 314 1024 272 M516 282 Q 790 318 1056 272" stroke="rgba(17,17,17,.35)" stroke-width=".9" fill="none"/>';
+    mid += turbine(300, 358, 160, 6.5, "#ffffff", "rgba(17,17,17,.28)");
+    mid += turbine(1478, 324, 140, 5.6, "#ffffff", "rgba(17,17,17,.28)");
     out += '<g class="px-mid"><g class="hz-mid">' + mid + "</g></g>";
 
     // Foreground
@@ -293,10 +294,10 @@
     }
     fr += '<path class="hz-flow" d="M548 470 C 556 470, 556 448, 562 444 M646 440 H660"/>';
     // Battery storage
-    var bess = '<rect x="562" y="410" width="84" height="38" rx="3" fill="#eef2ec" stroke="' + INK + '" stroke-width="1.4"/><path d="M562 416 H646" stroke="rgba(12,23,18,.2)"/>';
+    var bess = '<rect x="562" y="410" width="84" height="38" rx="3" fill="#eef2ec" stroke="' + INK + '" stroke-width="1.4"/><path d="M562 416 H646" stroke="rgba(17,17,17,.2)"/>';
     for (var c = 0; c < 4; c++) {
       bess += '<rect x="' + (570 + c * 19) + '" y="419" width="13" height="24" rx="1.5" fill="#d3dbcf"/>' +
-        '<rect class="hz-level" style="--d:' + -c * 0.6 + 's" x="' + (570 + c * 19) + '" y="419" width="13" height="24" rx="1.5" fill="#9cc23f"/>';
+        '<rect class="hz-level" style="--d:' + -c * 0.6 + 's" x="' + (570 + c * 19) + '" y="419" width="13" height="24" rx="1.5" fill="#298d22"/>';
     }
     fr += '<g class="hz-build">' + bess + "</g>";
     // Factory with sawtooth roof (C&I rooftop solar)
@@ -309,24 +310,24 @@
       fac += '<g class="hz-pv"><polygon points="' + [b + 3.6, 329.9, b + 56.4, 358.1, b + 59.7, 351.9, b + 6.9, 323.7].join(" ") + '" fill="#1f3b4a" stroke="' + INK + '" stroke-width=".8"/>' +
         '<path d="M' + (b + 21.2) + " 339.3 L" + (b + 24.5) + " 333.1 M" + (b + 38.8) + " 348.7 L" + (b + 42.1) + ' 342.5" stroke="rgba(255,255,255,.35)" stroke-width=".7"/></g>';
     }
-    for (k = 0; k < 7; k++) fac += '<rect x="' + (676 + k * 38) + '" y="380" width="24" height="16" fill="#cfe0d5"/>';
-    fac += '<rect x="790" y="410" width="40" height="38" fill="#dfe7dc" stroke="' + INK + '" stroke-width="1.2"/><path d="M790 420 H830 M790 430 H830 M790 440 H830" stroke="rgba(12,23,18,.2)"/>';
+    for (k = 0; k < 7; k++) fac += '<rect x="' + (676 + k * 38) + '" y="380" width="24" height="16" fill="#d0e0cf"/>';
+    fac += '<rect x="790" y="410" width="40" height="38" fill="#dfe7dc" stroke="' + INK + '" stroke-width="1.2"/><path d="M790 420 H830 M790 430 H830 M790 440 H830" stroke="rgba(17,17,17,.2)"/>';
     fac += '<rect x="960" y="384" width="120" height="64" fill="#eef2ec" stroke="' + INK + '" stroke-width="1.4"/>';
     fac += panel(968, 383, 28, 8, 5) + panel(1004, 383, 28, 8, 5) + panel(1040, 383, 28, 8, 5);
-    fac += '<rect x="984" y="414" width="30" height="34" fill="#dfe7dc" stroke="' + INK + '" stroke-width="1.2"/><rect x="1030" y="400" width="34" height="12" fill="#cfe0d5"/>';
+    fac += '<rect x="984" y="414" width="30" height="34" fill="#dfe7dc" stroke="' + INK + '" stroke-width="1.2"/><rect x="1030" y="400" width="34" height="12" fill="#d0e0cf"/>';
     fr += '<g class="hz-build">' + fac + "</g>";
     fr += tree(1100, 448, 15) + tree(1118, 452, 11) + tree(40, 474, 16) + tree(640, 470, 10);
     // Government building (public sector)
     var gov = '<path d="M1188 352 A28 24 0 0 1 1242 352 Z" fill="#eef2ec" stroke="' + INK + '" stroke-width="1.3"/>' +
       '<rect x="1211" y="322" width="8" height="8" fill="#eef2ec" stroke="' + INK + '" stroke-width="1.2"/><path d="M1215 322 V300" stroke="' + INK + '" stroke-width="1.3"/>' +
-      '<path class="flag" d="M1215 300 L1233 304 L1215 308 Z" fill="#0b4026"/>' +
+      '<path class="flag" d="M1215 300 L1233 304 L1215 308 Z" fill="#1c6a17"/>' +
       '<polygon points="1138,376 1215,346 1292,376" fill="#f4f6f2" stroke="' + INK + '" stroke-width="1.4" stroke-linejoin="round"/>' +
       '<rect x="1142" y="376" width="146" height="8" fill="#f4f6f2" stroke="' + INK + '" stroke-width="1.3"/>';
     for (k = 0; k < 6; k++) gov += '<rect x="' + (1150 + k * 24) + '" y="384" width="8" height="48" fill="#f4f6f2" stroke="' + INK + '" stroke-width="1.2"/>';
     gov += '<rect x="1140" y="432" width="150" height="6" fill="#f4f6f2" stroke="' + INK + '" stroke-width="1.2"/><rect x="1132" y="438" width="166" height="8" fill="#f4f6f2" stroke="' + INK + '" stroke-width="1.2"/>';
     fr += '<g class="hz-build">' + gov + "</g>";
     // Reservoir with floating solar
-    var res = '<path d="M1316 452 C 1370 438, 1560 436, 1600 444 V 506 C 1540 514, 1380 510, 1316 494 Z" fill="url(#hz-water-g)" stroke="rgba(12,23,18,.25)"/>';
+    var res = '<path d="M1316 452 C 1370 438, 1560 436, 1600 444 V 506 C 1540 514, 1380 510, 1316 494 Z" fill="url(#hz-water-g)" stroke="rgba(17,17,17,.25)"/>';
     res += '<path d="M1340 488 q6 -3 12 0 t12 0 M1500 496 q6 -3 12 0 t12 0 M1420 500 q6 -3 12 0 t12 0" stroke="rgba(255,255,255,.75)" fill="none" stroke-width="1.4"/>';
     for (r = 0; r < 2; r++) {
       var fy = 466 + r * 20, fx0 = 1350 - r * 12;
@@ -342,8 +343,8 @@
     out += '<g class="px-dusk"><path class="hz-dusk" d="M0 330 C 200 262, 380 300, 560 252 C 760 198, 900 282, 1080 242 C 1260 202, 1420 272, 1600 232 V620 H0 Z"/></g>';
     var lit = '<ellipse class="hz-lit" cx="604" cy="428" rx="92" ry="44" fill="url(#hz-glow)"/>' +
       '<ellipse class="hz-lit" cx="810" cy="400" rx="190" ry="70" fill="url(#hz-warm)" style="--d:.5s"/>' +
-      '<rect class="hz-lit" x="562" y="410" width="84" height="38" rx="3" fill="none" stroke="#c4dc66" stroke-width="1.6"/>';
-    for (c = 0; c < 4; c++) lit += '<rect class="hz-lit hz-lit-cell" style="--d:' + (0.15 + c * 0.12) + 's" x="' + (570 + c * 19) + '" y="419" width="13" height="24" rx="1.5" fill="#c4dc66"/>';
+      '<rect class="hz-lit" x="562" y="410" width="84" height="38" rx="3" fill="none" stroke="#ffb100" stroke-width="1.6"/>';
+    for (c = 0; c < 4; c++) lit += '<rect class="hz-lit hz-lit-cell" style="--d:' + (0.15 + c * 0.12) + 's" x="' + (570 + c * 19) + '" y="419" width="13" height="24" rx="1.5" fill="#ffb100"/>';
     lit += '<path class="hz-lit hz-lit-flow" style="--d:.7s" d="M646 440 Q 654 446, 664 446 H 790 M960 444 H 984 M1080 444 C 1100 444, 1110 440, 1132 440"/>';
     for (k = 0; k < 7; k++) lit += '<rect class="hz-lit" style="--d:' + (0.9 + k * 0.09) + 's" x="' + (676 + k * 38) + '" y="380" width="24" height="16" fill="#ffd56a"/>';
     lit += '<rect class="hz-lit" style="--d:1.5s" x="1030" y="400" width="34" height="12" fill="#ffd56a"/>';
@@ -364,8 +365,8 @@
       var lx = p.side === "r" ? 16 : -16 - w;
       var label = p.label.replace(/&/g, "&amp;");
       pinOut += '<a class="hz-pin" href="' + p.href + '" aria-label="' + label + ': see this solution" transform="translate(' + p.x + " " + p.y + ')"><g class="hz-pin-in">' +
-        '<circle r="9" fill="#c4dc66"><animate attributeName="r" values="8;22" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".7;0" dur="2.2s" repeatCount="indefinite"/></circle>' +
-        '<circle r="7" fill="#c4dc66" stroke="' + INK + '" stroke-width="1.6"/>' +
+        '<circle r="9" fill="#ffb100"><animate attributeName="r" values="8;22" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".7;0" dur="2.2s" repeatCount="indefinite"/></circle>' +
+        '<circle r="7" fill="#ffb100" stroke="' + INK + '" stroke-width="1.6"/>' +
         '<rect class="lbl" x="' + lx + '" y="-15" width="' + w + '" height="30" rx="15"/>' +
         '<text x="' + (lx + 15) + '" y="5">' + label + "</text></g></a>";
     });
@@ -633,7 +634,7 @@
     out += '<g class="why-hub" style="opacity:0;transform-box:fill-box;transform-origin:center">' +
       '<rect x="' + (hub.x - 62) + '" y="' + (hub.y - 62) + '" width="124" height="124" rx="10" fill="none" stroke="url(#hatch)" stroke-width="9"/>' +
       '<rect class="f" x="' + (hub.x - 52) + '" y="' + (hub.y - 52) + '" width="104" height="104" rx="8"/>' +
-      logoMark(hub.x - 26, hub.y - 38, 52, "var(--green)") +
+      logoMark(hub.x - 32, hub.y - 30, 64) +
       '<text x="' + hub.x + '" y="' + (hub.y + 40) + '" text-anchor="middle" style="font-size:8px">One team</text>' +
       "</g>";
 
@@ -695,7 +696,7 @@
           var x = c * cell + cell / 2, y = r * cell + cell / 2;
           var dist = Math.hypot(x - india.x, y - india.y);
           var near = dist < 42;
-          out += '<circle cx="' + x + '" cy="' + y + '" r="' + (near ? 1.9 : 1.6) + '" fill="' + (near ? "var(--lime)" : "rgba(207,224,213,.2)") + '"' + (near ? ' opacity="' + (1 - dist / 60).toFixed(2) + '"' : "") + "/>";
+          out += '<circle cx="' + x + '" cy="' + y + '" r="' + (near ? 1.9 : 1.6) + '" fill="' + (near ? "var(--amber)" : "rgba(208,224,207,.2)") + '"' + (near ? ' opacity="' + (1 - dist / 60).toFixed(2) + '"' : "") + "/>";
         }
       }
     });
@@ -712,19 +713,19 @@
       var x = lonToX(t.lon), y = latToY(t.lat);
       var mx = (india.x + x) / 2, my = Math.min(india.y, y) - Math.abs(x - india.x) * 0.28 - 20;
       var d = "M" + india.x.toFixed(1) + " " + india.y.toFixed(1) + " Q " + mx.toFixed(1) + " " + my.toFixed(1) + ", " + x.toFixed(1) + " " + y.toFixed(1);
-      out += '<path id="arc-' + t.id + '" class="l map-arc" pathLength="1" d="' + d + '" style="stroke:' + (t.strong ? "var(--lime)" : "rgba(207,224,213,.35)") + ";stroke-dasharray:1 2;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.22,1,.36,1) " + (0.3 + i * 0.25) + 's"/>';
+      out += '<path id="arc-' + t.id + '" class="l map-arc" pathLength="1" d="' + d + '" style="stroke:' + (t.strong ? "var(--amber)" : "rgba(208,224,207,.35)") + ";stroke-dasharray:1 2;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.22,1,.36,1) " + (0.3 + i * 0.25) + 's"/>';
       if (t.strong) {
-        out += '<circle r="2.6" fill="var(--lime)"><animateMotion dur="3.2s" begin="-' + (i * 0.6) + 's" repeatCount="indefinite"><mpath href="#arc-' + t.id + '"/></animateMotion></circle>';
+        out += '<circle r="2.6" fill="var(--amber)"><animateMotion dur="3.2s" begin="-' + (i * 0.6) + 's" repeatCount="indefinite"><mpath href="#arc-' + t.id + '"/></animateMotion></circle>';
       }
-      out += '<circle cx="' + x + '" cy="' + y + '" r="4" fill="var(--night)" stroke="' + (t.strong ? "var(--lime)" : "rgba(207,224,213,.5)") + '" stroke-width="1.5"/>';
+      out += '<circle cx="' + x + '" cy="' + y + '" r="4" fill="var(--night)" stroke="' + (t.strong ? "var(--amber)" : "rgba(208,224,207,.5)") + '" stroke-width="1.5"/>';
       if (t.label) {
-        out += '<text x="' + (x + t.dx) + '" y="' + (y + t.dy) + '" text-anchor="' + t.anchor + '" style="font-size:13px;fill:' + (t.strong ? "#e6efe9" : "var(--night-muted)") + '">' + t.label + "</text>";
+        out += '<text x="' + (x + t.dx) + '" y="' + (y + t.dy) + '" text-anchor="' + t.anchor + '" style="font-size:13px;fill:' + (t.strong ? "#e6efe6" : "var(--night-muted)") + '">' + t.label + "</text>";
       }
     });
 
-    out += '<circle cx="' + india.x + '" cy="' + india.y + '" r="8" fill="none" stroke="var(--lime)"><animate attributeName="r" values="6;22" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".8;0" dur="2.2s" repeatCount="indefinite"/></circle>';
-    out += '<circle cx="' + india.x + '" cy="' + india.y + '" r="5.5" fill="var(--lime)"/>';
-    out += '<text x="' + (india.x - 12) + '" y="' + (india.y + 22) + '" text-anchor="end" style="font-size:13px;fill:var(--lime)">India</text>';
+    out += '<circle cx="' + india.x + '" cy="' + india.y + '" r="8" fill="none" stroke="var(--amber)"><animate attributeName="r" values="6;22" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".8;0" dur="2.2s" repeatCount="indefinite"/></circle>';
+    out += '<circle cx="' + india.x + '" cy="' + india.y + '" r="5.5" fill="var(--amber)"/>';
+    out += '<text x="' + (india.x - 12) + '" y="' + (india.y + 22) + '" text-anchor="end" style="font-size:13px;fill:var(--amber)">India</text>';
     svg.innerHTML = out;
 
     var arcs = $$(".map-arc", svg);
