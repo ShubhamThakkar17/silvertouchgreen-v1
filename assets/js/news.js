@@ -52,7 +52,7 @@
 
   var VIS = {
     hero: function () {
-      var o = '<defs><radialGradient id="wu-hg"><stop offset="0" stop-color="#ffb100" stop-opacity=".55"/><stop offset="1" stop-color="#ffb100" stop-opacity="0"/></radialGradient></defs>';
+      var o = '<defs><radialGradient id="wu-hg"><stop offset="0" stop-color="#ffc400" stop-opacity=".55"/><stop offset="1" stop-color="#ffc400" stop-opacity="0"/></radialGradient></defs>';
       o += '<circle cx="160" cy="92" r="90" fill="url(#wu-hg)" class="wu-breathe"/>';
       o += '<g class="wu-orbit"><circle class="wu-ring" cx="160" cy="92" r="70"/>' +
         '<g class="wu-orb" style="--a:0deg"><circle cx="230" cy="92" r="13" class="wu-sunc"/></g>' +

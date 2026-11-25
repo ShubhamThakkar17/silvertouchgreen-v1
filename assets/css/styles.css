@@ -29,8 +29,10 @@
   --brand-green: #298d22; /* logo green: marks, illustration fills and large type */
   --green: #1c6a17; /* the same hue, deepened so buttons and small text pass WCAG AA */
   --green-deep: #0c3812;
-  --amber: #ffb100; /* the Green RE bolt: highlights and calls to action */
-  --amber-soft: rgba(255, 177, 0, 0.45);
+  /* Highlights and calls to action: brand gold #FFC400, the midpoint of the group gradient,
+     one shade lighter than the bolt. The logo itself keeps its #FFB100 bolt (--lg-bolt). */
+  --amber: #ffc400;
+  --amber-soft: rgba(255, 196, 0, 0.45);
   --sun: #ffc400; /* brand gold */
   --water: #3a9ccf;
   --wind: #47c2b1;
@@ -1045,7 +1047,7 @@ ul {
   transition: background 0.3s, color 0.3s;
 }
 .sol:not(.is-active):hover {
-  border-color: rgba(255, 177, 0, 0.4);
+  border-color: rgba(255, 196, 0, 0.4);
 }
 .sol:not(.is-active):hover .plus {
   background: var(--amber);
@@ -1116,7 +1118,7 @@ ul {
   position: relative;
   border-radius: 10px;
   border: 1px solid var(--night-line);
-  background: radial-gradient(120% 80% at 50% 0%, rgba(255, 177, 0, 0.06), transparent 60%), var(--night);
+  background: radial-gradient(120% 80% at 50% 0%, rgba(255, 196, 0, 0.06), transparent 60%), var(--night);
   overflow: hidden;
   display: grid;
   place-items: center;

@@ -144,7 +144,7 @@
 }
 .hz-lit-flow {
   fill: none;
-  stroke: #ffb100;
+  stroke: #ffc400;
   stroke-width: 2.6;
   stroke-linecap: round;
   stroke-dasharray: 4 7;
@@ -209,7 +209,7 @@
 }
 .hero.is-night .hero-announce {
   background: rgba(6, 26, 22, 0.55);
-  border-color: rgba(255, 177, 0, 0.35);
+  border-color: rgba(255, 196, 0, 0.35);
   color: #eaf2e4;
 }
 
@@ -225,8 +225,8 @@
   text-align: left;
   color: #eaf2e4;
   background: linear-gradient(160deg, rgba(14, 52, 24, 0.94), rgba(6, 30, 12, 0.94));
-  border: 1px solid rgba(255, 177, 0, 0.32);
-  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.7), 0 0 0 6px rgba(255, 177, 0, 0.06);
+  border: 1px solid rgba(255, 196, 0, 0.32);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.7), 0 0 0 6px rgba(255, 196, 0, 0.06);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
@@ -338,8 +338,8 @@
 
 /* Gujarat glyph */
 .mm-land {
-  fill: rgba(255, 177, 0, 0.14);
-  stroke: rgba(255, 177, 0, 0.75);
+  fill: rgba(255, 196, 0, 0.14);
+  stroke: rgba(255, 196, 0, 0.75);
   stroke-width: 1.1;
   stroke-linejoin: round;
 }
@@ -457,7 +457,7 @@
 .launch-stage {
   border-radius: 22px;
   border: 1px solid var(--night-line);
-  background: radial-gradient(120% 90% at 60% 40%, rgba(255, 177, 0, 0.06), transparent 60%), var(--night-2);
+  background: radial-gradient(120% 90% at 60% 40%, rgba(255, 196, 0, 0.06), transparent 60%), var(--night-2);
   padding: 14px;
 }
 .launch-stage .stage-head {
@@ -474,11 +474,11 @@
   height: auto;
 }
 .status--launch {
-  background: rgba(255, 177, 0, 0.22);
+  background: rgba(255, 196, 0, 0.22);
   color: var(--green-deep);
 }
 .dark .status--launch {
-  background: rgba(255, 177, 0, 0.14);
+  background: rgba(255, 196, 0, 0.14);
   color: var(--amber);
 }
 .status--launch .pulse {
@@ -525,7 +525,7 @@ a.status:hover {
   stroke-width: 0.25;
 }
 .dh-gj {
-  fill: rgba(255, 177, 0, 0.1);
+  fill: rgba(255, 196, 0, 0.1);
 }
 .dh-gj-line {
   fill: none;
@@ -546,7 +546,7 @@ a.status:hover {
   font-size: 15px;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  fill: rgba(255, 177, 0, 0.55);
+  fill: rgba(255, 196, 0, 0.55);
 }
 .dh-city circle {
   fill: #d0e0cf;
@@ -630,11 +630,11 @@ a.status:hover {
 }
 .dh-modline {
   fill: rgba(255, 255, 255, 0.04);
-  stroke: rgba(255, 177, 0, 0.28);
+  stroke: rgba(255, 196, 0, 0.28);
   stroke-width: 0.8;
 }
 .dh-led {
-  fill: #ffb100;
+  fill: #ffc400;
 }
 .dh-tray {
   fill: none;
@@ -662,7 +662,7 @@ a.status:hover {
   fill: #0a2a10;
 }
 .dh-blink {
-  fill: #ffb100;
+  fill: #ffc400;
   animation: blink 1.6s steps(2, end) infinite;
 }
 .dh-blink.b2 {
@@ -698,7 +698,7 @@ a.status:hover {
 }
 .dh-lbl path {
   fill: none;
-  stroke: rgba(255, 177, 0, 0.75);
+  stroke: rgba(255, 196, 0, 0.75);
   stroke-width: 1.2;
 }
 .dh-lbl circle {

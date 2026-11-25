@@ -63,7 +63,7 @@
   var C_SHELL = ["#e9efe6", "#d3ddd0", "#bccab9"];
   var C_RACK = ["#2f5d3b", "#1c3b24", "#152f1c"];
   var C_MOD = ["#3d754c", "#24492e", "#1b3a23"];
-  var C_CELL = ["#ffcf5c", "#ffb100", "#d99400"];
+  var C_CELL = ["#ffd84d", "#ffc400", "#d9a700"];
   var C_BOX = ["#dfe7dc", "#c6d2c3", "#adbcaa"];
   var L = 12, D = 2.4, H = 2.6;
   var RACKS = 8, RX0 = 0.95, RW = 1.0, RGAP = 1.17, RY = 0.15, RD = 1.15, RH = 2.2, OUT = 3.7;
@@ -171,7 +171,7 @@
     for (var k = 1; k < 36; k++) corr += "M" + (k * L * S / 36).toFixed(1) + " 3 V" + (H * S - 3).toFixed(1) + " ";
     o += '<g class="dh-wall"><polygon class="dh-face" points="' + sw + '" fill="' + C_SHELL[1] + '"/>' +
       '<g transform="' + southMatrix(0, D, H) + '"><path class="dh-corr" d="' + corr + '"/>' +
-      '<rect x="0" y="' + (H * S - 12).toFixed(1) + '" width="' + (L * S).toFixed(1) + '" height="6" fill="#ffb100"/>' +
+      '<rect x="0" y="' + (H * S - 12).toFixed(1) + '" width="' + (L * S).toFixed(1) + '" height="6" fill="#ffc400"/>' +
       '<svg x="' + (L * S / 2 - 80).toFixed(1) + '" y="26" width="50" height="30.2" viewBox="0 0 516 312"><use href="#logo-mark"/></svg>' +
       '<text class="dh-ctr-word" x="' + (L * S / 2 - 22).toFixed(1) + '" y="50">BESS</text></g></g>';
     // Roof
@@ -297,13 +297,13 @@
       .to(lbl("hvac"), { autoAlpha: 1, duration: 0.4 }, "s4+=1.7")
       .to(lbl("fire"), { autoAlpha: 1, duration: 0.4 }, "s4+=1.9")
       .to(lbl("pcs"), { autoAlpha: 1, duration: 0.4 }, "s4+=2.1")
-      .fromTo(q(".dh-bms .dh-screen, .dh-fire, .dh-hvac, .dh-pcs .dh-bolt"), { filter: "none" }, { filter: "drop-shadow(0 0 6px rgba(255,177,0,.9))", duration: 0.4, yoyo: true, repeat: 1 }, "s4+=1.6")
+      .fromTo(q(".dh-bms .dh-screen, .dh-fire, .dh-hvac, .dh-pcs .dh-bolt"), { filter: "none" }, { filter: "drop-shadow(0 0 6px rgba(255,196,0,.9))", duration: 0.4, yoyo: true, repeat: 1 }, "s4+=1.6")
       .to({}, { duration: 0.4 }, "s4+=2.5");
 
     // 5. Test charge, the shell closes, the Dholera stamp
     tl.addLabel("s5", 12.9)
       .to(q(".dh-lbl"), { autoAlpha: 0, duration: 0.3 }, "s5")
-      .fromTo(q(".dh-rack .dh-led"), { fill: "#607a5f" }, { fill: "#ffb100", duration: 0.25, stagger: 0.012 }, "s5+=0.2")
+      .fromTo(q(".dh-rack .dh-led"), { fill: "#607a5f" }, { fill: "#ffc400", duration: 0.25, stagger: 0.012 }, "s5+=0.2")
       .to(q(".dh-wall"), { x: 0, y: 0, opacity: 1, duration: 0.7 }, "s5+=1")
       .to(q(".dh-roof"), { y: 0, duration: 0.6, ease: "power3.in" }, "s5+=1.3")
       .fromTo(q(".dh-stamp"), { autoAlpha: 0, scale: 0.6, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.6, ease: "back.out(2)" }, "s5+=1.9")

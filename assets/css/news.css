@@ -362,7 +362,7 @@
   color: var(--amber);
 }
 .wu-card--featured .wu-sowhat {
-  background: rgba(255, 177, 0, 0.12);
+  background: rgba(255, 196, 0, 0.12);
   color: #eaf2e4;
 }
 .wu-card--featured .wu-stat small,
@@ -541,7 +541,7 @@
 }
 /* map */
 .wu-gj-land {
-  fill: rgba(255, 177, 0, 0.12);
+  fill: rgba(255, 196, 0, 0.12);
 }
 .wu-gj-line {
   fill: none;

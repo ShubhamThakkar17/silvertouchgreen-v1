@@ -262,7 +262,7 @@
       '<linearGradient id="hz-mid-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a6cc84"/><stop offset="1" stop-color="#86b665"/></linearGradient>' +
       '<linearGradient id="hz-front-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6aa64c"/><stop offset="1" stop-color="#3f7d38"/></linearGradient>' +
       '<linearGradient id="hz-water-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a6d7ec"/><stop offset="1" stop-color="#6fb6d8"/></linearGradient>' +
-      '<radialGradient id="hz-glow"><stop offset="0" stop-color="#ffb100" stop-opacity=".75"/><stop offset="1" stop-color="#ffb100" stop-opacity="0"/></radialGradient>' +
+      '<radialGradient id="hz-glow"><stop offset="0" stop-color="#ffc400" stop-opacity=".75"/><stop offset="1" stop-color="#ffc400" stop-opacity="0"/></radialGradient>' +
       '<radialGradient id="hz-warm"><stop offset="0" stop-color="#ffd56a" stop-opacity=".45"/><stop offset="1" stop-color="#ffd56a" stop-opacity="0"/></radialGradient>' +
       "</defs>";
 
@@ -343,8 +343,8 @@
     out += '<g class="px-dusk"><path class="hz-dusk" d="M0 330 C 200 262, 380 300, 560 252 C 760 198, 900 282, 1080 242 C 1260 202, 1420 272, 1600 232 V620 H0 Z"/></g>';
     var lit = '<ellipse class="hz-lit" cx="604" cy="428" rx="92" ry="44" fill="url(#hz-glow)"/>' +
       '<ellipse class="hz-lit" cx="810" cy="400" rx="190" ry="70" fill="url(#hz-warm)" style="--d:.5s"/>' +
-      '<rect class="hz-lit" x="562" y="410" width="84" height="38" rx="3" fill="none" stroke="#ffb100" stroke-width="1.6"/>';
-    for (c = 0; c < 4; c++) lit += '<rect class="hz-lit hz-lit-cell" style="--d:' + (0.15 + c * 0.12) + 's" x="' + (570 + c * 19) + '" y="419" width="13" height="24" rx="1.5" fill="#ffb100"/>';
+      '<rect class="hz-lit" x="562" y="410" width="84" height="38" rx="3" fill="none" stroke="#ffc400" stroke-width="1.6"/>';
+    for (c = 0; c < 4; c++) lit += '<rect class="hz-lit hz-lit-cell" style="--d:' + (0.15 + c * 0.12) + 's" x="' + (570 + c * 19) + '" y="419" width="13" height="24" rx="1.5" fill="#ffc400"/>';
     lit += '<path class="hz-lit hz-lit-flow" style="--d:.7s" d="M646 440 Q 654 446, 664 446 H 790 M960 444 H 984 M1080 444 C 1100 444, 1110 440, 1132 440"/>';
     for (k = 0; k < 7; k++) lit += '<rect class="hz-lit" style="--d:' + (0.9 + k * 0.09) + 's" x="' + (676 + k * 38) + '" y="380" width="24" height="16" fill="#ffd56a"/>';
     lit += '<rect class="hz-lit" style="--d:1.5s" x="1030" y="400" width="34" height="12" fill="#ffd56a"/>';
@@ -365,8 +365,8 @@
       var lx = p.side === "r" ? 16 : -16 - w;
       var label = p.label.replace(/&/g, "&amp;");
       pinOut += '<a class="hz-pin" href="' + p.href + '" aria-label="' + label + ': see this solution" transform="translate(' + p.x + " " + p.y + ')"><g class="hz-pin-in">' +
-        '<circle r="9" fill="#ffb100"><animate attributeName="r" values="8;22" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".7;0" dur="2.2s" repeatCount="indefinite"/></circle>' +
-        '<circle r="7" fill="#ffb100" stroke="' + INK + '" stroke-width="1.6"/>' +
+        '<circle r="9" fill="#ffc400"><animate attributeName="r" values="8;22" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".7;0" dur="2.2s" repeatCount="indefinite"/></circle>' +
+        '<circle r="7" fill="#ffc400" stroke="' + INK + '" stroke-width="1.6"/>' +
         '<rect class="lbl" x="' + lx + '" y="-15" width="' + w + '" height="30" rx="15"/>' +
         '<rect class="hit" x="' + (Math.min(lx, -30) - 8) + '" y="-30" width="' + (w + 54) + '" height="60" rx="30"/>' +
         '<text x="' + (lx + 15) + '" y="5">' + label + "</text></g></a>";
