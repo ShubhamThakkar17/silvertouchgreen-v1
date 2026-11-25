@@ -660,7 +660,7 @@ ul {
   white-space: nowrap;
 }
 .hero .accent {
-  color: var(--green-deep);
+  color: var(--green);
 }
 .hero .lede {
   margin-top: clamp(12px, 2.2vh, 22px);
@@ -1350,7 +1350,7 @@ ul {
 .ba button {
   font-family: var(--font-label);
   font-size: 11px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -3028,6 +3028,188 @@ h4 {
   position: relative;
 }
 
+
+/* ==========================================================================
+   Hero on phones: left-aligned copy, full-width actions, a slowly panning
+   landscape and a swipeable rail of the five solutions it shows
+   ========================================================================== */
+
+.hero-rail {
+  display: none;
+}
+@media (max-width: 700px) {
+  .hero {
+    padding-top: 96px;
+    text-align: left;
+  }
+  .hero-copy {
+    align-items: stretch;
+  }
+  .hero-pill {
+    align-self: flex-start;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 8vw, 34px);
+    line-height: 1.08;
+  }
+  .hero h1 .h1-a,
+  .hero h1 .h1-b {
+    display: inline;
+  }
+  .hero .lede {
+    max-width: none;
+    font-size: 16px;
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 22px;
+  }
+  .hero .btn {
+    padding: 7px 22px 7px 7px;
+    font-size: 15.5px;
+  }
+  .hero .btn .chip {
+    width: 40px;
+    height: 40px;
+  }
+  .hero-announce {
+    align-self: stretch;
+    justify-content: flex-start;
+    margin-top: 12px;
+  }
+  .hero-announce .arrow {
+    margin-left: auto;
+  }
+  /* The landscape is drawn 1600 x 520 with open sky in its top third. Draw it 300px tall,
+     crop that sky off with a shorter window, and pan slowly across all five solutions.
+     The negative delay starts mid-sweep, centred on the factory and battery. */
+  .hero-scene {
+    position: relative;
+    flex: none;
+    height: 290px;
+    margin-top: 14px;
+    min-height: 0;
+    overflow: hidden;
+    /* a strip of the foreground grass under the drawing, for the rail to stand on */
+    background: linear-gradient(0deg, #3f7d38 64px, transparent 64px);
+  }
+  .hero-scene::after {
+    /* the same dusk wash launch.css lays over the land at sunset */
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 64px;
+    background: #071824;
+    opacity: 0;
+    transition: opacity 2.2s ease;
+  }
+  .hero.is-dusk .hero-scene::after {
+    opacity: 0.22;
+  }
+  .hero.is-night .hero-scene::after {
+    opacity: 0.66;
+  }
+  .hero-scene > svg {
+    position: absolute;
+    left: 0;
+    bottom: 63px;
+    width: calc(300px * 1600 / 520);
+    max-width: none;
+    height: 300px;
+    transform: translateX(calc((100vw - 100%) / 2));
+    animation: hero-pan 36s ease-in-out -18s infinite alternate;
+  }
+  .hz-pins {
+    display: none;
+  }
+  .hero-rail {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    height: 64px;
+    margin-top: -64px;
+    padding: 0 var(--gutter);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent);
+    mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent);
+  }
+  .hero-rail::-webkit-scrollbar {
+    display: none;
+  }
+  .hero-rail a {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 46px;
+    padding: 0 16px 0 7px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 10px 24px -14px rgba(17, 17, 17, 0.45);
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--ink);
+    white-space: nowrap;
+    scroll-snap-align: start;
+    transition: background 0.25s;
+  }
+  .hero-rail a:active {
+    background: var(--amber);
+  }
+  .hr-ico {
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+    border-radius: 50%;
+    background: var(--amber);
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+@keyframes hero-pan {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(100vw - 100%)); }
+}
+@media (max-width: 700px) and (prefers-reduced-motion: reduce) {
+  .hero-scene > svg {
+    animation: none;
+  }
+}
+
+/* Tap targets: every link and control gets at least a 24px-tall hit area (WCAG 2.5.8).
+   Padding enlarges the area; matching negative margins keep the layout where it was. */
+.dev-link {
+  display: inline-block;
+  padding: 3px 0;
+  margin: -3px 0;
+}
+.ba button {
+  padding: 7px 4px;
+  margin: -7px -4px;
+}
+.rm-item h3 a {
+  display: inline-block;
+  padding: 2px 0;
+  margin: -2px 0;
+}
+/* Hero pins: a transparent hit box around each dot and label (built in main.js) */
+.hz-pin .hit {
+  fill: transparent;
+}
 
 /* Enquiry form: spam trap and send error */
 .hp {

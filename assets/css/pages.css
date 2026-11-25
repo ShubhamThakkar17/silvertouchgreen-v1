@@ -254,10 +254,14 @@
   align-items: center;
   font-family: var(--font-label);
   font-size: 11px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
   margin-bottom: 22px;
+}
+.crumbs a {
+  padding: 4px 0;
+  margin: -4px 0;
 }
 .crumbs a:hover {
   color: var(--green);

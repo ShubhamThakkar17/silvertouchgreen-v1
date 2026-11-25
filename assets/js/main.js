@@ -368,6 +368,7 @@
         '<circle r="9" fill="#ffb100"><animate attributeName="r" values="8;22" dur="2.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".7;0" dur="2.2s" repeatCount="indefinite"/></circle>' +
         '<circle r="7" fill="#ffb100" stroke="' + INK + '" stroke-width="1.6"/>' +
         '<rect class="lbl" x="' + lx + '" y="-15" width="' + w + '" height="30" rx="15"/>' +
+        '<rect class="hit" x="' + (Math.min(lx, -30) - 8) + '" y="-30" width="' + (w + 54) + '" height="60" rx="30"/>' +
         '<text x="' + (lx + 15) + '" y="5">' + label + "</text></g></a>";
     });
     out += '<g class="hz-pins">' + pinOut + "</g>";
