@@ -1273,6 +1273,12 @@ ul {
   color: var(--muted);
   font-size: 10px;
 }
+/* The label link gets a 24px-tall tap area without moving the layout */
+.dev-item a.mono {
+  display: inline-block;
+  padding: 6px 0;
+  margin: 2px 0 -6px; /* the 8px top margin above, less the 6px padding */
+}
 @keyframes stripes {
   to {
     background-position: 17px 0, 0 0;
